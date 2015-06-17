@@ -14,13 +14,19 @@
 3. `bash ./devops/setup/docker_setup.sh`
 
 
+### Development session steps
+- When creating a new terminal shell:
+    - `nvm use 0.12`
+
 ## Running - local nodejs server
 * `cd client`
 * `gulp serve` to launch a browser sync server on your source files
 * `gulp serve:dist` to launch a server on your optimized application
 
-## Running - full test server
-* `./mgr.sh up` - stops all running containers
+## Running - full test nginx server
+* `cd client; gulp; cd ..;`
+* `./mgr.sh up` - stops, removes, and restarts all containers
+* Use `boot2docker ip` to see the IP address that you should use that binds the docker containers locally.  Then use a browser to go to "[IP ADDRESS]:8005".  For example, "192.168.59.103:8005".
 
 ## Testing - local nodejs server
 * `cd client`
@@ -33,7 +39,6 @@
 * `cd client`
 * `gulp` or `gulp build` to build an optimized version of your application in `/dist`
 
-
 ## Deployment
 
 
@@ -42,10 +47,12 @@
 * `docker-compose ps` - List running containers 
 * `docker-compose stop` -  running containers 
 * `docker-compose rm` - Remove running containers 
+* `docker-compose up -f dev.yml [service_name]` - Start up a single compose service directly
 
 
 ## Docker commands
 * `boot2docker up` - Kick up boot2docker VM (required each time to use Docker)
+* `boot2docker ip` - View IP address of boot2docker service
 * `docker ps` - View all running containers
 * `docker exec -it [name_of_container] /bin/bash` - Enter a running container and run any commands
 
