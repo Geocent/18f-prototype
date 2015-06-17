@@ -23,7 +23,8 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 
 ### Design Standards:
 API
-* https://github.com/search?utf8=%E2%9C%93&q=18f
+* https://github.com/18F/api-standards
+
 UI
 * https://playbook.cio.gov/#play3
 
