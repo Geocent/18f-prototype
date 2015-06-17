@@ -52,7 +52,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 * k. provided sufficient documentation to install and run their prototype on another machine
 * l. prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge
 
-Pool Three The Full Stack Pool: 
+## Pool Three The Full Stack Pool: 
 
 In addition to the Description, above, the quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Three Full Stack:
 
