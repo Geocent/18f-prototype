@@ -14,30 +14,33 @@
 3. `bash ./devops/setup/docker_setup.sh`
 
 
+## Development
+
 ### Development session steps
 - When creating a new terminal shell:
     - `nvm use 0.12`
 
-## Running - local nodejs server
+### Running - local nodejs server
 * `cd client`
 * `gulp serve` to launch a browser sync server on your source files
 * `gulp serve:dist` to launch a server on your optimized application
 
-## Running - full test nginx server
+### Running - full test nginx server
 * `cd client; gulp; cd ..;`
 * `./mgr.sh up` - stops, removes, and restarts all containers
 * Use `boot2docker ip` to see the IP address that you should use that binds the docker containers locally.  Then use a browser to go to "[IP ADDRESS]:8005".  For example, "192.168.59.103:8005".
 
-## Testing - local nodejs server
+### Testing - local nodejs server
 * `cd client`
 * `gulp test` to launch your unit tests with Karma
 * `gulp test:auto` to launch your unit tests with Karma in watch mode
 * `gulp protractor` to launch your e2e tests with Protractor
 * `gulp protractor:dist` to launch your e2e tests with Protractor on the dist files
 
-## Building
+### Building
 * `cd client`
 * `gulp` or `gulp build` to build an optimized version of your application in `/dist`
+
 
 ## Deployment
 
