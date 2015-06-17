@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 ACTIVE_ENV=dev.yml
-CLIENT_PATH="client"
 
 if [ $(boot2docker status) != "running" ]
 then
@@ -10,11 +9,7 @@ then
     boot2docker up
 fi
 
-if [ $(nvm current) != "v0.12.4" ]
-then
-    echo "nvm may not have updated your nodejs env variables"
-    echo "run 'nvm use 0.12' to set the environment"
-fi
+[ -z "$NVM_PATH" ] && echo "NVM does not seem to be running" &&  echo "Execute 'nvm use 0.12' to set the environment" && exit 1;
 
 build() {
     cd ${CLIENT_PATH};
