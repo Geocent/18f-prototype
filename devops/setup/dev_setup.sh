@@ -9,6 +9,6 @@ nvm use 0.12
 
 npm install -g yo
 npm install -g bower
-npm install -g gulp
+npm install -g gulp@3.8.11
 
 npm install -g generator-gulp-angular
