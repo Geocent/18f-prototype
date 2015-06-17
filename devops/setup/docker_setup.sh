@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ $(id -u) == 0 ]]; then
-  echo "You can not this script as sudo!!!"
+  echo "You can not run this script as sudo!!!"
   exit 1
 fi
 
