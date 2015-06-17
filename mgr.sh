@@ -21,6 +21,9 @@ up() {
     docker-compose -f ${ACTIVE_ENV} stop;
     docker-compose -f ${ACTIVE_ENV} rm;
     docker-compose -f ${ACTIVE_ENV} up -d --no-recreate;
+
+    echo
+    echo "The app should be available at: $(boot2docker ip):8005"
 }
 
 status() {
