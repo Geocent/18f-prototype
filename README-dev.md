@@ -26,7 +26,7 @@
 * `gulp serve:dist` to launch a server on your optimized application
 
 ### Running - full test nginx server
-* `cd client; gulp; cd ..;`
+* `./mgr.sh build` - runs a `gulp` build in the client directory
 * `./mgr.sh up` - stops, removes, and restarts all containers
 * Use `boot2docker ip` to see the IP address that you should use that binds the docker containers locally.  Then use a browser to go to "[IP ADDRESS]:8005".  For example, "192.168.59.103:8005".
 
@@ -50,7 +50,7 @@
 * `docker-compose ps` - List running containers 
 * `docker-compose stop` -  running containers 
 * `docker-compose rm` - Remove running containers 
-* `docker-compose up -f dev.yml [service_name]` - Start up a single compose service directly
+* `docker-compose -f dev.yml up [service_name]` - Start up a single compose service directly
 
 
 ## Docker commands
