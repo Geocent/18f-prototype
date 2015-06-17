@@ -21,6 +21,13 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 * j. provided sufficient documentation to install and run their prototype on another machine
 * k. prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge.
 
+### Design Standards:
+API
+* https://github.com/search?utf8=%E2%9C%93&q=18f
+UI
+* https://playbook.cio.gov/#play3
+
+
 ## Pool Two Development Pool: 
 
 In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Two Development:
