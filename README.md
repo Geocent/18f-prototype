@@ -35,6 +35,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 * a. assigned one leader and gave that person authority and responsibility and held that person accountable for the quality of the prototype submitted: 
   * Brian Priest is our Quality Lead
 * b. assembled a multidisciplinary and collaborative team that includes at a minimum three of the labor categories limited to the Design Pool Labor categories to design the prototype as quoted in Attachment C. The quoter’s proposed mix of labor categories and level of effort for its working prototype, as reflected in Attachment C, shall be evaluated to assess the quoter’s understanding and capability to supply agile delivery services.
+  * See Attachement C
 * c. understand what people need, by including people (see note #1) in the prototype design process
 * d. used at least three “human-centered design” techniques or tools
 * e. created or used a design style guide and/or a pattern library
@@ -52,6 +53,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 * a. assigned one leader, gave that person authority and responsibility and held that person accountable for the quality of the prototype submitted
   * Brian Priest is our Quality Lead
 * b. assembled a multidisciplinary and collaborative team that includes at a minimum two of the labor categories limited to the Development Pool labor categories to develop the prototype as quoted in Attachment C. The quoter’s proposed mix of labor categories and level of effort for its working prototype, as reflected in Attachment C, shall be evaluated to assess the quoter’s understanding and capability to supply agile delivery services
+  * See Attachement C
 * c. used at least five modern and open-source technologies, regardless of architectural layer (frontend, backend etc)
 * d. deployed the prototype on an Infrastructure as a Service (IaaS) or Platform as a Service (PaaS) provider, and indicated which provider was used
 * e. wrote unit tests for their code
