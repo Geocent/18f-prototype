@@ -15,4 +15,4 @@ nginx:
   links:
     - jenkins
   volumes:
-    - /home/ubuntu/default.conf:/etc/nginx/conf.d/default.conf:ro
+    - /data/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
