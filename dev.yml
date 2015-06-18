@@ -8,7 +8,7 @@
 #    service: node
 18fweb:
   extends:
-    file: devops/containers/web/web-service.yml
+    file: devops/containers/app/web/web-service.yml
     service: nginx
   volumes:
     - ./client/dist:/usr/share/nginx/html
