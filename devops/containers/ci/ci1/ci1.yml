@@ -1,0 +1,18 @@
+
+jenkins:
+  image: jenkins
+  expose:
+    - "50000:50000"
+  volumes:
+    - /var/jenkins_home:/var/jenkins_home
+  user: root
+  expose:
+    - "8080"
+nginx:
+  image: nginx
+  ports:
+    - "80:80"
+  links:
+    - jenkins
+  volumes:
+    - /home/ubuntu/default.conf:/etc/nginx/conf.d/default.conf:ro
