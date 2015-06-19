@@ -6,4 +6,9 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh
 RUN . ~/.nvm/nvm.sh && nvm install v0.12.4
 RUN . ~/.nvm/nvm.sh && nvm use 0.12 && npm install -g bower gulp@3.8.11
 
-CMD ["/usr/sbin/sshd", "-D"]
+USER root
+RUN apt-get update && apt-get install -y supervisor
+RUN mkdir -p /var/log/supervisor
+COPY ./supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+CMD ["/usr/bin/supervisord"]

@@ -2,4 +2,3 @@ slave:
   build: .
   ports:
     - "2222:22"
-  user: root
