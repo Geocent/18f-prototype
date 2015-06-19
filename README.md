@@ -1,10 +1,10 @@
 # ADS Prototype response
 
-URL to prototype: 
+URL to prototype: https://ads.geocent.com
 
-Srumdo Link: (https://www.scrumdo.com/projects/project/18f-ads-prototype/summary)
+Srumdo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
 
-Datasets used: (https://open.fda.gov/)
+Datasets used: https://open.fda.gov/
 
 ## Description: 
 
@@ -12,19 +12,20 @@ Write a brief description, no greater than 750 words, of the approach used to cr
 Pool One Design: In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool One design:
 
 ### Design Standards:
-API
 * https://github.com/18F/api-standards
-* 508 Compliance
-* Google Accessibility (http://www.google.com/accessibility/initiatives-research.html)
-
-UI
 * https://playbook.cio.gov/#play3
-* 
+* 508 Compliance
+* Google Accessibility http://www.google.com/accessibility/initiatives-research.html
 
 ### Technologies Used:
-* AngularJS -- Javascript/UI Framework
-* Docker -- Environment configuration
-* Bootstrap -- Responsive CSS
+| Moddern Technology  |    Purpose    |    License    |
+| ------------------- | ------------- | ------------- |
+| [AngularJS] (https://angularjs.org/)  | JS/UI Framework  | [MIT] (https://github.com/angular/angular.js/blob/master/LICENSE)  |
+| [Docker] (https://www.docker.com/) | Production Deployment Contain for isolation  | [Apache] (https://github.com/docker/docker/blob/master/LICENSE)  |
+| [Bootstrap] (http://getbootstrap.com/) | Responsive UI  | [MIT] (https://github.com/twbs/bootstrap/blob/master/LICENSE)  |
+| [Gulp] (http://gulpjs.com/)  | Automated Build/Workflow  | [MIT] (https://github.com/gulpjs/gulp/blob/master/LICENSE)  |
+| [Protractor] (https://angular.github.io/protractor/#/)  | E2E Testing  | [MIT] (https://github.com/angular/protractor/blob/master/LICENSE)  |
+| [NVM] (https://github.com/creationix/nvm)  | Node Versioning Manager for local Devleopment Environment  | [MIT] (https://github.com/creationix/nvm/blob/master/LICENSE.md)  |
 
 ### Installation and Setup:
 // TODO Add link to setup readme

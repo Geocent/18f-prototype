@@ -1,0 +1,17 @@
+
+jenkins:
+  image: jenkins
+  ports:
+    - "50000:50000"
+  volumes:
+    - /var/jenkins_home:/var/jenkins_home
+  user: root
+  expose:
+    - "8080"
+nginx:
+  build: .
+  ports:
+    - "80:80"
+    - "443:443"
+  links:
+    - jenkins

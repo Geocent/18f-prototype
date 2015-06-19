@@ -1,0 +1,6 @@
+# https://registry.hub.docker.com/_/node/
+
+node:
+  image: node:latest
+  ports:
+    - "8888:8888"
