@@ -12,7 +12,9 @@
 1. `git clone git@github.com:Geocent/18f-prototype.git`
 2. `bash ./devops/setup/dev_setup.sh`
 3. `bash ./devops/setup/docker_setup.sh`
-
+4. `cd client;`
+5. `npm install && bower install`
+6. `gulp serve`
 
 ## Development
 
