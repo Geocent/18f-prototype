@@ -1,10 +1,10 @@
 # ADS Prototype response
 
-URL to prototype: (https://ads.geocent.com)
+URL to prototype: https://ads.geocent.com
 
-Srumdo Link: (https://www.scrumdo.com/projects/project/18f-ads-prototype/summary)
+Srumdo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
 
-Datasets used: (https://open.fda.gov/)
+Datasets used: https://open.fda.gov/
 
 ## Description: 
 
@@ -15,7 +15,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 * https://github.com/18F/api-standards
 * https://playbook.cio.gov/#play3
 * 508 Compliance
-* Google Accessibility (http://www.google.com/accessibility/initiatives-research.html)
+* Google Accessibility http://www.google.com/accessibility/initiatives-research.html
 
 ### Technologies Used:
 | Moddern Technology  |    Purpose    |    License    |
