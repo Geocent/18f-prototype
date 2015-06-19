@@ -10,7 +10,6 @@ jenkins:
     - "8080"
 nginx:
   build: .
-  dockerfile: Dockerfile-nginx
   ports:
     - "80:80"
     - "443:443"
