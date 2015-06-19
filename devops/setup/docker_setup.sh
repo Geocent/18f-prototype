@@ -12,7 +12,6 @@ brew install boot2docker
 brew install docker
 brew install docker-compose
 
-
 boot2docker init
 boot2docker start
 
