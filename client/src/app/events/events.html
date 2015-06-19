@@ -1,0 +1,28 @@
+<div class="container">
+
+  <div ng-include="'app/components/navbar/navbar.html'"></div>
+
+  <div class="row">
+    <h1>Adverse Events</h1>
+
+    <div ng-repeat="item in items">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Company Number</th>
+            <th>Country</th>
+            <th>Date of Receipt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ item.companynumb }}</td>
+            <td>{{ item.occurcountry }}</td>
+            <td>{{ item.receiptdate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

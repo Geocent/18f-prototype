@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('client')
+angular.module('ads.main', [])
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       {
