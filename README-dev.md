@@ -59,3 +59,11 @@
 * `docker ps` - View all running containers
 * `docker exec -it [name_of_container] /bin/bash` - Enter a running container and run any commands
 
+## Design Standards
+* Competetive Analysis
+* Heuristic Design
+* Usability Tests
+* Defined Personas for targeted users
+* Derived User-Experience Model using Scenario and Task Analysis
+* Iterated Heuristic Design Using Usability Test results to update our understanding of the User-Experience Model
+* Iterated application to apply our new understanding of user interaction with the dataset
