@@ -49,7 +49,9 @@ module.exports = function(options) {
         files: files,
         singleRun: singleRun,
         autoWatch: !singleRun
-      }, done);
+      }, function() {
+          done();
+      });
     });
   }
 
