@@ -3,7 +3,7 @@
 angular.module('client',
   ['ngAnimate', 'ngCookies', 'ngTouch',
    'ngSanitize', 'ngResource', 'ui.router',
-   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.events', 'ads.searchfield', 'chartControllers']
+   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.events', 'ads.searchfield', 'ads.chartControllers']
 )
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
