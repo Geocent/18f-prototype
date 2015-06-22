@@ -1,26 +1,26 @@
 'use strict';
 
-var chartControllers = angular.module('chartControllers',['nvd3','ads.services.openfda']);
+var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.services.openfda']);
 
+	
     chartControllers.controller('BarChartCtrl', function($scope, DrugEventService){
 
-        var query = {
-//              'search': 'patient.drug.openfda.generic_name:"promethazine"'
-        	      'search': 'patient.drug.openfda.generic_name:"promethazine" AND ' +
-        	      			'patient.drug.openfda.generic_name:"amitriptyline hydrochloride" AND ' +
-        	      			'patient.drug.openfda.generic_name:"acetaminophen"',
-        	      'count' : 'patient.reaction.reactionmeddrapt.exact',
-        	      'limit' : '20'
-        };
+//	      'search': 'patient.drug.openfda.generic_name:"promethazine" AND ' +
+//	      			'patient.drug.openfda.generic_name:"amitriptyline hydrochloride" AND ' +
+//	      			'patient.drug.openfda.generic_name:"acetaminophen"',
+//	      'count' : 'patient.reaction.reactionmeddrapt.exact',
+//	      'limit' : '20'
+    	
+        var query = {};
 
-        DrugEventService.get(query, function(data) {
-          console.log(data);
-          $scope.data = [
-             {
-            	 key: 'Adverse Events',
-            	 values: data.results
-             }];
-        });
+//        DrugEventService.get(query, function(data) {
+//          console.log(data);
+//          $scope.data = [
+//             {
+//            	 key: 'Adverse Events',
+//            	 values: data.results
+//             }];
+//        });
             
         $scope.options = {
 	        chart: {
@@ -50,59 +50,38 @@ var chartControllers = angular.module('chartControllers',['nvd3','ads.services.o
 	        }
         };
 
-//        $scope.data = [
-//            {
-//                key: 'Cumulative Return',
-//                values: [
-//                          {
-//                             'term': 'NAUSEA',
-//                             'count': 7
-//                           },
-//                           {
-//                             'term': 'PAIN',
-//                             'count': 6
-//                           },
-//                           {
-//                             'term': 'MYOCARDIAL INFARCTION',
-//                             'count': 5
-//                           },
-//                           {
-//                             'term': 'FATIGUE',
-//                             'count': 5
-//                           },
-//                           {
-//                             'term': 'DEPRESSION',
-//                             'count': 5
-//                           },
-//                           {
-//                             'term': 'VOMITING',
-//                             'count': 4
-//                           },
-//                           {
-//                             'term': 'PYREXIA',
-//                             'count': 4
-//                           },
-//                           {
-//                             'term': 'INSOMNIA',
-//                             'count': 4
-//                           },
-//                           {
-//                             'term': 'HYPERTENSION',
-//                             'count': 4
-//                           },
-//                           {
-//                             'term': 'CONSTIPATION',
-//                             'count': 4
-//                           },
-//                           {
-//                             'term': 'BACK PAIN',
-//                             'count': 4
-//                           },
-//                           {
-//                             'term': 'ANXIETY',
-//                             'count': 4
-//                           }
-//                   ]
-//            }
-//        ];
+        $scope.$on( 'updatePrescriptions', function(event, data) {
+        	var searchString = buildSearchText(data);
+        	query = {
+              'search' : searchString,
+      	      'count' : 'patient.reaction.reactionmeddrapt.exact',
+    	      'limit' : '20'
+        	};
+        	getData();
+        });
+        
+        function getData() {
+        	if( query.length > 0 ) {
+                DrugEventService.get(query, function(data) {
+                    console.log(data);
+                    $scope.data = [
+                       {
+                      	 key: 'Adverse Events',
+                      	 values: data.results
+                       }];
+                  });
+        	}
+        }
+
+        function buildSearchText(medications) {
+        	var fieldName = 'patient.drug.openfda.generic_name: ';
+        	var searchString = fieldName;
+        	for(i=0; i<medications.length; i++) {
+        		searchString = searchString + '"' + medicationj + '"';
+        		if( i != medications.length-1 ) {
+        			searchString = searchString + " AND " + fieldName;
+        		}
+        	}
+        	return searchString;
+        }
     });
