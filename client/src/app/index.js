@@ -3,7 +3,7 @@
 angular.module('client',
   ['ngAnimate', 'ngCookies', 'ngTouch',
    'ngSanitize', 'ngResource', 'ui.router',
-   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.events', 'chartControllers']
+   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.events', 'ads.searchfield', 'chartControllers']
 )
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -24,7 +24,7 @@ angular.module('client',
         controller: 'BarChartCtrl',
         controllerAs: 'barChartCtrl'
       });
-      
+
     $urlRouterProvider.otherwise('/');
   })
   .constant('apiKey', 'PMu2VWNEL2toIOjWKmlJ40RGeClZsO3Ey7IacRLo')

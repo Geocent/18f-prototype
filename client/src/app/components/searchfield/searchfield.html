@@ -1,0 +1,17 @@
+<div class="row" ng-controller="SearchfieldCtrl">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h3>Enter Prescriptions</h3>
+      <ul>
+          <li ng-repeat="prescription in prescriptions" class="entryField">
+              <div class="input-group">
+                  <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" ng-value="prescription.value" ng-model="prescription.value"/>
+                  <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" ng-disabled="!prescription.value && $index === prescriptions.length - 1" ng-click="removePrescription($index)">
+                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      </button>
+                  </span>
+              </div>
+          </li>
+      </ul>
+  </div>
+</div>

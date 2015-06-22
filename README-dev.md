@@ -58,4 +58,3 @@
 * `boot2docker ip` - View IP address of boot2docker service
 * `docker ps` - View all running containers
 * `docker exec -it [name_of_container] /bin/bash` - Enter a running container and run any commands
-
