@@ -27,5 +27,5 @@ angular.module('ads.searchfield', [])
         })
         .error(function(err){
             console.error(err);
-        })
+        });
   }]);
