@@ -41,4 +41,33 @@
             </tr>
         </tbody>
     </table>
+
+    <script type="text/ng-template" id="modalReportContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Safety Report ID - {{report.safetyreportid}}</h3>
+        </div>
+        <div class="modal-body">
+            <accordion close-others="false">
+                <accordion-group heading="Patient" is-open="true">
+                    <dl class="dl-horizontal">
+                        <dt>Onset Age</dt>
+                        <dd>{{report.patient.patientonsetage}}</dd>
+                        
+                        <dt>Onset Age</dt>
+                        <dd>{{report.patient.patientonsetage}}</dd>
+                    </dl>
+                </accordion-group>
+
+                <accordion-group heading="Drug">
+                </accordion-group>
+
+                <accordion-group heading="Reaction">
+                </accordion-group>
+            </accordion>
+        </div>
+        <div class="modal-footer">
+
+            <button class="btn btn-primary" ng-click="close()">Close</button>
+        </div>
+    </script>
 </div>

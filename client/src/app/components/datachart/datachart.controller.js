@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('ads.datachart', [])
-  .controller('DataChartCtrl', ['$http', '$rootScope', '$scope', 'DrugEventService', function ($http, $rootScope, $scope, DrugEventService) {
+angular.module('ads.datachart', ['ui.bootstrap'])
+  .controller('DataChartCtrl', ['$http', '$modal', '$rootScope', '$scope', 'DrugEventService', function ($http, $modal, $rootScope, $scope, DrugEventService) {
 
       $scope.reports = [];
 
@@ -36,6 +36,26 @@ angular.module('ads.datachart', [])
       });
 
       $scope.loadRequestedReport = function(reportId) {
-          console.log(reportId);
+          DrugEventService.get({
+              'search' : 'safetyreportid:' + reportId,
+          }, function(data) {
+                $modal.open({
+                  templateUrl: 'modalReportContent.html',
+                  controller: 'ReportModalCtrl',
+                  resolve: {
+                    report: function() { return data.results[0]; }
+                  }
+              });
+          });
       };
+  }]);
+
+angular.module('ads.datachart')
+  .controller('ReportModalCtrl', ['$scope', '$modalInstance', 'report', function ($scope, $modalInstance, report) {
+
+    $scope.report = report;
+
+    $scope.close = function () {
+      $modalInstance.close();
+    };
   }]);
