@@ -8,14 +8,25 @@ describe('The main view', function () {
     page = require('./main.po');
   });
 
-  it('should include jumbotron with correct data', function() {
-    expect(page.h1El.getText()).toBe('\'Allo, \'Allo!');
-    expect(page.imgEl.getAttribute('src')).toMatch(/assets\/images\/yeoman.png$/);
-    expect(page.imgEl.getAttribute('alt')).toBe('I\'m Yeoman');
+  describe('Default page load', function() {
+      it('Verify input fields', function() {
+          expect(element.all(by.css('.prescription')).count()).toEqual(1);
+      });
   });
 
-  it('list more than 5 awesome things', function () {
-    expect(page.thumbnailEls.count()).toBeGreaterThan(5);
+  describe('Perform valid queries', function() {
+      it('should filter results', function() {
+        element(by.css('.prescription')).sendKeys('h').then(function() {
+            expect(element.all(by.repeater('match in matches')).count()).toEqual(10);
+        }, 200);
+      });
   });
 
+  describe('Perform invalid queries', function() {
+      it('should filter results', function() {
+        element(by.css('.prescription')).sendKeys('xyz').then(function() {
+            expect(element.all(by.repeater('match in matches')).count()).toEqual(0);
+        }, 200);
+      });
+  });
 });
