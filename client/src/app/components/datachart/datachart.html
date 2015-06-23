@@ -1,0 +1,44 @@
+<div class="row" ng-controller="DataChartCtrl" ng-show="reports.length">
+    <table class="table">
+        <thaad>
+            <tr>
+                <th>
+                    <a href="#" ng-click="sortType = 'symptom'; sortReverse = !sortReverse">
+                        Symptom
+                        <span ng-show="sortType == 'symptom' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'symptom' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" ng-click="sortType = 'severity'; sortReverse = !sortReverse">
+                    Severity
+                    <span ng-show="sortType == 'severity' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                    <span ng-show="sortType == 'severity' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </th>
+                <th>
+                    <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">
+                    Age
+                    <span ng-show="sortType == 'age' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                    <span ng-show="sortType == 'age' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </th>
+                <th>
+                    <a href="#" ng-click="sortType = 'sex'; sortReverse = !sortReverse">
+                    Sex
+                    <span ng-show="sortType == 'sex' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                    <span ng-show="sortType == 'sex' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </th>
+                <th>
+                    Report
+                </th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="report in reports | orderBy:sortType:sortReverse">
+                <td>{{report.symptom}}</td>
+                <td>{{report.severity}}</td>
+                <td>{{report.age}}</td>
+                <td>{{report.sex}}</td>
+                <td><a href="#" ng-click="loadRequestedReport(report.id)">View Report</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
