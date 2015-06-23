@@ -10,7 +10,7 @@ module.exports = function(config) {
     reporters: ['progress', 'junit'],
 
     junitReporter: {
-      outputFile: 'test-results.html',
+      outputFile: 'test-results.xml',
       suite: ''
     },
 
