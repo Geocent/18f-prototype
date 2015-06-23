@@ -5,6 +5,7 @@ URL to prototype: https://ads.geocent.com
 Srumdo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
 
 Datasets used: https://open.fda.gov/
+* /drug/event
 
 ## Description: 
 
