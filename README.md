@@ -27,6 +27,10 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 | [Gulp] (http://gulpjs.com/)  | Automated Build/Workflow  | [MIT] (https://github.com/gulpjs/gulp/blob/master/LICENSE)  |
 | [Protractor] (https://angular.github.io/protractor/#/)  | E2E Testing  | [MIT] (https://github.com/angular/protractor/blob/master/LICENSE)  |
 | [NVM] (https://github.com/creationix/nvm)  | Node Versioning Manager for local Devleopment Environment  | [MIT] (https://github.com/creationix/nvm/blob/master/LICENSE.md)  |
+| D3 | | |
+| NVD3 | | |
+| Style-Guide-Boilerplate-Bootstrap-Edition | | |
+
 
 ### Installation and Setup:
 // TODO Add link to setup readme
