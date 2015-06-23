@@ -3,7 +3,7 @@
 var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.services.openfda']);
 
 	
-    chartControllers.controller('BarChartCtrl', function($scope, DrugEventService){
+    chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
 //	      'search': 'patient.drug.openfda.generic_name:"promethazine" AND ' +
 //	      			'patient.drug.openfda.generic_name:"amitriptyline hydrochloride" AND ' +
@@ -44,14 +44,14 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 	            yAxis: {
 	                axisLabel: 'Adverse Event Occurrences',
 	                tickFormat: function(d){
-	                    return d3.format(',.2f')(d);
+	                    return d3.format(',.0f')(d);
 	                }
 	            }
 	        }
         };
 
-        $scope.$on( 'updatePrescriptions', function(event, data) {
-        	var searchString = buildSearchText(data);
+        $rootScope.$on( 'updatePrescriptions', function(event, medications) {
+        	var searchString = buildSearchText(medications);
         	query = {
               'search' : searchString,
       	      'count' : 'patient.reaction.reactionmeddrapt.exact',
@@ -61,10 +61,11 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         });
         
         function getData() {
-        	if( query.length > 0 ) {
+        	if( query ) {
+        		$scope.chartData = [];
                 DrugEventService.get(query, function(data) {
                     console.log(data);
-                    $scope.data = [
+                    $scope.chartData = [
                        {
                       	 key: 'Adverse Events',
                       	 values: data.results
@@ -74,12 +75,12 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         }
 
         function buildSearchText(medications) {
-        	var fieldName = 'patient.drug.openfda.generic_name: ';
+        	var fieldName = 'patient.drug.openfda.brand_name:';
         	var searchString = fieldName;
-        	for(i=0; i<medications.length; i++) {
-        		searchString = searchString + '"' + medicationj + '"';
-        		if( i != medications.length-1 ) {
-        			searchString = searchString + " AND " + fieldName;
+        	for(var i=0; i<medications.length; i++) {
+        		searchString = searchString + '"' + medications[i] + '"';
+        		if( i !== medications.length-1 ) {
+        			searchString = searchString + ' AND ' + fieldName;
         		}
         	}
         	return searchString;
