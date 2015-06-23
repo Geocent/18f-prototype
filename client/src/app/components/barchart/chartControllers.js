@@ -11,7 +11,6 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 //	      'count' : 'patient.reaction.reactionmeddrapt.exact',
 //	      'limit' : '20'
     	
-    	var testVar = 'this is a test';
         var query = {};
 
 //        DrugEventService.get(query, function(data) {
@@ -73,7 +72,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                        }];
                   });
         	}
-        }
+        };
 
         $scope.buildSearchText = function (medications) {
         	var fieldName = 'patient.drug.openfda.brand_name:';
@@ -85,5 +84,5 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         		}
         	}
         	return searchString;
-        }
+        };
     });
