@@ -25,7 +25,7 @@ angular.module('mockDrugEventService', [] )
 });
 
 describe('BarChart Controller', function() {
-	beforeEach(module('client'));
+//	beforeEach(module('client'));
 	beforeEach(module('ads.main'));
 	beforeEach(module('mockDrugEventService'));
 	beforeEach(module('ads.chartControllers'));
