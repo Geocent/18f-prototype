@@ -33,8 +33,9 @@ describe('BarChart Controller', function() {
   describe('BarChartCtrl', function() {
     var scope, ctrl;
 
-    beforeEach(inject(function($controller, $rootScope, MockDrugEventService ){
+    beforeEach( inject( function($controller, $rootScope, MockDrugEventService ) {
       // The injector unwraps the underscores (_) from around the parameter names when matching
+      console.log( '---->DEBUG: beforeEach - creating scope and controller');
       scope = $rootScope.$new();
       ctrl = $controller('BarChartCtrl', 
 			      		{$scope: scope, 
@@ -45,14 +46,15 @@ describe('BarChart Controller', function() {
 
     it('verifies the buildSearchText method', function(){
     	var medications = ['promethazine', 'acetaminophen'];
-    	var expectedText = 'patient.drug.openfda.brand_name:"promethazine" AND patient.drug.openfda.brand_name:"acetaminophen'; 
-    	var searchText = ctrl.buildSearchText( medications );
+    	var expectedText = 'patient.drug.openfda.brand_name:"promethazine" AND patient.drug.openfda.brand_name:"acetaminophen"';
+    	var searchText = scope.buildSearchText( medications );
     	expect(searchText).toEqual(expectedText);
     });
     
-//    it('verifies the query', function() {
-//      expect(scope.items.length).toEqual(1);
-//    });
+    it('verifies the query', function() {
+      scope.getData();
+      expect(scope.chartData.length).toEqual(1);
+    });
 
   });
 });

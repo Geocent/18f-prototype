@@ -11,6 +11,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 //	      'count' : 'patient.reaction.reactionmeddrapt.exact',
 //	      'limit' : '20'
     	
+    	var testVar = 'this is a test';
         var query = {};
 
 //        DrugEventService.get(query, function(data) {
@@ -51,16 +52,16 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         };
 
         $rootScope.$on( 'updatePrescriptions', function(event, medications) {
-        	var searchString = buildSearchText(medications);
+        	var searchString = $scope.buildSearchText(medications);
         	query = {
               'search' : searchString,
       	      'count' : 'patient.reaction.reactionmeddrapt.exact',
     	      'limit' : '20'
         	};
-        	getData();
+        	$scope.getData();
         });
         
-        function getData() {
+        $scope.getData = function(){
         	if( query ) {
         		$scope.chartData = [];
                 DrugEventService.get(query, function(data) {
@@ -74,7 +75,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	}
         }
 
-        function buildSearchText(medications) {
+        $scope.buildSearchText = function (medications) {
         	var fieldName = 'patient.drug.openfda.brand_name:';
         	var searchString = fieldName;
         	for(var i=0; i<medications.length; i++) {
