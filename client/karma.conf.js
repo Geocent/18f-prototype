@@ -7,6 +7,13 @@ module.exports = function(config) {
 
     frameworks: ['jasmine'],
 
+    reporters: ['progress', 'junit'],
+
+    junitReporter: {
+      outputFile: 'test-results.xml',
+      suite: ''
+    },
+
     ngHtml2JsPreprocessor: {
       stripPrefix: 'src/',
       moduleName: 'gulpAngular'
@@ -17,7 +24,8 @@ module.exports = function(config) {
     plugins : [
       'karma-phantomjs-launcher',
       'karma-jasmine',
-      'karma-ng-html2js-preprocessor'
+      'karma-ng-html2js-preprocessor',
+      'karma-junit-reporter'
     ],
 
     preprocessors: {

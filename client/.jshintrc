@@ -31,6 +31,9 @@
     "beforeEach": false,
     "after": false,
     "afterEach": false,
-    "expect": false
+    "expect": false,
+    "spyOn": false,
+    // D3
+    "d3": false
   }
 }
