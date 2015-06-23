@@ -51,7 +51,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         };
 
         $rootScope.$on( 'updatePrescriptions', function(event, medications) {
-        	var searchString = $scope.buildSearchText(medications);
+        	var searchString = $scope.buildSearchText(medications.prescriptions);
         	query = {
               'search' : searchString,
       	      'count' : 'patient.reaction.reactionmeddrapt.exact',

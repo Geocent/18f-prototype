@@ -19,10 +19,17 @@ angular.module('ads.searchfield', [])
              return prescription.value !== undefined && prescription.value.length > 0;
           });
 
-        $rootScope.$broadcast('updatePrescriptions', selected.map(function(prescription) {
-            return prescription.value;
-        }));
+        $rootScope.$broadcast('updatePrescriptions', {
+            'serious': $scope.serious,
+            'prescriptions': selected.map(function(prescription) {
+                return prescription.value;
+            })
+        });
       };
+
+      $scope.updateSeriousness = function() {
+          $scope.updateSelected();
+      }
 
       $scope.removePrescription = function(index) {
           $scope.prescriptions.splice(index, 1);
