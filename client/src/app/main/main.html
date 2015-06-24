@@ -1,11 +1,50 @@
+<div ng-include="'app/components/navbar/navbar.html'"></div>
+
 <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Drug Search</div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div ng-include="'app/components/searchfield/searchfield.html'"></div>
+            </div>
+            <div class="col-md-6">
+              <h3>Instructions</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel turpis eget libero rutrum
+                venenatis. Aliquam erat volutpat. Pellentesque sagittis tortor in lacus ultricies egestas.
+                Duis dui sem, dignissim mollis tortor non, mollis pellentesque ex. Duis blandit sapien ac purus sagittis
+                ullamcorper. </p>
+              <p>Vivamus id iaculis nulla. Praesent egestas sapien at venenatis pharetra. Suspendisse pharetra massa
+                magna, sed sagittis nunc efficitur quis. Praesent dignissim non mi a ornare. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div ng-include="'app/components/navbar/navbar.html'"></div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Results</div>
+        <div class="panel-body">
+          <div ng-include="'app/components/barchart/bar-chart.html'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div ng-include="'app/components/searchfield/searchfield.html'"></div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Adverse Events</div>
+        <div class="panel-body">
+          <div ng-include="'app/components/datachart/datachart.html'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div ng-include="'app/components/barchart/bar-chart.html'"></div>
-
-  <div ng-include="'app/components/datachart/datachart.html'"></div>
-
-</div>
+</div> <!-- /container -->
