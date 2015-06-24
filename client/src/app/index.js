@@ -3,7 +3,7 @@
 angular.module('client',
   ['ngAnimate', 'ngCookies', 'ngTouch',
    'ngSanitize', 'ngResource', 'ui.router',
-   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.events', 'ads.searchfield', 'ads.chartControllers','ads.datachart']
+   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.searchfield', 'ads.chartControllers','ads.datachart']
 )
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -11,12 +11,6 @@ angular.module('client',
         url: '/',
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
-      })
-      .state('events', {
-        url: '/events',
-        templateUrl: 'app/events/events.html',
-        controller: 'AdverseEventsCtrl',
-        controllerAs: 'eventsCtrl'
       })
       .state('eventsChart', {
         url: '/eventsChart',
