@@ -58,6 +58,8 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                       	 key: 'Adverse Events',
                       	 values: data.results
                        }];
+                    $scope.recCount = data.results.length;
+                    console.log("Returned data: " + $scope.recCount);
                   });
         	}
         };
