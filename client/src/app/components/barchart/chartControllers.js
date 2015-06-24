@@ -2,46 +2,58 @@
 
 var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.services.openfda']);
 
-
+	// Turn off debug logging in NVD3
+	nv.dev = false;
+	
     chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
-        var query = {};
-
+        $scope.query = null;
+        
+        // the options object is used by the NVD3 chart specifically and controls the output
         $scope.options = {
-	        chart: {
-	            type: 'multiBarHorizontalChart',
-	            height: 450,
-                margin : {
-                    top: 20,
-                    right: 100,
-                    bottom: 60,
-                    left: 200
-                },
-                x: function(d){return d.term;},
-	            y: function(d){return d.count;},
-	            //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
-	            showControls: false,
-	            stacked: false,
-	            showValues: true,
-	            transitionDuration: 500,
-	            xAxis: {
-	                showMaxMin: false
-	            },
-	            yAxis: {
-	                axisLabel: 'Adverse Event Occurrences',
-	                tickFormat: function(d){
-	                    return d3.format(',.0f')(d);
-	                }
-	            }
-	        }
-        };
+    	        chart: {
+    	            type: 'multiBarHorizontalChart',
+    	            height: 450,
+                    margin : {
+                        top: 20,
+                        right: 100,
+                        bottom: 60,
+                        left: 200
+                    },
+                    x: function(d){return d.term;},
+    	            y: function(d){return d.count;},
+    	            //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
+    	            showControls: false,
+    	            stacked: false,
+    	            showValues: true,
+    	            transitionDuration: 500,
+    	            xAxis: {
+    	                showMaxMin: false
+    	            },
+    	            yAxis: {
+    	                axisLabel: 'Top Adverse Event Symptom Occurrences',
+    	                tickFormat: function(d){
+    	                    return d3.format(',.0f')(d);
+    	                }
+    	            }
+    	        }
+            };
 
-        $rootScope.$on( 'updatePrescriptions', function(event, adverseEvents) {
+        // utility function used to set the Y Axis label including the count of records the query returned
+        function setAxisLabel( recCount ) {
+        	$scope.options.chart.yAxis.axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
+        }
+        
+        // This function is called as the result of a 'broadcast' event being fired by the SearchFieldCtrl
+        // when the user enters a medication into the entry field. This function is responsible for building and
+        // executing the query, then transforming the return data to what the chart expects
+        $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
+
             if (adverseEvents.serious) {
-                searchString = searchString + ' AND serious:1'
+                searchString = searchString + ' AND serious:1';
             }
-        	query = {
+        	$scope.query = {
               'search' : searchString,
       	      'count' : 'patient.reaction.reactionmeddrapt.exact',
     	      'limit' : '20'
@@ -49,21 +61,26 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	$scope.getData();
         });
 
+        // this function is responsible for calling the DrugEventService with the query that was 
+        // built previously. If no query has been built, then the function does nothing
         $scope.getData = function(){
-        	if( query ) {
+        	if( $scope.query ) {
         		$scope.chartData = [];
-                DrugEventService.get(query, function(data) {
+                DrugEventService.get($scope.query, function(data) {
                     $scope.chartData = [
                        {
                       	 key: 'Adverse Events',
                       	 values: data.results
                        }];
                     $scope.recCount = data.results.length;
-                    console.log("Returned data: " + $scope.recCount);
+                    console.log('Returned data: ' + $scope.recCount);
+                    setAxisLabel($scope.recCount);
                   });
         	}
         };
 
+        // function responsible for taking the medications sent from the SearchFieldCtrl and creating the
+        // search text that will be passed on to the DrugEventService
         $scope.buildSearchText = function (medications) {
         	var fieldName = 'patient.drug.openfda.brand_name:';
         	var searchString = fieldName;
@@ -75,4 +92,5 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	}
         	return searchString;
         };
+        
     });

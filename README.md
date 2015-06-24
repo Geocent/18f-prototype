@@ -1,6 +1,7 @@
 # ADS Prototype response
 
 URL to "PROD" prototype: http://ads.geocent.com
+[![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-dev)](https://ads-ci.geocent.com/job/deploy-dev/)
 
 URL to "DEV" (integration) prototype: http://ads-dev.geocent.com
 
@@ -11,7 +12,7 @@ Srumdo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
 Datasets used: https://open.fda.gov/
 * /drug/event
 
-## Description: 
+## Description:
 
 Write a brief description, no greater than 750 words, of the approach used to create the working prototype and place this description in the README.md file located in the root directory of your repository.
 Pool One Design: In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool One design:
@@ -39,6 +40,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 | [NVM] (https://github.com/creationix/nvm)  | Node Versioning Manager for local Devleopment Environment  | [MIT] (https://github.com/creationix/nvm/blob/master/LICENSE.md)  |
 | [D3 JS] (http://d3js.org/) | Used for charts and data driven documents | [AS IS] (https://github.com/mbostock/d3/blob/master/LICENSE) |
 | [NVD3] (http://nvd3.org/) | Reusable charts component for D3 | [Apache] (https://github.com/novus/nvd3/blob/master/LICENSE.md) |
+| [Underscore] (http://underscorejs.org/) | JavaScript's utility _ belt for functional suspects. | [MIT] (https://github.com/jashkenas/underscore/blob/master/LICENSE) |
 | [Style-Guide-Boilerplate-Bootstrap-Edition] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition) | Generate Style Guide | [MIT] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition/blob/Style-Guide-Boilerplate-Bootstrap/LICENSE.txt) |
 
 
@@ -46,11 +48,11 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 // TODO Add link to setup readme
 
 
-## Pool One Design: 
+## Pool One Design:
 
 In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool One design:
 
-* a. assigned one leader and gave that person authority and responsibility and held that person accountable for the quality of the prototype submitted: 
+* a. assigned one leader and gave that person authority and responsibility and held that person accountable for the quality of the prototype submitted:
   * Brian Priest is our Quality Lead
 * b. assembled a multidisciplinary and collaborative team that includes at a minimum three of the labor categories limited to the Design Pool Labor categories to design the prototype as quoted in Attachment C. The quoter’s proposed mix of labor categories and level of effort for its working prototype, as reflected in Attachment C, shall be evaluated to assess the quoter’s understanding and capability to supply agile delivery services.
   * See Attachement C
@@ -64,7 +66,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 * j. provided sufficient documentation to install and run their prototype on another machine
 * k. prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge.
 
-## Pool Two Development Pool: 
+## Pool Two Development Pool:
 
 In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Two Development:
 
@@ -83,7 +85,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 * k. provided sufficient documentation to install and run their prototype on another machine
 * l. prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge
 
-## Pool Three The Full Stack Pool: 
+## Pool Three The Full Stack Pool:
 
 In addition to the Description, above, the quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Three Full Stack:
 

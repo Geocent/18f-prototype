@@ -6,4 +6,3 @@
 docker-machine active ${1}
 eval "$(docker-machine env)"
 docker-compose -f master.yml up -d
-
