@@ -3,7 +3,7 @@
 angular.module('client',
   ['ngAnimate', 'ngCookies', 'ngTouch',
    'ngSanitize', 'ngResource', 'ui.router',
-   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.events', 'ads.searchfield', 'ads.chartControllers']
+   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.events', 'ads.searchfield', 'ads.chartControllers','ads.datachart']
 )
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -23,6 +23,14 @@ angular.module('client',
         templateUrl: 'app/components/barchart/bar-chart.html',
         controller: 'BarChartCtrl',
         controllerAs: 'barChartCtrl'
+      })
+      .state('about', {
+        url: '/about',
+        templateUrl: 'app/components/about/about.html'
+      })
+      .state('contact', {
+        url: '/contact',
+        templateUrl: 'app/components/contact/contact.html'
       });
 
     $urlRouterProvider.otherwise('/');

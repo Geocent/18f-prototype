@@ -2,7 +2,7 @@
 
 var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.services.openfda']);
 
-	
+
     chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
 //	      'search': 'patient.drug.openfda.generic_name:"promethazine" AND ' +
@@ -10,7 +10,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 //	      			'patient.drug.openfda.generic_name:"acetaminophen"',
 //	      'count' : 'patient.reaction.reactionmeddrapt.exact',
 //	      'limit' : '20'
-    	
+
         var query = {};
 
 //        DrugEventService.get(query, function(data) {
@@ -21,7 +21,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 //            	 values: data.results
 //             }];
 //        });
-            
+
         $scope.options = {
 	        chart: {
 	            type: 'multiBarHorizontalChart',
@@ -62,12 +62,11 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	};
         	$scope.getData();
         });
-        
+
         $scope.getData = function(){
         	if( query ) {
         		$scope.chartData = [];
                 DrugEventService.get(query, function(data) {
-                    console.log(data);
                     $scope.chartData = [
                        {
                       	 key: 'Adverse Events',
