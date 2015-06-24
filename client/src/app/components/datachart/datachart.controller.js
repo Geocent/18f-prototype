@@ -20,7 +20,6 @@ angular.module('ads.datachart', ['ui.bootstrap'])
               'limit' : '100'
           }, function(data) {
               $scope.reports = [];
-              console.log(data.results.length);
               _.each(data.results, function(report) {
                   _.each(report.patient.reaction, function(reaction){
                     $scope.reports.push({
