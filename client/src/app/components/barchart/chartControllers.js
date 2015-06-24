@@ -5,43 +5,14 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 
     chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
-        var query = {};
-
-        $scope.options = {
-	        chart: {
-	            type: 'multiBarHorizontalChart',
-	            height: 450,
-                margin : {
-                    top: 20,
-                    right: 100,
-                    bottom: 60,
-                    left: 200
-                },
-                x: function(d){return d.term;},
-	            y: function(d){return d.count;},
-	            //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
-	            showControls: false,
-	            stacked: false,
-	            showValues: true,
-	            transitionDuration: 500,
-	            xAxis: {
-	                showMaxMin: false
-	            },
-	            yAxis: {
-	                axisLabel: 'Adverse Event Occurrences',
-	                tickFormat: function(d){
-	                    return d3.format(',.0f')(d);
-	                }
-	            }
-	        }
-        };
+        $scope.query = null;
 
         $rootScope.$on( 'updatePrescriptions', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
             if (adverseEvents.serious) {
-                searchString = searchString + ' AND serious:1'
+                searchString = searchString + ' AND serious:1';
             }
-        	query = {
+        	$scope.query = {
               'search' : searchString,
       	      'count' : 'patient.reaction.reactionmeddrapt.exact',
     	      'limit' : '20'
@@ -50,16 +21,17 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         });
 
         $scope.getData = function(){
-        	if( query ) {
+        	if( $scope.query ) {
         		$scope.chartData = [];
-                DrugEventService.get(query, function(data) {
+                DrugEventService.get($scope.query, function(data) {
                     $scope.chartData = [
                        {
                       	 key: 'Adverse Events',
                       	 values: data.results
                        }];
                     $scope.recCount = data.results.length;
-                    console.log("Returned data: " + $scope.recCount);
+                    console.log('Returned data: ' + $scope.recCount);
+                    setChartOptions($scope.recCount);
                   });
         	}
         };
@@ -75,4 +47,35 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	}
         	return searchString;
         };
+        
+        function setChartOptions( recCount ) {
+            $scope.options = {
+    	        chart: {
+    	            type: 'multiBarHorizontalChart',
+    	            height: 450,
+                    margin : {
+                        top: 20,
+                        right: 100,
+                        bottom: 60,
+                        left: 200
+                    },
+                    x: function(d){return d.term;},
+    	            y: function(d){return d.count;},
+    	            //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
+    	            showControls: false,
+    	            stacked: false,
+    	            showValues: true,
+    	            transitionDuration: 500,
+    	            xAxis: {
+    	                showMaxMin: false
+    	            },
+    	            yAxis: {
+    	                axisLabel: 'Top ' + recCount + ' Adverse Event Symptom Occurrences',
+    	                tickFormat: function(d){
+    	                    return d3.format(',.0f')(d);
+    	                }
+    	            }
+    	        }
+            };
+        }
     });
