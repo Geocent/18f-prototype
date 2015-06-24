@@ -2,7 +2,9 @@
 
 var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.services.openfda']);
 
-
+	// Turn off debug logging in NVD3
+	nv.dev = false;
+	
     chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
         $scope.query = null;

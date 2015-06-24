@@ -3,7 +3,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
         <h3>Select Adverse Event</h3>
-        <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable()"></select>
+        <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)"></select>
 
         <table class="table" ng-show="reports.length">
             <thaad>
@@ -39,6 +39,10 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="text-center">
+            <pagination total-items="totalReports" ng-model="selectedReportPage" max-size="5" class="pagination-sm" boundary-links="true" items-per-page="reportPageSize" rotate="false" ng-change="updateReportTable(false)" ng-show="totalReports"></pagination>
+        </div>
     </div>
 
     <script type="text/ng-template" id="modalReportContent.html">
