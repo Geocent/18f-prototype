@@ -68,7 +68,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSelected();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
-        [ 'ACEPHEN' ]
+          { serious: undefined, prescriptions: [ 'ACEPHEN' ]}
       );
   });
 
@@ -83,7 +83,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSelected();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
-        [ 'ACEPHEN' ]
+          { serious: undefined, prescriptions: [ 'ACEPHEN' ]}
       );
 
       scope.prescriptions[1].value = 'ABILIFY';
@@ -97,7 +97,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSelected();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
-        [ 'ACEPHEN', 'ABILIFY' ]
+          { serious: undefined, prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
       );
   });
 
@@ -116,7 +116,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSelected();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
-        [ 'ACEPHEN', 'ABILIFY' ]
+          { serious: undefined, prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
       );
 
       scope.removePrescription(1);
@@ -127,7 +127,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSelected();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
-        [ 'ACEPHEN' ]
+          { serious: undefined, prescriptions: [ 'ACEPHEN' ]}
       );
 
       scope.removePrescription(0);
@@ -137,7 +137,33 @@ describe('ads.searchfield', function(){
 
       scope.updateSelected();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
-        [ ]
+          { serious: undefined, prescriptions: [ ]}
+      );
+  });
+
+  it('Selecting serious adverse events', function() {
+      scope.prescriptions[0].value = 'ACEPHEN';
+      scope.$digest();
+
+      expect(scope.prescriptions).toEqual([
+          {value: 'ACEPHEN'},
+          {value: ''}
+      ]);
+
+      scope.serious = true;
+      scope.$digest();
+
+      scope.updateSeriousness();
+      expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
+          { serious: true, prescriptions: [ 'ACEPHEN' ]}
+      );
+
+      scope.serious = false;
+      scope.$digest();
+
+      scope.updateSeriousness();
+      expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
+          { serious: false, prescriptions: [ 'ACEPHEN' ]}
       );
   });
 });
