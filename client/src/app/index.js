@@ -23,6 +23,14 @@ angular.module('client',
         templateUrl: 'app/components/barchart/bar-chart.html',
         controller: 'BarChartCtrl',
         controllerAs: 'barChartCtrl'
+      })
+      .state('about', {
+        url: '/about',
+        templateUrl: 'app/components/about/about.html'
+      })
+      .state('contact', {
+        url: '/contact',
+        templateUrl: 'app/components/contact/contact.html'
       });
 
     $urlRouterProvider.otherwise('/');
