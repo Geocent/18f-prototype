@@ -8,15 +8,17 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       $scope.sortType = 'id';
       $scope.sortReverse = false;
 
-      function buildQuery(medications) {
-          return _.reduce(medications, function(memo, medication, index) {
-              return memo + 'patient.drug.openfda.brand_name:"' + medication + (index < medications.length - 1 ? '" AND ': '"');
-          }, '');
+      function buildQuery(queryData) {
+          var query = _.reduce(queryData.prescriptions, function(memo, medication, index) {
+              return memo + 'patient.drug.openfda.brand_name:"' + medication + (index < queryData.prescriptions.length - 1 ? '" AND ': '"');
+          }, queryData.serious ? 'serious:1 AND ' : '');
+
+          return query;
       }
 
-      $rootScope.$on( 'updatePrescriptions', function(event, medications) {
+      $rootScope.$on('updateSearchParameters', function(event, queryData) {
           DrugEventService.get({
-              'search' : buildQuery(medications.prescriptions),
+              'search' : buildQuery(queryData),
               'limit' : '100'
           }, function(data) {
               $scope.reports = [];
