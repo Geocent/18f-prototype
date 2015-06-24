@@ -43,6 +43,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 | [Underscore] (http://underscorejs.org/) | JavaScript's utility _ belt for functional suspects. | [MIT] (https://github.com/jashkenas/underscore/blob/master/LICENSE) |
 | [Style-Guide-Boilerplate-Bootstrap-Edition] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition) | Generate Style Guide | [MIT] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition/blob/Style-Guide-Boilerplate-Bootstrap/LICENSE.txt) |
 | [Jenkins] (https://jenkins-ci.org/) | Continuous Integration. | [MIT] (https://github.com/jenkinsci/jenkins/blob/master/LICENSE.txt) |
+| [NGINX] (http://nginx.org/) | Web Proxy. | [AS-IS] (http://nginx.org/LICENSE) |
 
 
 
