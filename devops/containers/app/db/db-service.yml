@@ -1,6 +1,0 @@
-# https://registry.hub.docker.com/_/postgres/
-
-postgres:
-  image: postgres:latest
-  ports:
-    - "5432:5432"
