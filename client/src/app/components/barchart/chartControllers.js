@@ -7,8 +7,9 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 
         $scope.query = null;
 
-        $rootScope.$on( 'updatePrescriptions', function(event, adverseEvents) {
+        $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
+
             if (adverseEvents.serious) {
                 searchString = searchString + ' AND serious:1';
             }
@@ -47,7 +48,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	}
         	return searchString;
         };
-        
+
         function setChartOptions( recCount ) {
             $scope.options = {
     	        chart: {

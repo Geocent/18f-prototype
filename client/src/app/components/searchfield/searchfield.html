@@ -4,7 +4,7 @@
       <ul>
           <li ng-repeat="prescription in prescriptions" class="entryField">
               <div class="input-group">
-                  <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="updateSelected()" ng-value="prescription.value" ng-model="prescription.value"/>
+                  <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="updateSearchParameters()" ng-value="prescription.value" ng-model="prescription.value"/>
                   <span class="input-group-btn">
                       <button class="btn btn-default" type="button" ng-disabled="!prescription.value && $index === prescriptions.length - 1" ng-click="removePrescription($index)">
                           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -15,15 +15,18 @@
       </ul>
       <div class="checkbox">
           <label>
-              <input type="checkbox" ng-model="serious" ng-change="updateSeriousness()">
+              <input type="checkbox" ng-model="serious" ng-change="updateSearchParameters()">
               Show only serious adverse events
           </label>
       </div>
   </div>
+<<<<<<< HEAD
   <div ng-show="chartData" class="chartDiv" ng-controller="BarChartCtrl" >
       <h3>Top {{recCount}} Adverse Event Symptoms</h3>
       <div>
           <nvd3 options="options" data="chartData"></nvd3>
       </div>
   </div>
+=======
+>>>>>>> Story#27_Report_Details
 </div>
