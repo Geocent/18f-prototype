@@ -9,18 +9,17 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       $scope.sortReverse = false;
 
       function buildQuery(medications) {
-          _.reduce(medications, function(memo, medication, index) {
-              return memo + 'patient.drug.openfda.brand_name:"' + medication + (index < medications.length - 1 ? '" AND "': '"');
+          return _.reduce(medications, function(memo, medication, index) {
+              return memo + 'patient.drug.openfda.brand_name:"' + medication + (index < medications.length - 1 ? '" AND ': '"');
           }, '');
       }
 
       $rootScope.$on( 'updatePrescriptions', function(event, medications) {
           DrugEventService.get({
-              'search' : buildQuery(medications),
+              'search' : buildQuery(medications.prescriptions),
               'limit' : '100'
           }, function(data) {
               $scope.reports = [];
-
               _.each(data.results, function(report) {
                   _.each(report.patient.reaction, function(reaction){
                     $scope.reports.push({
