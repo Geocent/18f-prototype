@@ -14,10 +14,11 @@ angular.module('mockDrugEventService', [] )
 	
 	return {
 		get: function(query, callback) {
-			var data = {
+			var data = { results: [
+	            {
 					count: 7,
 					term:'NAUSEA'				
-				};
+				}]};
 			callback(data);
 		}
 	};
