@@ -1,6 +1,7 @@
 # ADS Prototype response
 
 URL to "PROD" prototype: http://ads.geocent.com
+[![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-prod)](https://ads-ci.geocent.com/job/build-prod/)
 
 URL to "DEV" (integration) prototype: http://ads-dev.geocent.com
 
