@@ -5,22 +5,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 
     chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
-//	      'search': 'patient.drug.openfda.generic_name:"promethazine" AND ' +
-//	      			'patient.drug.openfda.generic_name:"amitriptyline hydrochloride" AND ' +
-//	      			'patient.drug.openfda.generic_name:"acetaminophen"',
-//	      'count' : 'patient.reaction.reactionmeddrapt.exact',
-//	      'limit' : '20'
-
         var query = {};
-
-//        DrugEventService.get(query, function(data) {
-//          console.log(data);
-//          $scope.data = [
-//             {
-//            	 key: 'Adverse Events',
-//            	 values: data.results
-//             }];
-//        });
 
         $scope.options = {
 	        chart: {
@@ -30,12 +15,13 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                     top: 20,
                     right: 100,
                     bottom: 60,
-                    left: 300
+                    left: 150
                 },
                 x: function(d){return d.term;},
 	            y: function(d){return d.count;},
 	            //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
-	            showControls: true,
+	            showControls: false,
+	            stacked: true,
 	            showValues: true,
 	            transitionDuration: 500,
 	            xAxis: {
