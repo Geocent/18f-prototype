@@ -45,8 +45,9 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         // This function is called as the result of a 'broadcast' event being fired by the SearchFieldCtrl
         // when the user enters a medication into the entry field. This function is responsible for building and
         // executing the query, then transforming the return data to what the chart expects
-        $rootScope.$on( 'updatePrescriptions', function(event, adverseEvents) {
+        $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
+
             if (adverseEvents.serious) {
                 searchString = searchString + ' AND serious:1';
             }

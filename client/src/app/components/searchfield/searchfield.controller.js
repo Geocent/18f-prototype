@@ -8,33 +8,31 @@ angular.module('ads.searchfield', [])
 
       $scope.brandNames = [];
 
+      $scope.serious = false;
+
       $scope.$watch('prescriptions', function() {
-          if($scope.prescriptions[$scope.prescriptions.length - 1].value !== undefined && $scope.prescriptions[$scope.prescriptions.length - 1].value.length > 0) {
+          if(!_.isEmpty($scope.prescriptions[$scope.prescriptions.length - 1].value)) {
               $scope.prescriptions.push({value: ''});
           }
       }, true);
 
-      $scope.updateSelected = function() {
+      $scope.updateSearchParameters = function() {
           var selected = $scope.prescriptions.filter(function(prescription) {
-             return prescription.value !== undefined && prescription.value.length > 0;
+             return !_.isEmpty(prescription.value);
           });
 
-        $rootScope.$broadcast('updatePrescriptions', {
-            'serious': $scope.serious,
+        $rootScope.$broadcast('updateSearchParameters', {
+            'serious': $scope.serious === true,
             'prescriptions': selected.map(function(prescription) {
                 return prescription.value;
             })
         });
       };
 
-      $scope.updateSeriousness = function() {
-          $scope.updateSelected();
-      }
-
       $scope.removePrescription = function(index) {
           $scope.prescriptions.splice(index, 1);
 
-          $scope.updateSelected();
+          $scope.updateSearchParameters();
       };
 
       $http
