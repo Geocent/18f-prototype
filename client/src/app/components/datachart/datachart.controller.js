@@ -12,6 +12,10 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       $scope.sortType = 'id';
       $scope.sortReverse = false;
 
+      $scope.totalReports = 0;
+      $scope.selectedReportPage = 1;
+      $scope.reportPageSize = 100;
+
       function buildQuery(queryData, symptom) {
           var query =  _.reduce(queryData.prescriptions, function(memo, medication, index) {
               return memo + 'patient.drug.openfda.brand_name:"' + medication + (index < queryData.prescriptions.length - 1 ? '" AND ': '"');
@@ -27,14 +31,18 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       $rootScope.$on('updateSearchParameters', function(event, queryData) {
           $scope.query = queryData;
 
+          $scope.totalReports = 0;
+          $scope.selectedReportPage = 1;
+
+          $scope.symptoms = [];
+          $scope.selectedSymptom = undefined;
+          $scope.reports = [];
+
           DrugEventService.get({
               'search' : buildQuery(queryData),
               'count' : 'patient.reaction.reactionmeddrapt.exact',
               'limit' : '20'
           }, function(data) {
-              $scope.symptoms = [];
-              $scope.selectedSymptom = undefined;
-              $scope.reports = [];
 
               $scope.symptoms = _.map(data.results, function(value) {
                   return value.term;
@@ -42,16 +50,23 @@ angular.module('ads.datachart', ['ui.bootstrap'])
           });
       });
 
-      $scope.updateReportTable = function() {
+      $scope.updateReportTable = function(resetPage) {
           $scope.reports = [];
+
+          if(resetPage) {
+              $scope.selectedReportPage = 1;
+          }
+
           DrugEventService.get({
               'search' : buildQuery($scope.query, $scope.selectedSymptom),
-              'limit' : '100'
+              'limit' : $scope.reportPageSize,
+              'skip' : ($scope.selectedReportPage - 1) * $scope.reportPageSize
           }, function(data) {
+              $scope.totalReports = data.meta.results.total;
               _.each(data.results, function(report) {
                   _.each(report.patient.reaction, function(reaction){
 
-                    if(reaction.reactionmeddrapt === $scope.selectedSymptom) {
+                    if(reaction.reactionmeddrapt.toLowerCase() === $scope.selectedSymptom.toLowerCase()) {
                         $scope.reports.push({
                             symptom: reaction.reactionmeddrapt,
                             severity: report.serious === '1' ? 'Serious' : 'Minor',
