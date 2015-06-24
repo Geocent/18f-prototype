@@ -1,11 +1,10 @@
 # ADS Prototype response
 
-URL to "PROD" prototype: http://ads.geocent.com
-[![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-dev)](https://ads-ci.geocent.com/job/deploy-dev/)
+URL to "PROD" prototype: https://drugiq.geocent.com
 
-URL to "DEV" (integration) prototype: http://ads-dev.geocent.com
+URL to "DEV" (integration) prototype: https://drugiq-dev.geocent.com
 
-URL to Jenkins/CI: http://ads-ci.geocent.com
+URL to Jenkins/CI: https://drugiq-ci.geocent.com
 
 Srumdo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
 
