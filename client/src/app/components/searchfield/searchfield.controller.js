@@ -11,14 +11,14 @@ angular.module('ads.searchfield', [])
       $scope.serious = false;
 
       $scope.$watch('prescriptions', function() {
-          if(!_.isUndefined($scope.prescriptions[$scope.prescriptions.length - 1].value) && $scope.prescriptions[$scope.prescriptions.length - 1].value.length > 0) {
+          if(!_.isEmpty($scope.prescriptions[$scope.prescriptions.length - 1].value)) {
               $scope.prescriptions.push({value: ''});
           }
       }, true);
 
       $scope.updateSearchParameters = function() {
           var selected = $scope.prescriptions.filter(function(prescription) {
-             return !_.isUndefined(prescription.value) && prescription.value.length > 0;
+             return !_.isEmpty(prescription.value);
           });
 
         $rootScope.$broadcast('updateSearchParameters', {
