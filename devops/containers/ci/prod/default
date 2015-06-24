@@ -1,15 +1,15 @@
 server {
   listen 80 default;
-  server_name ads-dev.geocent.com;
+  server_name ads.geocent.com;
   return 301 https://$server_name$request_uri;
 }
 
 server {
   listen 443 default ssl;
-  server_name ads-dev.geocent.com;
+  server_name ads.geocent.com;
 
   ssl_certificate           /etc/ssl/geocent.pem;
-  ssl_certificate_key       /etc/ssl/ads-dev.geocent.com.key;
+  ssl_certificate_key       /etc/ssl/ads.geocent.com.key;
 
   ssl_session_timeout  5m;
   ssl_protocols  TLSv1.1 TLSv1.2;
