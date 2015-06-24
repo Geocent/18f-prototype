@@ -1,6 +1,10 @@
 # ADS Prototype response
 
-URL to prototype: https://ads.geocent.com
+URL to "PROD" prototype: http://ads.geocent.com
+
+URL to "DEV" (integration) prototype: http://ads-dev.geocent.com
+
+URL to Jenkins/CI: http://ads-ci.geocent.com
 
 Srumdo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
 
