@@ -140,4 +140,30 @@ describe('ads.searchfield', function(){
           { serious: undefined, prescriptions: [ ]}
       );
   });
+
+  it('Selecting serious adverse events', function() {
+      scope.prescriptions[0].value = 'ACEPHEN';
+      scope.$digest();
+
+      expect(scope.prescriptions).toEqual([
+          {value: 'ACEPHEN'},
+          {value: ''}
+      ]);
+
+      scope.serious = true;
+      scope.$digest();
+
+      scope.updateSeriousness();
+      expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
+          { serious: true, prescriptions: [ 'ACEPHEN' ]}
+      );
+
+      scope.serious = false;
+      scope.$digest();
+
+      scope.updateSeriousness();
+      expect(rootScope.$broadcast).toHaveBeenCalledWith('updatePrescriptions',
+          { serious: false, prescriptions: [ 'ACEPHEN' ]}
+      );
+  });
 });
