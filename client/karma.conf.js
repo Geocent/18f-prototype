@@ -7,11 +7,16 @@ module.exports = function(config) {
 
     frameworks: ['jasmine'],
 
-    reporters: ['progress', 'junit'],
+    reporters: ['progress', 'junit', 'coverage'],
 
     junitReporter: {
       outputFile: 'test-results.xml',
       suite: ''
+    },
+
+    coverageReporter: {
+      type : 'cobertura',
+      dir : 'coverage/'
     },
 
     ngHtml2JsPreprocessor: {
@@ -25,11 +30,14 @@ module.exports = function(config) {
       'karma-phantomjs-launcher',
       'karma-jasmine',
       'karma-ng-html2js-preprocessor',
-      'karma-junit-reporter'
+      'karma-junit-reporter',
+      'karma-coverage'
     ],
 
     preprocessors: {
-      'src/**/*.html': ['ng-html2js']
+      'src/**/*.html': ['ng-html2js'],
+      //'src/**/*(!spec).js': ['coverage']
+      'src/**/!(*.spec).js': ['coverage']
     }
   };
 
