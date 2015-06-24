@@ -1,46 +1,45 @@
-<div class="row" ng-controller="DataChartCtrl" ng-show="reports.length">
-    <table class="table">
-        <thaad>
-            <tr>
-                <th>
-                    <a href="#" ng-click="sortType = 'symptom'; sortReverse = !sortReverse">
-                        Symptom
-                        <span ng-show="sortType == 'symptom' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-                        <span ng-show="sortType == 'symptom' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
-                    </a>
-                </th>
-                <th>
-                    <a href="#" ng-click="sortType = 'severity'; sortReverse = !sortReverse">
-                    Severity
-                    <span ng-show="sortType == 'severity' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-                    <span ng-show="sortType == 'severity' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
-                </th>
-                <th>
-                    <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">
-                    Age
-                    <span ng-show="sortType == 'age' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-                    <span ng-show="sortType == 'age' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
-                </th>
-                <th>
-                    <a href="#" ng-click="sortType = 'sex'; sortReverse = !sortReverse">
-                    Sex
-                    <span ng-show="sortType == 'sex' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-                    <span ng-show="sortType == 'sex' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
-                </th>
-                <th>
-                    Report
-                </th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="report in reports | orderBy:sortType:sortReverse">
-                <td>{{report.symptom}}</td>
-                <td>{{report.severity}}</td>
-                <td>{{report.age}}</td>
-                <td>{{report.sex}}</td>
-                <td><a href="#" ng-click="loadRequestedReport(report.id)">View Report</a></td>
-            </tr>
-        </tbody>
-    </table>
+
+<div class="row" ng-controller="DataChartCtrl" ng-show="symptoms.length">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <h3>Select Adverse Event</h3>
+        <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable()"></select>
+
+        <table class="table" ng-show="reports.length">
+            <thaad>
+                <tr>
+                    <th>
+                        <a href="#" ng-click="sortType = 'severity'; sortReverse = !sortReverse">
+                        Severity
+                        <span ng-show="sortType == 'severity' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'severity' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">
+                        Age
+                        <span ng-show="sortType == 'age' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'age' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="sortType = 'sex'; sortReverse = !sortReverse">
+                        Sex
+                        <span ng-show="sortType == 'sex' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'sex' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                    </th>
+                    <th>
+                        Report
+                    </th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="report in reports | orderBy:sortType:sortReverse">
+                    <td>{{report.severity}}</td>
+                    <td>{{report.age}}</td>
+                    <td>{{report.sex}}</td>
+                    <td><a href="#" ng-click="loadRequestedReport(report.id)">View Report</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <script type="text/ng-template" id="modalReportContent.html">
         <div class="modal-header">
@@ -52,7 +51,7 @@
                     <dl class="dl-horizontal">
                         <dt>Onset Age</dt>
                         <dd>{{report.patient.patientonsetage}}</dd>
-                        
+
                         <dt>Onset Age</dt>
                         <dd>{{report.patient.patientonsetage}}</dd>
                     </dl>
