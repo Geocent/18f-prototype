@@ -11,14 +11,14 @@ angular.module('ads.searchfield', [])
       $scope.serious = false;
 
       $scope.$watch('prescriptions', function() {
-          if($scope.prescriptions[$scope.prescriptions.length - 1].value !== undefined && $scope.prescriptions[$scope.prescriptions.length - 1].value.length > 0) {
+          if(!_.isUndefined($scope.prescriptions[$scope.prescriptions.length - 1].value) && $scope.prescriptions[$scope.prescriptions.length - 1].value.length > 0) {
               $scope.prescriptions.push({value: ''});
           }
       }, true);
 
       $scope.updateSearchParameters = function() {
           var selected = $scope.prescriptions.filter(function(prescription) {
-             return prescription.value !== undefined && prescription.value.length > 0;
+             return !_.isUndefined(prescription.value) && prescription.value.length > 0;
           });
 
         $rootScope.$broadcast('updateSearchParameters', {
@@ -32,7 +32,7 @@ angular.module('ads.searchfield', [])
       $scope.removePrescription = function(index) {
           $scope.prescriptions.splice(index, 1);
 
-          $scope.updateSelected();
+          $scope.updateSearchParameters();
       };
 
       $http
