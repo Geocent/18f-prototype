@@ -2,7 +2,6 @@
 
 var Navbar = function() {
 
-  var activeLAnchor;
   var navbarDiv = element(by.css('.navbar-collapse'));
   var navbarListItems = navbarDiv.all(by.css('ul > li'));
   var activeLAnchor = navbarDiv.element(by.css('ul > li.active > a'));
