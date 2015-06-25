@@ -15,7 +15,8 @@ RUN mkdir -p /var/log/supervisor
 COPY ./supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ADD ./certs/ads-dev.geocent.com.key /etc/ssl/ads-dev.geocent.com.key
-ADD ./certs/geocent.pem /etc/ssl/geocent.pem
+ADD ./certs/bundle.crt /etc/ssl/bundle.crt
+ADD ./certs/dhparams.pem /etc/ssl/dhparams.pem
 ADD ./default /etc/nginx/sites-available/default
 RUN chown -R jenkins:jenkins /usr/share/nginx/html
 
