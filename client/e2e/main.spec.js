@@ -24,7 +24,7 @@ describe('The main view', function () {
 
   describe('Perform invalid queries', function() {
       it('should filter results', function() {
-        element(by.css('.prescription')).sendKeys('xyz').then(function() {
+        element(by.css('.prescription')).sendKeys('zyzzyx').then(function() {
             expect(element.all(by.repeater('match in matches')).count()).toEqual(0);
         }, 200);
       });
