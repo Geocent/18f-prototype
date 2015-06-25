@@ -6,7 +6,7 @@ URL to "DEV" (integration) prototype: https://drugiq-dev.geocent.com
 
 URL to Jenkins/CI: https://drugiq-ci.geocent.com
 
-Srumdo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
+SrumDo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
 
 Datasets used: https://open.fda.gov/
 * /drug/event
