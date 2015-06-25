@@ -43,7 +43,7 @@ angular.module('ads.datachart', ['ui.bootstrap'])
           DrugEventService.get({
               'search' : buildQuery(queryData),
               'count' : 'patient.reaction.reactionmeddrapt.exact',
-              'limit' : '20'
+              'limit' : '100'
           }, function(data) {
 
               $scope.symptoms = _.map(data.results, function(value) {
