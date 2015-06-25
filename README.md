@@ -40,7 +40,8 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 | [NVM] (https://github.com/creationix/nvm)  | Node Versioning Manager for local Devleopment Environment  | [MIT] (https://github.com/creationix/nvm/blob/master/LICENSE.md)  |
 | [D3 JS] (http://d3js.org/) | Used for charts and data driven documents | [AS IS] (https://github.com/mbostock/d3/blob/master/LICENSE) |
 | [NVD3] (http://nvd3.org/) | Reusable charts component for D3 | [Apache] (https://github.com/novus/nvd3/blob/master/LICENSE.md) |
-| [Underscore] (http://underscorejs.org/) | JavaScript's utility _ belt for functional suspects. | [MIT] (https://github.com/jashkenas/underscore/blob/master/LICENSE) |
+| [Moment.js] (http://momentjs.com/) | Cross browser date processing and formatting | [MIT] (https://github.com/moment/moment/blob/develop/LICENSE) |
+| [Underscore] (http://underscorejs.org/) | JavaScript's utility _ belt for functional collection processing. | [MIT] (https://github.com/jashkenas/underscore/blob/master/LICENSE) |
 | [Style-Guide-Boilerplate-Bootstrap-Edition] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition) | Generate Style Guide | [MIT] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition/blob/Style-Guide-Boilerplate-Bootstrap/LICENSE.txt) |
 | [Jenkins] (https://jenkins-ci.org/) | Continuous Integration. | [MIT] (https://github.com/jenkinsci/jenkins/blob/master/LICENSE.txt) |
 | [NGINX] (http://nginx.org/) | Web Proxy. | [AS-IS] (http://nginx.org/LICENSE) |

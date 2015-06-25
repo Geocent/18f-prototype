@@ -2,7 +2,7 @@
 <div class="row" ng-controller="DataChartCtrl" ng-show="symptoms.length">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-        <h3>Select Adverse Event Symptom</h3>
+        <h3>Select Adverse Event</h3>
         <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)"></select>
 
         <div  ng-show="isLoading" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>Loading...</i></div>
@@ -11,19 +11,19 @@
             <thaad>
                 <tr>
                     <th>
-                        <a ng-click="sortType = 'severity'; sortReverse = !sortReverse">
+                        <a href="#" ng-click="sortType = 'severity'; sortReverse = !sortReverse">
                         Severity
                         <span ng-show="sortType == 'severity' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'severity' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th>
-                        <a ng-click="sortType = 'age'; sortReverse = !sortReverse">
+                        <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">
                         Age
                         <span ng-show="sortType == 'age' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'age' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th>
-                        <a ng-click="sortType = 'sex'; sortReverse = !sortReverse">
+                        <a href="#" ng-click="sortType = 'sex'; sortReverse = !sortReverse">
                         Sex
                         <span ng-show="sortType == 'sex' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'sex' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
@@ -37,7 +37,7 @@
                     <td>{{report.severity}}</td>
                     <td>{{report.age}}</td>
                     <td>{{report.sex}}</td>
-                    <td><a href="#" ng-click="loadRequestedReport(report.id)">View Report</a></td>
+                    <td><a ng-click="loadRequestedReport(report.id)">View Report</a></td>
                 </tr>
             </tbody>
         </table>
@@ -49,24 +49,60 @@
 
     <script type="text/ng-template" id="modalReportContent.html">
         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="close()"><span aria-hidden="true">&times;</span></button>
             <h3 class="modal-title">Safety Report ID - {{report.safetyreportid}}</h3>
         </div>
         <div class="modal-body">
             <accordion close-others="false">
-                <accordion-group heading="Patient" is-open="true">
+                <accordion-group heading="Event" is-open="true">
                     <dl class="dl-horizontal">
-                        <dt>Onset Age</dt>
-                        <dd>{{report.patient.patientonsetage}}</dd>
+                        <dt>Date</dt>
+                        <dd>{{report.event.date}}</dd>
 
-                        <dt>Onset Age</dt>
-                        <dd>{{report.patient.patientonsetage}}</dd>
+                        <dt>Serious Result</dt>
+                        <dd><span class="glyphicon" ng-class="{'glyphicon-check': report.event.serious.congenitalAnomaly, 'glyphicon-unchecked': !report.event.serious.congenitalAnomaly}" aria-hidden="true"></span> Congential Anomaly</dd>
+                        <dd><span class="glyphicon" ng-class="{'glyphicon-check': report.event.serious.death, 'glyphicon-unchecked': !report.event.serious.death}" aria-hidden="true"></span> Death</dd>
+                        <dd><span class="glyphicon" ng-class="{'glyphicon-check': report.event.serious.disability, 'glyphicon-unchecked': !report.event.serious.disability}" aria-hidden="true"></span> Disability</dd>
+                        <dd><span class="glyphicon" ng-class="{'glyphicon-check': report.event.serious.hospitalization, 'glyphicon-unchecked': !report.event.serious.hospitalization}" aria-hidden="true"></span> Hospitalization</dd>
+                        <dd><span class="glyphicon" ng-class="{'glyphicon-check': report.event.serious.lifeThreatening, 'glyphicon-unchecked': !report.event.serious.lifeThreatening}" aria-hidden="true"></span> Life Threatening</dd>
+                        <dd><span class="glyphicon" ng-class="{'glyphicon-check': report.event.serious.other, 'glyphicon-unchecked': !report.event.serious.other}" aria-hidden="true"></span> Other</dd>
+                    </dl>
+                </acordion>
+
+                <accordion-group heading="Patient">
+                    <dl class="dl-horizontal">
+                        <dt>Age</dt>
+                        <dd>{{report.patient.age}}</dd>
+
+                        <dt>Sex</dt>
+                        <dd>{{report.patient.sex}}</dd>
+
+                        <dt>Weight</dt>
+                        <dd>{{report.patient.weight}}</dd>
                     </dl>
                 </accordion-group>
 
                 <accordion-group heading="Drug">
+                    <dl class="dl-horizontal" ng-repeat="drug in report.drugs | orderBy:'name'">
+                        <dt>Name</dt>
+                        <dd>{{drug.name}}</dd>
+
+                        <dt>Indication</dt>
+                        <dd>{{drug.indication}}</dd>
+
+                        <dt>Form</dt>
+                        <dd>{{drug.form}}</dd>
+                    </dl>
                 </accordion-group>
 
                 <accordion-group heading="Reaction">
+                    <dl class="dl-horizontal" ng-repeat="reaction in report.reactions | orderBy:'reaction'">
+                        <dt>Reaction</dt>
+                        <dd>{{reaction.reaction}}</dd>
+
+                        <dt>Outcome</dt>
+                        <dd>{{reaction.outcome}}</dd>
+                    </dl>
                 </accordion-group>
             </accordion>
         </div>
