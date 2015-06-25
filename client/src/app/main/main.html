@@ -4,20 +4,19 @@
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-primary">
-        <div class="panel-heading">Drug Search</div>
+        <div class="panel-heading">Discover Drug Interactions</div>
         <div class="panel-body">
           <div class="row">
             <div class="col-md-6">
               <div ng-include="'app/components/searchfield/searchfield.html'"></div>
             </div>
             <div class="col-md-6">
-              <h3>Drug IQ Detailed Instructions</h3>
-                <ol>
-<li>Start with a single drug. Enter that drug name in the text box. Autocomplete can help if you are unsure about spelling. You can enter the drugs generic name or brand name. </li>
-<li>If applicable, enter a second drug to discover adverse reaction reports for multiple drugs administered together.</li>
-<li>During this process, a report showing symptoms associated with reported adverse reactions are displayed sorted by most common adverse reaction. </li>
-<li>Also displayed, is a listing of detailed reports for each interaction report for a given patient. Click “View Report” to view this detailed information. </li>
-                </ol>
+              <h3>How Does This Work?</h3>
+              <ol>
+                <li><b>Select the drug or combination of drugs you are interested in.</b></li>
+                <li><b>Visualize what others are experiencing.</b></li>
+                <li><b>Explore the details.</b></li>
+              </ol>
             </div>
           </div>
         </div>
@@ -28,7 +27,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading">Results</div>
+        <div class="panel-heading">What Others Are Experencing</div>
         <div class="panel-body">
           <div ng-include="'app/components/barchart/bar-chart.html'"></div>
         </div>
@@ -39,7 +38,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading">Adverse Events</div>
+        <div class="panel-heading">Explore The Details</div>
         <div class="panel-body">
           <div ng-include="'app/components/datachart/datachart.html'"></div>
         </div>
