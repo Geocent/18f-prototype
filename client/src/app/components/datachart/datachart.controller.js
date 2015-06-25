@@ -36,6 +36,12 @@ angular.module('ads.datachart', ['ui.bootstrap'])
         '6': 'Unknown'
       };
 
+      var DRUG_CHARACTERIZATION = {
+        '1': 'Suspect drug',
+        '2': 'Concomitant drug',
+        '3': 'Interacting drug'
+      };
+
       function buildQuery(queryData, symptom) {
           var query =  _.reduce(queryData.prescriptions, function(memo, medication, index) {
               return memo + 'patient.drug.medicinalproduct:"' + medication + (index < queryData.prescriptions.length - 1 ? '" AND ': '"');
@@ -134,6 +140,7 @@ angular.module('ads.datachart', ['ui.bootstrap'])
                             drugs : _.map(report.patient.drug, function(value){
                                 return {
                                     name: value.medicinalproduct || 'Unknown',
+                                    characterization: value.drugcharacterization ? DRUG_CHARACTERIZATION[value.drugcharacterization] : 'Unknown',
                                     indication: value.drugindication || 'Unknown',
                                     form: value.drugdosageform || 'Unknown'
                                 };
