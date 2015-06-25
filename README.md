@@ -18,7 +18,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 
 ### Design Standards:
 * https://github.com/18F/api-standards
-* https://playbook.cio.gov/#play3
+* https://playbook.cio.gov/#play3 | [Playbook Checklist](/docs/HCD/USG%20Playbook%20Checklist.xlsx)
 * 508 Compliance
 * Google Accessibility http://www.google.com/accessibility/initiatives-research.html
 
