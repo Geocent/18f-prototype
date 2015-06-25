@@ -7,8 +7,17 @@ var Navbar = function() {
   var navbarListItems = navbarDiv.all(by.css('ul > li'));
   var activeLAnchor = navbarDiv.element(by.css('ul > li.active > a'));
 
-  this.loadHomepage = function() {
+  this.loadHomePageInBrowser = function() {
     browser.get('http://localhost:3000/index.html');
+  }
+
+  this.loadAboutPageInBrowser = function() {
+    browser.get('http://localhost:3000/#/about');
+  }
+
+  this.clickHome = function() {
+    var homeIndex = 0;
+    clickTabBy(homeIndex);
   }
 
   this.clickAbout = function() {
