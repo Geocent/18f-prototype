@@ -16,6 +16,8 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       $scope.selectedReportPage = 1;
       $scope.reportPageSize = 100;
 
+      $scope.isLoading = false;
+
       function buildQuery(queryData, symptom) {
           var query =  _.reduce(queryData.prescriptions, function(memo, medication, index) {
               return memo + 'patient.drug.openfda.brand_name:"' + medication + (index < queryData.prescriptions.length - 1 ? '" AND ': '"');
@@ -57,11 +59,14 @@ angular.module('ads.datachart', ['ui.bootstrap'])
               $scope.selectedReportPage = 1;
           }
 
+          $scope.isLoading = true;
+
           DrugEventService.get({
               'search' : buildQuery($scope.query, $scope.selectedSymptom),
               'limit' : $scope.reportPageSize,
               'skip' : ($scope.selectedReportPage - 1) * $scope.reportPageSize
           }, function(data) {
+              $scope.isLoading = false;
               $scope.totalReports = data.meta.results.total;
               _.each(data.results, function(report) {
                   _.each(report.patient.reaction, function(reaction){
