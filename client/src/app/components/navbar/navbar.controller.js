@@ -5,7 +5,7 @@ angular.module('ads.navbar', ['ui.bootstrap.collapse'])
     $scope.date = new Date();
     $scope.nav = {
         'home': '#/',
-        'about': "#/about",
+        'about': '#/about',
         'contact': '#/contact',
         'source': 'https://github.com/Geocent/18f-prototype'
     };

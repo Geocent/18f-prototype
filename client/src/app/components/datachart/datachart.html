@@ -5,6 +5,8 @@
         <h3>Select Adverse Event</h3>
         <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)"></select>
 
+        <div  ng-show="isLoading" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>Loading...</i></div>
+
         <table class="table" ng-show="reports.length">
             <thaad>
                 <tr>
