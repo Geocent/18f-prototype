@@ -12,13 +12,23 @@ var Navbar = function() {
   }
 
   this.clickAbout = function() {
-    var aboutListItem = navbarListItems.get(1);
-    var aboutAnchor = aboutListItem.element(by.css('a'));
-    aboutAnchor.click();
+    var aboutIndex = 1;
+    clickTabBy(aboutIndex);
+  }
+
+  this.clickContact = function() {
+    var contactIndex = 2;
+    clickTabBy(contactIndex);
   }
 
   this.getActiveTabText = function() {
     return activeLAnchor.getText();
+  }
+
+  function clickTabBy(index) {
+    var tabListItem = navbarListItems.get(index);
+    var tabAnchor = tabListItem.element(by.css('a'));
+    tabAnchor.click();
   }
 };
 
