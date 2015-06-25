@@ -20,11 +20,11 @@ angular.module('client',
       })
       .state('about', {
         url: '/about',
-        templateUrl: 'app/components/about/about.html'
+        templateUrl: 'app/views/about/about.html'
       })
       .state('contact', {
         url: '/contact',
-        templateUrl: 'app/components/contact/contact.html'
+        templateUrl: 'app/views/contact/contact.html'
       });
 
     $urlRouterProvider.otherwise('/');

@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor
 COPY ./supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-ADD ./certs/ads.geocent.com.key /etc/ssl/ads.geocent.com.key
+ADD ./certs/drugiq.geocent.com.key /etc/ssl/drugiq.geocent.com.key
 ADD ./certs/geocent.pem /etc/ssl/geocent.pem
 ADD ./default /etc/nginx/sites-available/default
 RUN chown -R jenkins:jenkins /usr/share/nginx/html

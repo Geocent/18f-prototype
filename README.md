@@ -1,11 +1,10 @@
 # ADS Prototype response
 
-URL to "PROD" prototype: http://ads.geocent.com
-[![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-dev)](https://ads-ci.geocent.com/job/deploy-dev/)
+URL to "PROD" prototype: https://drugiq.geocent.com
 
-URL to "DEV" (integration) prototype: http://ads-dev.geocent.com
+URL to "DEV" (integration) prototype: https://drugiq-dev.geocent.com
 
-URL to Jenkins/CI: http://ads-ci.geocent.com
+URL to Jenkins/CI: https://drugiq-ci.geocent.com
 
 Srumdo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
 
@@ -19,7 +18,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 
 ### Design Standards:
 * https://github.com/18F/api-standards
-* https://playbook.cio.gov/#play3
+* https://playbook.cio.gov/#play3 | [Playbook Checklist](/docs/HCD/USG%20Playbook%20Checklist.xlsx)
 * 508 Compliance
 * Google Accessibility http://www.google.com/accessibility/initiatives-research.html
 
@@ -36,12 +35,17 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 | [Docker] (https://www.docker.com/) | Production Deployment Contain for isolation  | [Apache] (https://github.com/docker/docker/blob/master/LICENSE)  |
 | [Bootstrap] (http://getbootstrap.com/) | Responsive UI  | [MIT] (https://github.com/twbs/bootstrap/blob/master/LICENSE)  |
 | [Gulp] (http://gulpjs.com/)  | Automated Build/Workflow  | [MIT] (https://github.com/gulpjs/gulp/blob/master/LICENSE)  |
+| [Karma] (http://karma-runner.github.io/0.8/plus/AngularJS.html)  | Unit Testing  | [MIT] (https://github.com/karma-runner/karma/blob/master/LICENSE)  |
 | [Protractor] (https://angular.github.io/protractor/#/)  | E2E Testing  | [MIT] (https://github.com/angular/protractor/blob/master/LICENSE)  |
 | [NVM] (https://github.com/creationix/nvm)  | Node Versioning Manager for local Devleopment Environment  | [MIT] (https://github.com/creationix/nvm/blob/master/LICENSE.md)  |
 | [D3 JS] (http://d3js.org/) | Used for charts and data driven documents | [AS IS] (https://github.com/mbostock/d3/blob/master/LICENSE) |
 | [NVD3] (http://nvd3.org/) | Reusable charts component for D3 | [Apache] (https://github.com/novus/nvd3/blob/master/LICENSE.md) |
-| [Underscore] (http://underscorejs.org/) | JavaScript's utility _ belt for functional suspects. | [MIT] (https://github.com/jashkenas/underscore/blob/master/LICENSE) |
+| [Moment.js] (http://momentjs.com/) | Cross browser date processing and formatting | [MIT] (https://github.com/moment/moment/blob/develop/LICENSE) |
+| [Underscore] (http://underscorejs.org/) | JavaScript's utility _ belt for functional collection processing. | [MIT] (https://github.com/jashkenas/underscore/blob/master/LICENSE) |
 | [Style-Guide-Boilerplate-Bootstrap-Edition] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition) | Generate Style Guide | [MIT] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition/blob/Style-Guide-Boilerplate-Bootstrap/LICENSE.txt) |
+| [Jenkins] (https://jenkins-ci.org/) | Continuous Integration. | [MIT] (https://github.com/jenkinsci/jenkins/blob/master/LICENSE.txt) |
+| [NGINX] (http://nginx.org/) | Web Proxy. | [AS-IS] (http://nginx.org/LICENSE) |
+
 
 
 ### Installation and Setup:
