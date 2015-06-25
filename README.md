@@ -1,4 +1,4 @@
-# ADS Prototype response
+# ADS Prototype Response
 
 URL to "PROD" prototype: https://drugiq.geocent.com
 
