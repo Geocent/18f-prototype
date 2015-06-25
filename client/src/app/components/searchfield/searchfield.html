@@ -1,7 +1,7 @@
 <div class="row" ng-controller="SearchfieldCtrl">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <h3>Enter Prescriptions</h3>
-      <ul>
+      <ul class="list-unstyled">
           <li ng-repeat="prescription in prescriptions" class="entryField">
               <div class="input-group">
                   <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="updateSearchParameters()" ng-value="prescription.value" ng-model="prescription.value"/>
