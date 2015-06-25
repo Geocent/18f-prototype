@@ -4,11 +4,11 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 
 	// Turn off debug logging in NVD3
 	nv.dev = false;
-	
+
     chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
         $scope.query = null;
-        
+
         // the options object is used by the NVD3 chart specifically and controls the output
         $scope.options = {
     	        chart: {
@@ -43,7 +43,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         function setAxisLabel( recCount ) {
         	$scope.options.chart.yAxis.axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
         }
-        
+
         // This function is called as the result of a 'broadcast' event being fired by the SearchFieldCtrl
         // when the user enters a medication into the entry field. This function is responsible for building and
         // executing the query, then transforming the return data to what the chart expects
@@ -61,7 +61,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	$scope.getData();
         });
 
-        // this function is responsible for calling the DrugEventService with the query that was 
+        // this function is responsible for calling the DrugEventService with the query that was
         // built previously. If no query has been built, then the function does nothing
         $scope.getData = function(){
         	if( $scope.query ) {
@@ -82,7 +82,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         // function responsible for taking the medications sent from the SearchFieldCtrl and creating the
         // search text that will be passed on to the DrugEventService
         $scope.buildSearchText = function (medications) {
-        	var fieldName = 'patient.drug.openfda.brand_name:';
+        	var fieldName = 'patient.drug.medicinalproduct:';
         	var searchString = fieldName;
         	for(var i=0; i<medications.length; i++) {
         		searchString = searchString + '"' + medications[i] + '"';
@@ -92,5 +92,5 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	}
         	return searchString;
         };
-        
+
     });

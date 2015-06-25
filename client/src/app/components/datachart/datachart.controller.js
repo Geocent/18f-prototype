@@ -38,7 +38,7 @@ angular.module('ads.datachart', ['ui.bootstrap'])
 
       function buildQuery(queryData, symptom) {
           var query =  _.reduce(queryData.prescriptions, function(memo, medication, index) {
-              return memo + 'patient.drug.openfda.brand_name:"' + medication + (index < queryData.prescriptions.length - 1 ? '" AND ': '"');
+              return memo + 'patient.drug.medicinalproduct:"' + medication + (index < queryData.prescriptions.length - 1 ? '" AND ': '"');
           }, queryData.serious ? 'serious:1 AND ' : '');
 
           if(symptom) {

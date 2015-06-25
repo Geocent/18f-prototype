@@ -42,7 +42,7 @@ describe('BarChart Controller', function() {
 
     it('verifies the buildSearchText method', function(){
     	var medications = ['promethazine', 'acetaminophen'];
-    	var expectedText = 'patient.drug.openfda.brand_name:"promethazine" AND patient.drug.openfda.brand_name:"acetaminophen"';
+    	var expectedText = 'patient.drug.medicinalproduct:"promethazine" AND patient.drug.medicinalproduct:"acetaminophen"';
     	var searchText = scope.buildSearchText( medications );
     	expect(searchText).toEqual(expectedText);
     });
