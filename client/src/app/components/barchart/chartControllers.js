@@ -4,7 +4,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 
 	// Turn off debug logging in NVD3
 	nv.dev = false;
-	
+
     chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
         $scope.query = null;
@@ -35,7 +35,20 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     	                tickFormat: function(d){
     	                    return d3.format(',.0f')(d);
     	                }
+    	            },
+    	            
+    	            multiBarHorizontalChart: {
+    	            	dispatch: {
+    	            		on: {
+	    	            		elementClick: function(e){
+	    	            			console.log('element: ' + e.value);
+	    	            		}
+    	            		}
+    	            	}
     	            }
+//    	            tooltip: function(key, y, e, graph) {
+//    	            	return '<b>' + y + '</b>';
+//    	            }
     	        }
             };
 
@@ -56,7 +69,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	$scope.query = {
               'search' : searchString,
       	      'count' : 'patient.reaction.reactionmeddrapt.exact',
-    	      'limit' : '20'
+    	      'limit' : '200'
         	};
         	$scope.getData();
         });
@@ -72,10 +85,34 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                       	 key: 'Adverse Events',
                       	 values: data.results
                        }];
+//                	$scope.translateData(data);
                     $scope.recCount = data.results.length;
                     console.log('Returned data: ' + $scope.recCount);
                     setAxisLabel($scope.recCount);
                   });
+        	}
+        };
+        
+        $scope.translateData = function(data) {
+        	var totalEvents = 0;
+        	// Compute the total
+        	for( var i=0; i<data.results.length; i++ ) {
+        		totalEvents += data.results[i].count;
+        	}
+        	// now put the output data into our 'chartData'
+        	$scope.chartData = [
+                {
+                	key: 'Adverse Events',
+                	values: [] 
+//            		{
+//            			term: null,
+//            			count
+//                	}
+                }
+            ];
+        	for( i=0; i<20; i++ ) {
+        		$scope.chartData[0].values[i].term = data.results[i].term;
+        		$scope.chartData[0].values[i].count = data.results[i].count / totalEvents;
         	}
         };
 
