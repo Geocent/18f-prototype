@@ -144,8 +144,9 @@ angular.module('ads.datachart', ['ui.bootstrap'])
           });
       };
 
-      $scope.loadRequestedReport = function(reportId) {
-        var reportData = $scope.reports[reportId].reportData;
+      $scope.loadRequestedReport = function(report) {
+        var reportIndex = $scope.reports.indexOf(report);
+        var reportData = $scope.reports[reportIndex].reportData;
         $modal.open({
           templateUrl: 'modalReportContent.html',
           controller: 'ReportModalCtrl',
