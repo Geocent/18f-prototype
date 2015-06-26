@@ -3,12 +3,18 @@
 angular.module('client',
   ['ngAnimate', 'ngCookies', 'ngTouch',
    'ngSanitize', 'ngResource', 'ui.router',
-   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.searchfield', 'ads.chartControllers','ads.datachart']
+   'ui.bootstrap', 'ads.navbar', 'ads.main', 'ads.landing',
+    'ads.searchfield', 'ads.chartControllers','ads.datachart']
 )
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
         url: '/',
+        templateUrl: 'app/landing/landing.html',
+        controller: 'LandingCtrl'
+      })
+      .state('search', {
+        url: '/search',
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
       })
