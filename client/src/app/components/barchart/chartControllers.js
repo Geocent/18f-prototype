@@ -14,7 +14,6 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     	        chart: {
     	            type: 'multiBarHorizontalChart',
     	            height: 450,
-    	            width: 400,
                     margin : {
                         top: 20,
                         right: 100,
@@ -65,9 +64,11 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         function setAdditionalScopeInfo( recCount ) {
         	$scope.options.chart.yAxis.axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
         	// Set chart size to 80% of screen width if that width is over 400; otherwise set chart to screen size
-        	$scope.options.chart.width = window.screen.width > 400 ? (window.screen.width * .8) : window.screen.width;
-//        	console.log( 'window.screen.size: ' + window.screen.width );
-//        	console.log( 'Chart width: ' + $scope.options.chart.width );
+        	if( window.screen.width <= 400 ) {
+            	$scope.options.chart.width = 600;
+        	}
+        	console.log( 'window.screen.size: ' + window.screen.width );
+        	console.log( 'Chart width: ' + $scope.options.chart.width );
         }
 
         $scope.$on('elementClick.directive', function(angularEvent, event) {
