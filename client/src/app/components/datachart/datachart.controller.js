@@ -12,9 +12,39 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       $scope.sortType = 'id';
       $scope.sortReverse = false;
 
+      $scope.totalReports = 0;
+      $scope.selectedReportPage = 1;
+      $scope.reportPageSize = 100;
+
+      $scope.isLoading = false;
+
+      var PATIENT_AGE_UNITS = {
+        '800': 'Decade',
+        '801': 'Year',
+        '802': 'Month',
+        '803': 'Week',
+        '804': 'Day',
+        '805': 'Hour'
+      };
+
+      var REACTION_OUTCOME = {
+        '1': 'Recovered/resolved',
+        '2': 'Recovering/resolving',
+        '3': 'Not recovered/not resolved',
+        '4': 'Recovered/resolved with sequelae',
+        '5': 'Fatal',
+        '6': 'Unknown'
+      };
+
+      var DRUG_CHARACTERIZATION = {
+        '1': 'Suspect drug',
+        '2': 'Concomitant drug',
+        '3': 'Interacting drug'
+      };
+
       function buildQuery(queryData, symptom) {
           var query =  _.reduce(queryData.prescriptions, function(memo, medication, index) {
-              return memo + 'patient.drug.openfda.brand_name:"' + medication + (index < queryData.prescriptions.length - 1 ? '" AND ': '"');
+              return memo + 'patient.drug.medicinalproduct:"' + medication + (index < queryData.prescriptions.length - 1 ? '" AND ': '"');
           }, queryData.serious ? 'serious:1 AND ' : '');
 
           if(symptom) {
@@ -27,14 +57,18 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       $rootScope.$on('updateSearchParameters', function(event, queryData) {
           $scope.query = queryData;
 
+          $scope.totalReports = 0;
+          $scope.selectedReportPage = 1;
+
+          $scope.symptoms = [];
+          $scope.selectedSymptom = undefined;
+          $scope.reports = [];
+
           DrugEventService.get({
               'search' : buildQuery(queryData),
               'count' : 'patient.reaction.reactionmeddrapt.exact',
-              'limit' : '20'
+              'limit' : 1000
           }, function(data) {
-              $scope.symptoms = [];
-              $scope.selectedSymptom = undefined;
-              $scope.reports = [];
 
               $scope.symptoms = _.map(data.results, function(value) {
                   return value.term;
@@ -42,20 +76,30 @@ angular.module('ads.datachart', ['ui.bootstrap'])
           });
       });
 
-      $scope.updateReportTable = function() {
+      $scope.updateReportTable = function(resetPage) {
           $scope.reports = [];
+
+          if(resetPage) {
+              $scope.selectedReportPage = 1;
+          }
+
+          $scope.isLoading = true;
+
           DrugEventService.get({
               'search' : buildQuery($scope.query, $scope.selectedSymptom),
-              'limit' : '100'
+              'limit' : $scope.reportPageSize,
+              'skip' : ($scope.selectedReportPage - 1) * $scope.reportPageSize
           }, function(data) {
+              $scope.isLoading = false;
+              $scope.totalReports = data.meta.results.total;
               _.each(data.results, function(report) {
                   _.each(report.patient.reaction, function(reaction){
 
-                    if(reaction.reactionmeddrapt === $scope.selectedSymptom) {
+                    if(reaction.reactionmeddrapt.toLowerCase() === $scope.selectedSymptom.toLowerCase()) {
                         $scope.reports.push({
                             symptom: reaction.reactionmeddrapt,
                             severity: report.serious === '1' ? 'Serious' : 'Minor',
-                            age: report.patient.patientonsetage || 'Unknown',
+                            age: report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : 'Unknown',
                             sex: report.patient.patientsex === '1' ? 'Male' : (report.patient.patientsex === '2' ? 'Female' : 'Unknown'),
                             id: report.safetyreportid
                         });
@@ -73,7 +117,44 @@ angular.module('ads.datachart', ['ui.bootstrap'])
                   templateUrl: 'modalReportContent.html',
                   controller: 'ReportModalCtrl',
                   resolve: {
-                    report: function() { return data.results[0]; }
+                    report: function() {
+                        var report = data.results[0];
+
+                        var reportData = {
+                            event: {
+                                date: moment(report.transmissiondate, 'YYYYMMDD').format('MMMM D, YYYY'),
+                                serious: {
+                                    congenitalAnomaly: report.seriousnesscongenitalanomali === '1',
+                                    death: report.seriousnessdeath === '1',
+                                    disability: report.seriousnessdisabling === '1',
+                                    hospitalization: report.seriousnesshospitalization === '1',
+                                    lifeThreatening: report.seriousnesslifethreatening === '1',
+                                    other: report.seriousnessother === '1'
+                                }
+                            },
+                            patient: {
+                                age: report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : 'Unknown',
+                                sex: report.patient.patientsex === '1' ? 'Male' : (report.patient.patientsex === '2' ? 'Female' : 'Unknown'),
+                                weight: report.patient.patientweight ? report.patient.patientweight + ' kg' : 'Unknown'
+                            },
+                            drugs : _.map(report.patient.drug, function(value){
+                                return {
+                                    name: value.medicinalproduct || 'Unknown',
+                                    characterization: value.drugcharacterization ? DRUG_CHARACTERIZATION[value.drugcharacterization] : 'Unknown',
+                                    indication: value.drugindication || 'Unknown',
+                                    form: value.drugdosageform || 'Unknown'
+                                };
+                            }),
+                            reactions: _.map(report.patient.reaction, function(value){
+                                return {
+                                    reaction: value.reactionmeddrapt || 'Unknown',
+                                    outcome: value.reactionoutcome ? REACTION_OUTCOME[value.reactionoutcome] : 'Unknown'
+                                };
+                            })
+                        };
+
+                        return reportData;
+                    }
                   }
               });
           });

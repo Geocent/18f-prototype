@@ -1,6 +1,7 @@
 <div ng-show="chartData" class="row" ng-controller="BarChartCtrl">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h3>Top {{recCount}} Adverse Event Symptoms</h3>
+        <h3>{{recCount}} Most Common Symptoms</h3>
+        <p>Experienced when taking X, Y, and Z together</p>
         <div class="chartDiv">
             <nvd3 options="options" data="chartData"></nvd3>
         </div>
