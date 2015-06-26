@@ -66,8 +66,16 @@ describe('BarChart Controller', function() {
         // the query should move the results data from a field called 'results' to a field called 'value'
         expect(scope.chartData.results).toBeUndefined();
         expect(scope.chartData[0].values).toBeDefined();
-
+        
+        // expected percentage is count for first item divided by total of all counts
+        var expectedPercentage = 7 / 15;
+        
+        // now verify that the data meets our expectations
         expect(scope.chartData[0].values.length).toEqual(2);
+        expect(scope.chartData[0].values[0].term).toEqual('NAUSEA');
+        expect(scope.chartData[0].values[0].count).toEqual(7);
+        expect(scope.chartData[0].values[0].percent).toEqual(expectedPercentage);
+        
       });
 
   });

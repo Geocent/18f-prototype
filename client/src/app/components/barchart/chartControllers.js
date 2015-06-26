@@ -21,7 +21,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                         left: 200
                     },
                     x: function(d){return d.term;},
-    	            y: function(d){return d.count;},
+    	            y: function(d){return d.percent;},
     	            //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
     	            showControls: false,
     	            stacked: false,
@@ -33,10 +33,12 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     	            yAxis: {
     	                axisLabel: 'Top Adverse Event Symptom Occurrences',
     	                tickFormat: function(d){
-    	                    return d3.format(',.0f')(d);
+    	                    return d3.format(',.2%')(d);
     	                }
     	            },
-    	            
+    	            valueFormat: function(d) {
+    	            	return d3.format(',.2%')(d);
+    	            },
     	            multiBarHorizontalChart: {
     	            	dispatch: {
     	            		on: {
@@ -45,10 +47,10 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 	    	            		}
     	            		}
     	            	}
+    	            },
+    	            tooltip: function(key, x, y, e, graph) {
+    	                return '<h3>' + key + '</h3>' + '<p>' +  y + ' at ' + x + '</p>';
     	            }
-//    	            tooltip: function(key, y, e, graph) {
-//    	            	return '<b>' + y + '</b>';
-//    	            }
     	        }
             };
 
@@ -69,7 +71,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	$scope.query = {
               'search' : searchString,
       	      'count' : 'patient.reaction.reactionmeddrapt.exact',
-    	      'limit' : '200'
+    	      'limit' : '20'
         	};
         	$scope.getData();
         });
@@ -80,14 +82,14 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	if( $scope.query ) {
         		$scope.chartData = [];
                 DrugEventService.get($scope.query, function(data) {
-                    $scope.chartData = [
-                       {
-                      	 key: 'Adverse Events',
-                      	 values: data.results
-                       }];
-//                	$scope.translateData(data);
+//                    $scope.chartData = [
+//                       {
+//                      	 key: 'Adverse Events',
+//                      	 values: data.results
+//                       }];
+                	$scope.translateData(data);
                     $scope.recCount = data.results.length;
-                    console.log('Returned data: ' + $scope.recCount);
+//                    console.log('Returned data: ' + $scope.recCount);
                     setAxisLabel($scope.recCount);
                   });
         	}
@@ -104,15 +106,14 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                 {
                 	key: 'Adverse Events',
                 	values: [] 
-//            		{
-//            			term: null,
-//            			count
-//                	}
                 }
             ];
-        	for( i=0; i<20; i++ ) {
-        		$scope.chartData[0].values[i].term = data.results[i].term;
-        		$scope.chartData[0].values[i].count = data.results[i].count / totalEvents;
+        	for( i=0; i<data.results.length; i++ ) {
+        		$scope.chartData[0].values[i] = {
+    				term: data.results[i].term,
+    				count: data.results[i].count,
+    				percent: data.results[i].count / totalEvents
+        		};
         	}
         };
 
