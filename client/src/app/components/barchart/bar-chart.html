@@ -1,14 +1,12 @@
 <div ng-show="chartData" class="row" ng-controller="BarChartCtrl">
-    <div class="checkbox col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label>
-        <input type="checkbox" ng-model="serious" ng-change="refreshChartWithLatestData()">
-        Show only serious adverse events
-      </label>
-    </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h3>{{recCount}} Most Common Symptoms</h3>
         <p>Experienced when taking X, Y, and Z together</p>
-        <div>
+        <div ng-hide="options.chart.width">
+            <p>No sizing</p>
+            <nvd3 options="options" data="chartData"></nvd3>
+        </div>
+        <div ng-show="options.chart.width" style="width: {{options.chart.width}}">
             <nvd3 options="options" data="chartData"></nvd3>
         </div>
     </div>
