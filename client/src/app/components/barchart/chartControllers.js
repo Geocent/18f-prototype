@@ -14,6 +14,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     	        chart: {
     	            type: 'multiBarHorizontalChart',
     	            height: 450,
+    	            width: 400,
                     margin : {
                         top: 20,
                         right: 100,
@@ -26,7 +27,12 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     	            showControls: false,
     	            stacked: false,
     	            showValues: true,
+    	            showLegend: true,
     	            transitionDuration: 500,
+    	            barColor: function (d, i) {
+    	            	var colors = d3.scale.category20().range().slice(10);
+    	                return d.color || colors[i % colors.length];
+    	            },
     	            xAxis: {
     	                showMaxMin: false
     	            },
@@ -39,15 +45,16 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     	            valueFormat: function(d) {
     	            	return d3.format(',.2%')(d);
     	            },
-    	            multiBarHorizontalChart: {
-    	            	dispatch: {
-    	            		on: {
-	    	            		elementClick: function(e){
-	    	            			console.log('element: ' + e.value);
-	    	            		}
-    	            		}
-    	            	}
-    	            },
+    	            interactive: true,
+//    	            multiBarHorizontalChart: {
+//    	            	dispatch: {
+//    	            		on: {
+//	    	            		elementClick: function(e){
+//	    	            			console.log('element: ' + e.value);
+//	    	            		}
+//    	            		}
+//    	            	}
+//    	            },
     	            tooltip: function(key, x, y, e, graph) {
     	                return '<h3>' + key + '</h3>' + '<p>' +  y + ' at ' + x + '</p>';
     	            }
@@ -55,10 +62,18 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
             };
 
         // utility function used to set the Y Axis label including the count of records the query returned
-        function setAxisLabel( recCount ) {
+        function setAdditionalScopeInfo( recCount ) {
         	$scope.options.chart.yAxis.axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
+        	// Set chart size to 80% of screen width if that width is over 400; otherwise set chart to screen size
+        	$scope.options.chart.width = window.screen.width > 400 ? (window.screen.width * .8) : window.screen.width;
+//        	console.log( 'window.screen.size: ' + window.screen.width );
+//        	console.log( 'Chart width: ' + $scope.options.chart.width );
         }
 
+        $scope.$on('elementClick.directive', function(angularEvent, event) {
+        	console.log( 'angularEvent: ' + angularEvent + ', event=' + event );
+        });
+        
         // This function is called as the result of a 'broadcast' event being fired by the SearchFieldCtrl
         // when the user enters a medication into the entry field. This function is responsible for building and
         // executing the query, then transforming the return data to what the chart expects
@@ -82,15 +97,10 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	if( $scope.query ) {
         		$scope.chartData = [];
                 DrugEventService.get($scope.query, function(data) {
-//                    $scope.chartData = [
-//                       {
-//                      	 key: 'Adverse Events',
-//                      	 values: data.results
-//                       }];
                 	$scope.translateData(data);
                     $scope.recCount = data.results.length;
 //                    console.log('Returned data: ' + $scope.recCount);
-                    setAxisLabel($scope.recCount);
+                    setAdditionalScopeInfo($scope.recCount);
                   });
         	}
         };
