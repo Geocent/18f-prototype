@@ -8,8 +8,6 @@ angular.module('ads.searchfield', [])
 
       $scope.brandNames = [];
 
-      $scope.serious = false;
-
       $scope.$watch('prescriptions', function() {
           if(!_.isEmpty($scope.prescriptions[$scope.prescriptions.length - 1].value)) {
               $scope.prescriptions.push({value: ''});
@@ -22,7 +20,6 @@ angular.module('ads.searchfield', [])
           });
 
         $rootScope.$broadcast('updateSearchParameters', {
-            'serious': $scope.serious === true,
             'prescriptions': selected.map(function(prescription) {
                 return prescription.value;
             })
