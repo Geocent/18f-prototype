@@ -18,7 +18,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                         top: 20,
                         right: 100,
                         bottom: 60,
-                        left: 200
+                        left: 190
                     },
                     x: function(d){return d.term;},
     	            y: function(d){return d.percent;},
@@ -65,7 +65,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	$scope.options.chart.yAxis.axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
         	// Set chart size to 80% of screen width if that width is over 400; otherwise set chart to screen size
         	if( window.screen.width <= 400 ) {
-            	$scope.options.chart.width = 600;
+            	$scope.options.chart.width = 500;
         	}
         	console.log( 'window.screen.size: ' + window.screen.width );
         	console.log( 'Chart width: ' + $scope.options.chart.width );
