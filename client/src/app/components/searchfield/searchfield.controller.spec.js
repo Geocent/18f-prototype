@@ -53,7 +53,7 @@ describe('ads.searchfield', function(){
 
   it('Initial empty prescription list', function() {
       expect(scope.prescriptions).toEqual([
-          {value: ''}
+          {value: undefined}
       ]);
   });
 
@@ -63,7 +63,7 @@ describe('ads.searchfield', function(){
 
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
-          {value: ''}
+          {value: undefined}
       ]);
 
       scope.updateSearchParameters();
@@ -78,7 +78,7 @@ describe('ads.searchfield', function(){
 
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
-          {value: ''}
+          {value: undefined}
       ]);
 
       scope.updateSearchParameters();
@@ -92,7 +92,7 @@ describe('ads.searchfield', function(){
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
           {value: 'ABILIFY'},
-          {value: ''}
+          {value: undefined}
       ]);
 
       scope.updateSearchParameters();
@@ -111,10 +111,10 @@ describe('ads.searchfield', function(){
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
           {value: 'ABILIFY'},
-          {value: ''}
+          {value: undefined}
       ]);
 
-      scope.updateSearchParameters();
+      scope.$digest();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
           { prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
       );
@@ -122,22 +122,25 @@ describe('ads.searchfield', function(){
       scope.removePrescription(1);
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
-          {value: ''}
+          {value: undefined}
       ]);
 
-      scope.updateSearchParameters();
+      scope.$digest();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
           { prescriptions: [ 'ACEPHEN' ]}
       );
 
       scope.removePrescription(0);
       expect(scope.prescriptions).toEqual([
-          {value: ''}
+          {value: undefined}
       ]);
 
-      scope.updateSearchParameters();
-      expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
+      scope.$digest();
+      expect(rootScope.$broadcast).not.toHaveBeenCalledWith('updateSearchParameters',
           { prescriptions: [ ]}
       );
   });
+
+
+
 });

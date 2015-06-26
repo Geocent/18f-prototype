@@ -1,17 +1,19 @@
 'use strict';
 
-angular.module('ads.searchfield', [])
+angular.module('ads.searchfield', ['nya.bootstrap.select'])
   .controller('SearchfieldCtrl', ['$http', '$rootScope', '$scope', function ($http, $rootScope, $scope) {
       $scope.prescriptions = [
-          {value: ''}
+          {value: undefined}
       ];
 
       $scope.brandNames = [];
 
       $scope.$watch('prescriptions', function() {
           if(!_.isEmpty($scope.prescriptions[$scope.prescriptions.length - 1].value)) {
-              $scope.prescriptions.push({value: ''});
+              $scope.prescriptions.push({value: undefined});
           }
+
+          $scope.updateSearchParameters();
       }, true);
 
       $scope.updateSearchParameters = function() {
@@ -19,17 +21,19 @@ angular.module('ads.searchfield', [])
              return !_.isEmpty(prescription.value);
           });
 
-        $rootScope.$broadcast('updateSearchParameters', {
-            'prescriptions': selected.map(function(prescription) {
-                return prescription.value;
-            })
-        });
+          if(selected.length > 0) {
+            $rootScope.$broadcast('updateSearchParameters', {
+                'prescriptions': selected.map(function(prescription) {
+                    return prescription.value;
+                })
+            });
+          }
       };
 
       $scope.removePrescription = function(index) {
           $scope.prescriptions.splice(index, 1);
 
-          $scope.updateSearchParameters();
+        //   $scope.updateSearchParameters();
       };
 
       $http
