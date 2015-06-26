@@ -95,12 +95,15 @@ angular.module('ads.datachart', ['ui.bootstrap'])
               _.each(data.results, function(report) {
                   _.each(report.patient.reaction, function(reaction){
 
+                    var age = report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : 'Unknown';
+                    var sex = report.patient.patientsex === '1' ? 'Male' : (report.patient.patientsex === '2' ? 'Female' : 'Unknown');
+
                     if(reaction.reactionmeddrapt.toLowerCase() === $scope.selectedSymptom.toLowerCase()) {
                         $scope.reports.push({
                             symptom: reaction.reactionmeddrapt,
                             severity: report.serious === '1' ? 'Serious' : 'Minor',
-                            age: report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : 'Unknown',
-                            sex: report.patient.patientsex === '1' ? 'Male' : (report.patient.patientsex === '2' ? 'Female' : 'Unknown'),
+                            age: age,
+                            sex: sex,
                             id: report.safetyreportid,
                             reportData: {
                               event: {
@@ -115,8 +118,8 @@ angular.module('ads.datachart', ['ui.bootstrap'])
                                 }
                               },
                               patient: {
-                                age: report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : 'Unknown',
-                                sex: report.patient.patientsex === '1' ? 'Male' : (report.patient.patientsex === '2' ? 'Female' : 'Unknown'),
+                                age: age,
+                                sex: sex,
                                 weight: report.patient.patientweight ? report.patient.patientweight + ' kg' : 'Unknown'
                               },
                               drugs : _.map(report.patient.drug, function(value){
