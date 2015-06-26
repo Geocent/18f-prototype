@@ -101,7 +101,39 @@ angular.module('ads.datachart', ['ui.bootstrap'])
                             severity: report.serious === '1' ? 'Serious' : 'Minor',
                             age: report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : 'Unknown',
                             sex: report.patient.patientsex === '1' ? 'Male' : (report.patient.patientsex === '2' ? 'Female' : 'Unknown'),
-                            id: report.safetyreportid
+                            id: report.safetyreportid,
+                            reportData: {
+                              event: {
+                                date: moment(report.transmissiondate, 'YYYYMMDD').format('MMMM D, YYYY'),
+                                serious: {
+                                  congenitalAnomaly: report.seriousnesscongenitalanomali === '1',
+                                  death: report.seriousnessdeath === '1',
+                                  disability: report.seriousnessdisabling === '1',
+                                  hospitalization: report.seriousnesshospitalization === '1',
+                                  lifeThreatening: report.seriousnesslifethreatening === '1',
+                                  other: report.seriousnessother === '1'
+                                }
+                              },
+                              patient: {
+                                age: report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : 'Unknown',
+                                sex: report.patient.patientsex === '1' ? 'Male' : (report.patient.patientsex === '2' ? 'Female' : 'Unknown'),
+                                weight: report.patient.patientweight ? report.patient.patientweight + ' kg' : 'Unknown'
+                              },
+                              drugs : _.map(report.patient.drug, function(value){
+                                return {
+                                  name: value.medicinalproduct || 'Unknown',
+                                  characterization: value.drugcharacterization ? DRUG_CHARACTERIZATION[value.drugcharacterization] : 'Unknown',
+                                  indication: value.drugindication || 'Unknown',
+                                  form: value.drugdosageform || 'Unknown'
+                                };
+                              }),
+                              reactions: _.map(report.patient.reaction, function(value){
+                                return {
+                                  reaction: value.reactionmeddrapt || 'Unknown',
+                                  outcome: value.reactionoutcome ? REACTION_OUTCOME[value.reactionoutcome] : 'Unknown'
+                                };
+                              })
+                            }
                         });
                     }
                 });
@@ -110,54 +142,16 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       };
 
       $scope.loadRequestedReport = function(reportId) {
-          DrugEventService.get({
-              'search' : 'safetyreportid:' + reportId,
-          }, function(data) {
-                $modal.open({
-                  templateUrl: 'modalReportContent.html',
-                  controller: 'ReportModalCtrl',
-                  resolve: {
-                    report: function() {
-                        var report = data.results[0];
-
-                        var reportData = {
-                            event: {
-                                date: moment(report.transmissiondate, 'YYYYMMDD').format('MMMM D, YYYY'),
-                                serious: {
-                                    congenitalAnomaly: report.seriousnesscongenitalanomali === '1',
-                                    death: report.seriousnessdeath === '1',
-                                    disability: report.seriousnessdisabling === '1',
-                                    hospitalization: report.seriousnesshospitalization === '1',
-                                    lifeThreatening: report.seriousnesslifethreatening === '1',
-                                    other: report.seriousnessother === '1'
-                                }
-                            },
-                            patient: {
-                                age: report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : 'Unknown',
-                                sex: report.patient.patientsex === '1' ? 'Male' : (report.patient.patientsex === '2' ? 'Female' : 'Unknown'),
-                                weight: report.patient.patientweight ? report.patient.patientweight + ' kg' : 'Unknown'
-                            },
-                            drugs : _.map(report.patient.drug, function(value){
-                                return {
-                                    name: value.medicinalproduct || 'Unknown',
-                                    characterization: value.drugcharacterization ? DRUG_CHARACTERIZATION[value.drugcharacterization] : 'Unknown',
-                                    indication: value.drugindication || 'Unknown',
-                                    form: value.drugdosageform || 'Unknown'
-                                };
-                            }),
-                            reactions: _.map(report.patient.reaction, function(value){
-                                return {
-                                    reaction: value.reactionmeddrapt || 'Unknown',
-                                    outcome: value.reactionoutcome ? REACTION_OUTCOME[value.reactionoutcome] : 'Unknown'
-                                };
-                            })
-                        };
-
-                        return reportData;
-                    }
-                  }
-              });
-          });
+        var reportData = $scope.reports[reportId].reportData;
+        $modal.open({
+          templateUrl: 'modalReportContent.html',
+          controller: 'ReportModalCtrl',
+          resolve: {
+            report: function() {
+              return reportData;
+            }
+          }
+        });
       };
   }]);
 
