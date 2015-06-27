@@ -6,7 +6,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
       $scope.adverseEvents = adverseEvents;
       loadSexChartData();
-      loadAgeChartData()
+      loadAgeChartData();
     });
 
     function getDefaultChartOptions() {
@@ -80,7 +80,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     function loadSexChartData() {
 
       MedicationsSearchService.query($scope.adverseEvents, null, 'patient.patientsex', null, function(data) {
-        var i, result, chartEntry;
+        var i, result;
         $scope.chartData = [];
         for (i = 0; i < data.results.length; ++i) {
           result = data.results[i];
@@ -119,8 +119,8 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     }
 
     function queryAgeService(label, searchRange, setOptions) {
-      var searchCriteria = 'patient.patientonsetage:' + searchRange;
-      MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', null, function(data) {
+      var searchCriteria = 'AND patient.patientonsetage:' + searchRange;
+      MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', '20', function(data) {
         var i, result;
         for (i = 0; i < data.results.length; ++i) {
           result = data.results[i];
@@ -135,4 +135,10 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       });
     }
 
+  })
+  .controller('Top20PieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller) {
+    $controller('PieChartCtrl', {'$scope': $scope});
+  })
+  .controller('DetailPieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller) {
+    $controller('PieChartCtrl', {'$scope': $scope});
   });
