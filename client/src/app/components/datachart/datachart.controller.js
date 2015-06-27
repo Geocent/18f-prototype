@@ -7,7 +7,7 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       $scope.symptomType = undefined;
       $scope.reports = [];
 
-      $scope.query = {};
+      $scope.query = {prescriptions: []};
 
       $scope.sortType = 'id';
       $scope.sortReverse = false;
