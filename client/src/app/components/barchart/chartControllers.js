@@ -7,8 +7,12 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 
     chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
+        $scope.serious = false;
+
         $scope.query = null;
 		$scope.prescriptions = [];
+
+        $scope.adverseEvents = null;
 
         // the options object is used by the NVD3 chart specifically and controls the output
         $scope.options = {
@@ -19,7 +23,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                         top: 20,
                         right: 100,
                         bottom: 60,
-                        left: 190
+                        left: 192
                     },
                     x: function(d){return d.term;},
     	            y: function(d){return d.percent;},
@@ -55,6 +59,9 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 //    	            		}
 //    	            	}
 //    	            },
+//    	            callback: function() {
+//    	            	d3.selectAll('text').style('font-size', '8px');
+//	            	},
     	            tooltip: function(key, x, y, e, graph) {
     	                return '<h3>' + key + '</h3>' + '<p>' +  y + ' at ' + x + '</p>';
     	            }
@@ -66,7 +73,12 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	$scope.options.chart.yAxis.axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
         	// Set chart size to 80% of screen width if that width is over 400; otherwise set chart to screen size
         	if( window.screen.width <= 400 ) {
-            	$scope.options.chart.width = 500;
+            	$scope.options.chart.width = window.screen.width;
+            	$scope.options.chart.margin.left = 100;
+            	$scope.options.chart.showValues = false;
+            	$scope.options.chart.callback = function() {
+	            	d3.selectAll('text').style('font-size', '6px');
+            	};
         	}
         	console.log( 'window.screen.size: ' + window.screen.width );
         	console.log( 'Chart width: ' + $scope.options.chart.width );
@@ -82,22 +94,26 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
 
+			$scope.adverseEvents = adverseEvents;
 			$scope.prescriptions = adverseEvents.prescriptions;
 
 			if(!_.isEmpty(adverseEvents)) {
-
-	            if (adverseEvents.serious) {
-	                searchString = searchString + ' AND serious:1';
-	            }
-
-	        	$scope.query = {
-	              'search' : searchString,
-	      	      'count' : 'patient.reaction.reactionmeddrapt.exact',
-	    	      'limit' : '20'
-	        	};
-	        	$scope.getData();
+          		$scope.refreshChartWithLatestData();
 			}
         });
+
+        $scope.refreshChartWithLatestData = function() {
+          var searchString = $scope.buildSearchText($scope.adverseEvents.prescriptions);
+          if ($scope.serious) {
+            searchString = searchString + ' AND serious:1';
+          }
+          $scope.query = {
+            'search' : searchString,
+            'count' : 'patient.reaction.reactionmeddrapt.exact',
+            'limit' : '20'
+          };
+          $scope.getData();
+        };
 
         // this function is responsible for calling the DrugEventService with the query that was
         // built previously. If no query has been built, then the function does nothing
