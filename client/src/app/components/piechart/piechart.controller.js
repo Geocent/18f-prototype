@@ -1,21 +1,13 @@
 'use strict';
 
-angular.module('ads.piechart',['nvd3'])
-  .controller('PieChartCtrl', function($scope, $rootScope){
-
-    loadCharts();
+angular.module('ads.piechart',['nvd3','ads.services.openfda'])
+  .controller('PieChartCtrl', function($scope, $rootScope, MedicationsSearchService){
 
     $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
-      loadCharts()
-    });
-
-    function loadCharts() {
-      setSexChartOptions();
+      $scope.adverseEvents = adverseEvents;
       loadSexChartData();
-
-      setAgeChartOptions();
-      loadAgeChartData();
-    }
+      loadAgeChartData()
+    });
 
     function getDefaultChartOptions() {
       return {
@@ -41,13 +33,13 @@ angular.module('ads.piechart',['nvd3'])
 
     function setSexChartOptions() {
       //$scope.options = getDefaultChartOptions();
-      //var width = $('#piechart-sex-div').innerWidth();
+      var chartWidth = getChartWidth();
 
       $scope.options = {
         chart: {
           type: 'pieChart',
           height: 500,
-          //width: width,
+          //width: chartWidth,
           x: function(d){return d.key;},
           y: function(d){return d.y;},
           showLabels: true,
@@ -68,11 +60,13 @@ angular.module('ads.piechart',['nvd3'])
     function setAgeChartOptions() {
       //$scope.ageOptions = getDefaultChartOptions();
       //var width = $('#piechart-age-div').innerWidth();
+      var chartWidth = getChartWidth();
+
       $scope.ageOptions = {
         chart: {
           type: 'pieChart',
           height: 500,
-          //width: width,
+          //width: chartWidth,
           x: function(d){return d.key;},
           y: function(d){return d.y;},
           showLabels: true,
@@ -90,37 +84,70 @@ angular.module('ads.piechart',['nvd3'])
       };
     }
 
-    function loadSexChartData(chartData) {
-      $scope.chartData = [
-        {
-          key: "Male",
-          y:.39
-        },
-        {
-          key: "Female",
-          y:.61
+    function getChartWidth() {
+      //var screenWidth = window.screen.width;
+      //return Math.round(screenWidth/chartsPerRow);
+      var width = $('#piechart-sex-div').innerWidth();
+      return width;
+    }
+
+    function loadSexChartData() {
+
+      MedicationsSearchService.query($scope.adverseEvents, null, 'patient.patientsex', null, function(data) {
+        var i, result, chartEntry;
+        $scope.chartData = [];
+        for (i = 0; i < data.results.length; ++i) {
+          result = data.results[i];
+          $scope.chartData.push({
+            key: decodeSexFrom(result.term),
+            y: result.count
+          });
         }
-      ];
+        setSexChartOptions();
+      });
+    }
+
+    function decodeSexFrom(term) {
+      var sex;
+      if (2 === term) {
+        sex = 'Male';
+      } else if (1 === term) {
+        sex = 'Female';
+      } else if (0 === term) {
+        sex = 'Unknown';
+      } else {
+        sex = 'Unknown';
+      }
+      return sex;
     }
 
     function loadAgeChartData() {
-      $scope.ageChartData = [
-        {
-          key: "< 25",
-          y:124
-        },
-        {
-          key: "25-50",
-          y:162
-        },
-        {
-          key: "50-75",
-          y:111
-        },
-        {
-          key: "Over 75",
-          y:35
+
+      $scope.ageChartData = [];
+
+      MedicationsSearchService.query($scope.adverseEvents, 'patient.patientonsetage:[0 TO 24]', 'receivedateformat', null, function(data) {
+        var i, result;
+        for (i = 0; i < data.results.length; ++i) {
+          result = data.results[i];
+          $scope.ageChartData.push({
+            key: "< 25",
+            y: result.count
+          });
         }
-      ];
+        // Should only need to set this once
+        setAgeChartOptions();
+      });
+
+      MedicationsSearchService.query($scope.adverseEvents, 'patient.patientonsetage:[25 TO 50]', 'receivedateformat', null, function(data) {
+        var i, result;
+        for (i = 0; i < data.results.length; ++i) {
+          result = data.results[i];
+          $scope.ageChartData.push({
+            key: "25-50",
+            y: result.count
+          });
+        }
+      });
+
     }
   });
