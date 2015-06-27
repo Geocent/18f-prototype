@@ -7,11 +7,9 @@ describe('ads.searchfield', function(){
 
   beforeEach(module('ads.searchfield'));
 
-  beforeEach(inject(function($controller, $http, $httpBackend, $rootScope) {
+  beforeEach(inject(function($controller, $http, $httpBackend, $location, $rootScope, $timeout) {
     scope = $rootScope.$new();
     rootScope = $rootScope;
-
-    spyOn(rootScope, '$broadcast');
 
     $httpBackend.when('GET', '/assets/brand_names.json')
       .respond([
@@ -42,22 +40,28 @@ describe('ads.searchfield', function(){
           {'id':'','name':'ACETAMINOPHEN RAPID RELEASE EXTRA STRENGTH'}
       ]);
 
-      searchFieldController = $controller('SearchfieldCtrl', { $scope: scope, $rootScope: $rootScope, $http: $http, });
+      searchFieldController = $controller('SearchfieldCtrl', { $scope: scope, $rootScope: $rootScope, $http: $http, $location: $location, $timeout: $timeout});
 
     $httpBackend.flush();
   }));
 
   it('Proper brand name fetch', function() {
+      spyOn(rootScope, '$broadcast');
+
       expect(scope.brandNames.length).toEqual(25);
   });
 
   it('Initial empty prescription list', function() {
+      spyOn(rootScope, '$broadcast');
+
       expect(scope.prescriptions).toEqual([
           {value: ''}
       ]);
   });
 
   it('Adding a prescription to empty prescription list', function() {
+      spyOn(rootScope, '$broadcast');
+
       scope.prescriptions[0].value = 'ACEPHEN';
       scope.$digest();
 
@@ -68,11 +72,13 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { prescriptions: [ 'ACEPHEN' ]}
+        { serious: false, prescriptions: [ 'ACEPHEN' ]}
       );
   });
 
   it('Adding a prescription to existing prescription list', function() {
+      spyOn(rootScope, '$broadcast');
+
       scope.prescriptions[0].value = 'ACEPHEN';
       scope.$digest();
 
@@ -83,7 +89,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { prescriptions: [ 'ACEPHEN' ]}
+        { serious: false, prescriptions: [ 'ACEPHEN' ]}
       );
 
       scope.prescriptions[1].value = 'ABILIFY';
@@ -97,11 +103,13 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
+          { serious: false, prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
       );
   });
 
   it('Removing a prescription to existing prescription list', function() {
+      spyOn(rootScope, '$broadcast');
+
       scope.prescriptions[0].value = 'ACEPHEN';
       scope.$digest();
 
@@ -116,7 +124,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
+          { serious: false, prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
       );
 
       scope.removePrescription(1);
@@ -127,7 +135,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { prescriptions: [ 'ACEPHEN' ]}
+          { serious: false, prescriptions: [ 'ACEPHEN' ]}
       );
 
       scope.removePrescription(0);
@@ -142,6 +150,8 @@ describe('ads.searchfield', function(){
   });
 
   it('Selecting serious adverse events', function() {
+      spyOn(rootScope, '$broadcast');
+
       scope.prescriptions[0].value = 'ACEPHEN';
       scope.$digest();
 
