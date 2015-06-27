@@ -32,14 +32,11 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     }
 
     function setSexChartOptions() {
-      //$scope.options = getDefaultChartOptions();
-      var chartWidth = getChartWidth();
 
       $scope.options = {
         chart: {
           type: 'pieChart',
           height: 500,
-          //width: chartWidth,
           x: function(d){return d.key;},
           y: function(d){return d.y;},
           showLabels: true,
@@ -58,15 +55,11 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     }
 
     function setAgeChartOptions() {
-      //$scope.ageOptions = getDefaultChartOptions();
-      //var width = $('#piechart-age-div').innerWidth();
-      var chartWidth = getChartWidth();
 
       $scope.ageOptions = {
         chart: {
           type: 'pieChart',
           height: 500,
-          //width: chartWidth,
           x: function(d){return d.key;},
           y: function(d){return d.y;},
           showLabels: true,
@@ -82,13 +75,6 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
           }
         }
       };
-    }
-
-    function getChartWidth() {
-      //var screenWidth = window.screen.width;
-      //return Math.round(screenWidth/chartsPerRow);
-      var width = $('#piechart-sex-div').innerWidth();
-      return width;
     }
 
     function loadSexChartData() {
@@ -125,29 +111,28 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
       $scope.ageChartData = [];
 
-      MedicationsSearchService.query($scope.adverseEvents, 'patient.patientonsetage:[0 TO 24]', 'receivedateformat', null, function(data) {
-        var i, result;
-        for (i = 0; i < data.results.length; ++i) {
-          result = data.results[i];
-          $scope.ageChartData.push({
-            key: "< 25",
-            y: result.count
-          });
-        }
-        // Should only need to set this once
-        setAgeChartOptions();
-      });
-
-      MedicationsSearchService.query($scope.adverseEvents, 'patient.patientonsetage:[25 TO 50]', 'receivedateformat', null, function(data) {
-        var i, result;
-        for (i = 0; i < data.results.length; ++i) {
-          result = data.results[i];
-          $scope.ageChartData.push({
-            key: "25-50",
-            y: result.count
-          });
-        }
-      });
+      queryAgeService('< 25', '[0 TO 24]', true);
+      queryAgeService('25-49', '[25 TO 49]', false);
+      queryAgeService('50-74', '[50 TO 74]', false);
+      queryAgeService('Over 75', '[75 TO 150]', false);
 
     }
+
+    function queryAgeService(label, searchRange, setOptions) {
+      var searchCriteria = 'patient.patientonsetage:' + searchRange;
+      MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', null, function(data) {
+        var i, result;
+        for (i = 0; i < data.results.length; ++i) {
+          result = data.results[i];
+          $scope.ageChartData.push({
+            key: label,
+            y: result.count
+          });
+        }
+        if (setOptions) {
+          setAgeChartOptions();
+        }
+      });
+    }
+
   });
