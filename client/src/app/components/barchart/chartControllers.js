@@ -182,6 +182,6 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 				}
 			});
 
-			return list + (prescriptions.length > 1 ? ' together' : '');
+			return (prescriptions.length > 1 ? ' combination of ' : ' use of ' ) + list;
 		};
     });
