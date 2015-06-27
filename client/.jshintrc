@@ -36,6 +36,8 @@
     // D3
     "d3": false,
     // UNDERSCORE
-    "_": false
+    "_": false,
+    // MOMENT
+    "moment": false
   }
 }

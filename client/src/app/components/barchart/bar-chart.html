@@ -1,7 +1,11 @@
 <div ng-show="chartData" class="row" ng-controller="BarChartCtrl">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h3>{{recCount}} Most Common Symptoms</h3>
-        <p>Experienced when taking X, Y, and Z together</p>
+        <p ng-if="prescriptions.length">
+        Of the {{totalReports}} adverse events reported from the {{reducePrescriptions(prescriptions)}}, 
+        these are the top {{recCount}} symptoms reported.
+        <!--  Experienced when taking {{reducePrescriptions(prescriptions)}}  -->
+        </p>
         <div class="checkbox col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <label style="font-size: 14px">
             <input type="checkbox" ng-model="serious" ng-change="refreshChartWithLatestData()">

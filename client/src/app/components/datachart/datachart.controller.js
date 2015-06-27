@@ -7,7 +7,7 @@ angular.module('ads.datachart', ['ui.bootstrap'])
       $scope.symptomType = undefined;
       $scope.reports = [];
 
-      $scope.query = {};
+      $scope.query = {prescriptions: []};
 
       $scope.sortType = 'id';
       $scope.sortReverse = false;
@@ -157,6 +157,19 @@ angular.module('ads.datachart', ['ui.bootstrap'])
             }
           }
         });
+      };
+
+      $scope.reducePrescriptions = function(prescriptions) {
+          var list = _.reduce(prescriptions, function(memo, value, index) {
+              if(index === prescriptions.length - 1) {
+                  return memo + (prescriptions.length === 2 ? ' and ' : ', and ') + value;
+              }
+              else {
+                  return memo + ', ' + value;
+              }
+          });
+
+          return list + (prescriptions.length > 1 ? ' together.' : '.');
       };
   }]);
 

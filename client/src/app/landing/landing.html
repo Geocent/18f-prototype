@@ -8,13 +8,8 @@
         <h1 class="drugiq-logo-drug">Drug<span class="drugiq-logo-iq">IQ</span></h1>
         <p class="drugiq-white">Find drugs that may be causing adverse symptoms.</p>
           <div class="row">
-            <div class="col-xs-12">
-              <div class="input-group input-group-lg">
-                <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="updateSearchParameters()" ng-value="drug" ng-model="drug" ng-blur="validatePrescription()" placeholder="Enter drug name"/>
-                <div class="input-group-btn">
-                  <a class="btn btn-primary btn-lg" ng-href="#/search?drugname={{drug}}" ng-disabled="!drug">Search</a>
-                </div><!-- /btn-group -->
-              </div><!-- /input-group -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="searchDrug()" ng-value="drug" ng-model="drug" ng-blur="validatePrescription()" placeholder="Enter drug name"/>
             </div><!-- /.col-xs-12 -->
           </div><!-- /.row -->
       </div>

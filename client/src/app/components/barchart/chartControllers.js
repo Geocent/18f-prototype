@@ -10,6 +10,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         $scope.serious = false;
 
         $scope.query = null;
+		$scope.prescriptions = [];
 
         $scope.adverseEvents = null;
 
@@ -77,7 +78,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
             	$scope.options.chart.showValues = false;
             	$scope.options.chart.callback = function() {
 	            	d3.selectAll('text').style('font-size', '6px');
-            	}; 
+            	};
         	}
         	console.log( 'window.screen.size: ' + window.screen.width );
         	console.log( 'Chart width: ' + $scope.options.chart.width );
@@ -93,9 +94,12 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
 
-          $scope.adverseEvents = adverseEvents;
-          $scope.refreshChartWithLatestData();
+			$scope.adverseEvents = adverseEvents;
+			$scope.prescriptions = adverseEvents.prescriptions;
 
+			if(!_.isEmpty(adverseEvents)) {
+          		$scope.refreshChartWithLatestData();
+			}
         });
 
         $scope.refreshChartWithLatestData = function() {
@@ -104,11 +108,18 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
             searchString = searchString + ' AND serious:1';
           }
           $scope.query = {
-            'search' : searchString,
-            'count' : 'patient.reaction.reactionmeddrapt.exact',
-            'limit' : '20'
+            'search' : searchString
           };
-          $scope.getData();
+           
+          DrugEventService.get($scope.query, function(data) {
+        	  $scope.totalReports = data.meta.results.total;
+              $scope.query = {
+                      'search' : searchString,
+                      'count' : 'patient.reaction.reactionmeddrapt.exact',
+                      'limit' : '20'
+                    };
+                    $scope.getData();
+            });
         };
 
         // this function is responsible for calling the DrugEventService with the query that was
@@ -126,11 +137,11 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         };
 
         $scope.translateData = function(data) {
-        	var totalEvents = 0;
+//        	var totalEvents = 0;
         	// Compute the total
-        	for( var i=0; i<data.results.length; i++ ) {
-        		totalEvents += data.results[i].count;
-        	}
+//        	for( var i=0; i<data.results.length; i++ ) {
+//        		totalEvents += data.results[i].count;
+//        	}
         	// now put the output data into our 'chartData'
         	$scope.chartData = [
                 {
@@ -138,11 +149,11 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                 	values: []
                 }
             ];
-        	for( i=0; i<data.results.length; i++ ) {
+        	for( var i=0; i<data.results.length; i++ ) {
         		$scope.chartData[0].values[i] = {
     				term: data.results[i].term,
     				count: data.results[i].count,
-    				percent: data.results[i].count / totalEvents
+    				percent: data.results[i].count / $scope.totalReports
         		};
         	}
         };
@@ -161,4 +172,16 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	return searchString;
         };
 
+		$scope.reducePrescriptions = function(prescriptions) {
+			var list = _.reduce(prescriptions, function(memo, value, index) {
+				if(index === prescriptions.length - 1) {
+					return memo + (prescriptions.length === 2 ? ' and ' : ', and ') + value;
+				}
+				else {
+					return memo + ', ' + value;
+				}
+			});
+
+			return (prescriptions.length > 1 ? ' combination of ' : ' use of ' ) + list;
+		};
     });

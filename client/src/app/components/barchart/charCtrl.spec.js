@@ -5,7 +5,15 @@ angular.module('mockDrugEventService', [] )
 .factory('MockDrugEventService', function() {
 	return {
 		get: function(query, callback) {
-			var data = { results: [
+			var data = {
+			    meta: {
+				  results: {
+				      skip:  0,
+				      limit: 1,
+				      total: 2
+				  }
+			    },				
+				results: [
 	            {
 					count: 7,
 					term:'NAUSEA'
@@ -54,6 +62,7 @@ describe('BarChart Controller', function() {
     });
 
     it('verifies the query transforms the data and returns the expected count', function() {
+    	scope.totalReports = 2;
         scope.query = {
           'search' : 'some text',
 	      'count' : 'patient.reaction.reactionmeddrapt.exact',
@@ -68,7 +77,7 @@ describe('BarChart Controller', function() {
         expect(scope.chartData[0].values).toBeDefined();
         
         // expected percentage is count for first item divided by total of all counts
-        var expectedPercentage = 7 / 15;
+        var expectedPercentage = 7 / 2;
         
         // now verify that the data meets our expectations
         expect(scope.chartData[0].values.length).toEqual(2);

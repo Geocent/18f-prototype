@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ads.landing', ['ui.bootstrap'])
-  .controller('LandingCtrl', ['$http', '$scope', function ($http, $scope) {
+  .controller('LandingCtrl', ['$http', '$location', '$scope', function ($http, $location, $scope) {
       $scope.drug = '';
       $scope.brandNames = [];
 
@@ -9,6 +9,10 @@ angular.module('ads.landing', ['ui.bootstrap'])
         if(_.isEmpty($scope.drug)) {
             $scope.drug = '';
         }
+      };
+
+      $scope.searchDrug = function() {
+          $location.url('/search?drugname=' + $scope.drug);
       };
 
       $http

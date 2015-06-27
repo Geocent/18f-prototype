@@ -38,12 +38,8 @@ angular.module('ads.searchfield', ['ui.bootstrap'])
 
       $scope.validatePrescription = function(index) {
         if(_.isEmpty($scope.prescriptions[index].value)) {
-            $scope.prescriptions[index] = '';
+            $scope.prescriptions[index].value = '';
         }
-      };
-
-      $scope.validateField = function() {
-
       };
 
       $http
