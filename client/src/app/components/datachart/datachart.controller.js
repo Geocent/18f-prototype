@@ -64,16 +64,17 @@ angular.module('ads.datachart', ['ui.bootstrap'])
           $scope.selectedSymptom = undefined;
           $scope.reports = [];
 
-          DrugEventService.get({
-              'search' : buildQuery(queryData),
-              'count' : 'patient.reaction.reactionmeddrapt.exact',
-              'limit' : 1000
-          }, function(data) {
-
-              $scope.symptoms = _.map(data.results, function(value) {
-                  return value.term;
+          if(!_.isEmpty(queryData.prescriptions)) {
+              DrugEventService.get({
+                  'search' : buildQuery(queryData),
+                  'count' : 'patient.reaction.reactionmeddrapt.exact',
+                  'limit' : 1000
+              }, function(data) {
+                  $scope.symptoms = _.map(data.results, function(value) {
+                      return value.term;
+                  });
               });
-          });
+          }
       });
 
       $scope.updateReportTable = function(resetPage) {

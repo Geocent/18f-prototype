@@ -53,7 +53,7 @@ describe('ads.searchfield', function(){
 
   it('Initial empty prescription list', function() {
       expect(scope.prescriptions).toEqual([
-          {value: undefined}
+          {value: ''}
       ]);
   });
 
@@ -63,7 +63,7 @@ describe('ads.searchfield', function(){
 
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
-          {value: undefined}
+          {value: ''}
       ]);
 
       scope.updateSearchParameters();
@@ -78,7 +78,7 @@ describe('ads.searchfield', function(){
 
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
-          {value: undefined}
+          {value: ''}
       ]);
 
       scope.updateSearchParameters();
@@ -92,7 +92,7 @@ describe('ads.searchfield', function(){
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
           {value: 'ABILIFY'},
-          {value: undefined}
+          {value: ''}
       ]);
 
       scope.updateSearchParameters();
@@ -111,10 +111,10 @@ describe('ads.searchfield', function(){
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
           {value: 'ABILIFY'},
-          {value: undefined}
+          {value: ''}
       ]);
 
-      scope.$digest();
+      scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
           { serious: false, prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
       );
@@ -122,21 +122,21 @@ describe('ads.searchfield', function(){
       scope.removePrescription(1);
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
-          {value: undefined}
+          {value: ''}
       ]);
 
-      scope.$digest();
+      scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
           { serious: false, prescriptions: [ 'ACEPHEN' ]}
       );
 
       scope.removePrescription(0);
       expect(scope.prescriptions).toEqual([
-          {value: undefined}
+          {value: ''}
       ]);
 
-      scope.$digest();
-      expect(rootScope.$broadcast).not.toHaveBeenCalledWith('updateSearchParameters',
+      scope.updateSearchParameters();
+      expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
           { serious: false, prescriptions: [ ]}
       );
   });
@@ -147,14 +147,11 @@ describe('ads.searchfield', function(){
 
       expect(scope.prescriptions).toEqual([
           {value: 'ACEPHEN'},
-          {value: undefined}
+          {value: ''}
       ]);
 
-      expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { serious: false, prescriptions: [ 'ACEPHEN' ]}
-      );
-
       scope.serious = true;
+      scope.$digest();
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
@@ -162,6 +159,7 @@ describe('ads.searchfield', function(){
       );
 
       scope.serious = false;
+      scope.$digest();
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',

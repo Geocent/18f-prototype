@@ -1,5 +1,24 @@
 'use strict';
 
-angular.module('ads.landing', [])
-  .controller('LandingCtrl', function () {
-  });
+angular.module('ads.landing', ['ui.bootstrap'])
+  .controller('LandingCtrl', ['$http', '$scope', function ($http, $scope) {
+      $scope.drug = '';
+      $scope.brandNames = [];
+
+      $scope.validatePrescription = function() {
+        if(_.isEmpty($scope.drug)) {
+            $scope.drug = '';
+        }
+      };
+
+      $http
+        .get('/assets/brand_names.json')
+        .success(function(data){
+            $scope.brandNames = data.map(function(value){
+                return value.name;
+            });
+        })
+        .error(function(err){
+            console.error(err);
+        });
+    }]);

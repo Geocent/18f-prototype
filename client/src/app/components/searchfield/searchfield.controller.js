@@ -1,10 +1,13 @@
 'use strict';
 
-angular.module('ads.searchfield', ['nya.bootstrap.select'])
-  .controller('SearchfieldCtrl', ['$http', '$rootScope', '$scope', function ($http, $rootScope, $scope) {
-      $scope.prescriptions = [
-          {value: undefined}
-      ];
+angular.module('ads.searchfield', ['ui.bootstrap'])
+  .controller('SearchfieldCtrl', ['$http', '$location', '$rootScope', '$scope', '$timeout', function ($http, $location, $rootScope, $scope, $timeout) {
+
+      var queryParameters = $location.search();
+
+      $scope.prescriptions = queryParameters.drugname ?
+        [ { value: queryParameters.drugname }, { value: '' } ] :
+        [ { value: '' } ];
 
       $scope.brandNames = [];
 
@@ -12,10 +15,8 @@ angular.module('ads.searchfield', ['nya.bootstrap.select'])
 
       $scope.$watch('prescriptions', function() {
           if(!_.isEmpty($scope.prescriptions[$scope.prescriptions.length - 1].value)) {
-              $scope.prescriptions.push({value: undefined});
+              $scope.prescriptions.push({value: ''});
           }
-
-          $scope.updateSearchParameters();
       }, true);
 
       $scope.updateSearchParameters = function() {
@@ -23,20 +24,28 @@ angular.module('ads.searchfield', ['nya.bootstrap.select'])
              return !_.isEmpty(prescription.value);
           });
 
-          if(selected.length > 0) {
-            $rootScope.$broadcast('updateSearchParameters', {
-                'serious': $scope.serious === true,
-                'prescriptions': selected.map(function(prescription) {
-                    return prescription.value;
-                })
-            });
-          }
+        $rootScope.$broadcast('updateSearchParameters', {
+            'serious': $scope.serious === true,
+            'prescriptions': selected.map(function(prescription) {
+                return prescription.value;
+            })
+        });
       };
 
       $scope.removePrescription = function(index) {
           $scope.prescriptions.splice(index, 1);
 
-        //   $scope.updateSearchParameters();
+          $scope.updateSearchParameters();
+      };
+
+      $scope.validatePrescription = function(index) {
+        if(_.isEmpty($scope.prescriptions[index].value)) {
+            $scope.prescriptions[index] = '';
+        }
+      };
+
+      $scope.validateField = function() {
+
       };
 
       $http
@@ -49,4 +58,14 @@ angular.module('ads.searchfield', ['nya.bootstrap.select'])
         .error(function(err){
             console.error(err);
         });
+
+      var selected = $scope.prescriptions.filter(function(prescription) {
+         return !_.isEmpty(prescription.value);
+      });
+
+      if(selected.length > 0) {
+          $timeout(function(){
+              $scope.updateSearchParameters();
+          });
+      }
   }]);

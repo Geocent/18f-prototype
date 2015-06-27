@@ -74,22 +74,26 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         $scope.$on('elementClick.directive', function(angularEvent, event) {
         	console.log( 'angularEvent: ' + angularEvent + ', event=' + event );
         });
-        
+
         // This function is called as the result of a 'broadcast' event being fired by the SearchFieldCtrl
         // when the user enters a medication into the entry field. This function is responsible for building and
         // executing the query, then transforming the return data to what the chart expects
         $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
 
-            if (adverseEvents.serious) {
-                searchString = searchString + ' AND serious:1';
-            }
-        	$scope.query = {
-              'search' : searchString,
-      	      'count' : 'patient.reaction.reactionmeddrapt.exact',
-    	      'limit' : '20'
-        	};
-        	$scope.getData();
+			if(!_.isEmpty(adverseEvents)) {
+
+	            if (adverseEvents.serious) {
+	                searchString = searchString + ' AND serious:1';
+	            }
+
+	        	$scope.query = {
+	              'search' : searchString,
+	      	      'count' : 'patient.reaction.reactionmeddrapt.exact',
+	    	      'limit' : '20'
+	        	};
+	        	$scope.getData();
+			}
         });
 
         // this function is responsible for calling the DrugEventService with the query that was
@@ -105,7 +109,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                   });
         	}
         };
-        
+
         $scope.translateData = function(data) {
         	var totalEvents = 0;
         	// Compute the total
@@ -116,7 +120,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	$scope.chartData = [
                 {
                 	key: 'Adverse Events',
-                	values: [] 
+                	values: []
                 }
             ];
         	for( i=0; i<data.results.length; i++ ) {
