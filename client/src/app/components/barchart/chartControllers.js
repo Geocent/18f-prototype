@@ -108,11 +108,18 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
             searchString = searchString + ' AND serious:1';
           }
           $scope.query = {
-            'search' : searchString,
-            'count' : 'patient.reaction.reactionmeddrapt.exact',
-            'limit' : '20'
+            'search' : searchString
           };
-          $scope.getData();
+           
+          DrugEventService.get($scope.query, function(data) {
+        	  $scope.totalReports = data.meta.results.total;
+              $scope.query = {
+                      'search' : searchString,
+                      'count' : 'patient.reaction.reactionmeddrapt.exact',
+                      'limit' : '20'
+                    };
+                    $scope.getData();
+            });
         };
 
         // this function is responsible for calling the DrugEventService with the query that was
@@ -130,11 +137,11 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         };
 
         $scope.translateData = function(data) {
-        	var totalEvents = 0;
+//        	var totalEvents = 0;
         	// Compute the total
-        	for( var i=0; i<data.results.length; i++ ) {
-        		totalEvents += data.results[i].count;
-        	}
+//        	for( var i=0; i<data.results.length; i++ ) {
+//        		totalEvents += data.results[i].count;
+//        	}
         	// now put the output data into our 'chartData'
         	$scope.chartData = [
                 {
@@ -142,11 +149,11 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                 	values: []
                 }
             ];
-        	for( i=0; i<data.results.length; i++ ) {
+        	for( var i=0; i<data.results.length; i++ ) {
         		$scope.chartData[0].values[i] = {
     				term: data.results[i].term,
     				count: data.results[i].count,
-    				percent: data.results[i].count / totalEvents
+    				percent: data.results[i].count / $scope.totalReports
         		};
         	}
         };
@@ -175,6 +182,6 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 				}
 			});
 
-			return list + (prescriptions.length > 1 ? ' together.' : '.');
+			return list + (prescriptions.length > 1 ? ' together' : '');
 		};
     });
