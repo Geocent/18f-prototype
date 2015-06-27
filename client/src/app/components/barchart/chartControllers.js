@@ -18,7 +18,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                         top: 20,
                         right: 100,
                         bottom: 60,
-                        left: 190
+                        left: 150
                     },
                     x: function(d){return d.term;},
     	            y: function(d){return d.percent;},
@@ -54,6 +54,9 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 //    	            		}
 //    	            	}
 //    	            },
+    	            callback: function() {
+    	            	d3.selectAll('text').style('font-size', '8px');
+	            	},
     	            tooltip: function(key, x, y, e, graph) {
     	                return '<h3>' + key + '</h3>' + '<p>' +  y + ' at ' + x + '</p>';
     	            }
