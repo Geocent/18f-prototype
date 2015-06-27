@@ -73,7 +73,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	// Set chart size to 80% of screen width if that width is over 400; otherwise set chart to screen size
         	if( window.screen.width <= 400 ) {
             	$scope.options.chart.width = window.screen.width;
-            	$scope.options.chart.margin.left = 95;
+            	$scope.options.chart.margin.left = 100;
             	$scope.options.chart.showValues = false;
             	$scope.options.chart.callback = function() {
 	            	d3.selectAll('text').style('font-size', '6px');
