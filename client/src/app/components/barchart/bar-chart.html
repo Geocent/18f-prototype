@@ -1,7 +1,7 @@
 <div ng-show="chartData" class="row" ng-controller="BarChartCtrl">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h3>{{recCount}} Most Common Symptoms</h3>
-        <p>Experienced when taking X, Y, and Z together</p>
+        <p ng-if="prescriptions.length">Experienced when taking {{reducePrescriptions(prescriptions)}}</p>
         <div ng-hide="options.chart.width">
             <p>No sizing</p>
             <nvd3 options="options" data="chartData"></nvd3>

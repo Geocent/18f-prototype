@@ -8,6 +8,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     chartControllers.controller('BarChartCtrl', function($scope, $rootScope, DrugEventService){
 
         $scope.query = null;
+		$scope.prescriptions = [];
 
         // the options object is used by the NVD3 chart specifically and controls the output
         $scope.options = {
@@ -81,6 +82,8 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
 
+			$scope.prescriptions = adverseEvents.prescriptions;
+
 			if(!_.isEmpty(adverseEvents)) {
 
 	            if (adverseEvents.serious) {
@@ -146,4 +149,16 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	return searchString;
         };
 
+		$scope.reducePrescriptions = function(prescriptions) {
+			var list = _.reduce(prescriptions, function(memo, value, index) {
+				if(index === prescriptions.length - 1) {
+					return memo + (prescriptions.length === 2 ? ' and ' : ', and ') + value;
+				}
+				else {
+					return memo + ', ' + value;
+				}
+			});
+
+			return list + (prescriptions.length > 1 ? ' together.' : '.');
+		};
     });
