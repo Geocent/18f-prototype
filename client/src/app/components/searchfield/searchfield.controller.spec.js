@@ -68,7 +68,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { serious: false, prescriptions: [ 'ACEPHEN' ]}
+          { prescriptions: [ 'ACEPHEN' ]}
       );
   });
 
@@ -83,7 +83,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { serious: false, prescriptions: [ 'ACEPHEN' ]}
+          { prescriptions: [ 'ACEPHEN' ]}
       );
 
       scope.prescriptions[1].value = 'ABILIFY';
@@ -97,7 +97,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { serious: false, prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
+          { prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
       );
   });
 
@@ -116,7 +116,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { serious: false, prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
+          { prescriptions: [ 'ACEPHEN', 'ABILIFY' ]}
       );
 
       scope.removePrescription(1);
@@ -127,7 +127,7 @@ describe('ads.searchfield', function(){
 
       scope.updateSearchParameters();
       expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
-          { serious: false, prescriptions: [ 'ACEPHEN' ]}
+          { prescriptions: [ 'ACEPHEN' ]}
       );
 
       scope.removePrescription(0);

@@ -16,9 +16,9 @@ describe('main navigation tabs', function () {
     expect(navbar.getActiveTabText()).toEqual('Contact');
   });
 
-  it('should navigate from about to home', function () {
+  it('should navigate from about to search', function () {
     navbar.loadAboutPageInBrowser();
-    navbar.clickHome();
-    expect(navbar.getActiveTabText()).toEqual('Home');
+    navbar.clickSearch();
+    expect(navbar.getActiveTabText()).toEqual('Search');
   });
 });

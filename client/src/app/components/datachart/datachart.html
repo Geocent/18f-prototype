@@ -13,22 +13,22 @@
         <table class="table" ng-show="reports.length">
             <thead>
                 <tr>
-                    <th>
+                    <th scope="col">
                         <a href="#" ng-click="sortType = 'severity'; sortReverse = !sortReverse">Severity</a>
                         <span ng-show="sortType == 'severity' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'severity' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
-                    <th>
+                    <th scope="col">
                         <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">Age</a>
                         <span ng-show="sortType == 'age' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'age' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
-                    <th>
+                    <th scope="col">
                         <a href="#" ng-click="sortType = 'sex'; sortReverse = !sortReverse">Sex</a>
                         <span ng-show="sortType == 'sex' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'sex' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
-                    <th>
+                    <th scope="col">
                         Report
                     </th>
                 </tr>

@@ -14,7 +14,7 @@ var Navbar = function() {
     browser.get('http://localhost:3000/#/about');
   }
 
-  this.clickHome = function() {
+  this.clickSearch = function() {
     var homeIndex = 0;
     clickTabBy(homeIndex);
   }

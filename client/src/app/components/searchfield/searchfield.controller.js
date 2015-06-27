@@ -11,8 +11,6 @@ angular.module('ads.searchfield', ['ui.bootstrap'])
 
       $scope.brandNames = [];
 
-      $scope.serious = false;
-
       $scope.$watch('prescriptions', function() {
           if(!_.isEmpty($scope.prescriptions[$scope.prescriptions.length - 1].value)) {
               $scope.prescriptions.push({value: ''});
