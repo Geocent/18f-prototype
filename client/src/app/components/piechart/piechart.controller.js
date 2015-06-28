@@ -113,14 +113,14 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
     function decodeSexFrom(term) {
       var sex;
-      if (2 === term) {
-        sex = FEMALE.name;
-      } else if (1 === term) {
-        sex = MALE.name;
-      } else if (0 === term) {
-        sex = UNKNOWN.name;
-      } else {
-        sex = UNKNOWN.name;
+      switch (term) {
+        case 2: sex = FEMALE.name;
+              break;
+        case 1: sex = MALE.name;
+              break;
+        case 0: sex = UNKNOWN.name;
+              break;
+        default: sex = UNKNOWN.name;
       }
       return sex;
     }
