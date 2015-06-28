@@ -17,10 +17,14 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     $rootScope.$on( 'symptomChanged', function(event, symptom) {
       $scope.symptomName = symptom.name;
       if ($attrs.detailSection) {
-        $scope.showCharts = true;
-        $scope.adverseEvents = symptom.adverseEvents;
-        loadSexChartData();
-        loadAgeChartData();
+        if ($scope.symptomName) {
+          $scope.showCharts = true;
+          $scope.adverseEvents = symptom.adverseEvents;
+          loadSexChartData();
+          loadAgeChartData();
+        } else {
+          $scope.showCharts = false;
+        }
       }
     });
 
@@ -61,20 +65,13 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
       MedicationsSearchService.query($scope.adverseEvents, null, 'patient.patientsex', null, function(data) {
         var i, result;
-        var totalOccurrences = 0;
         $scope.chartData = [];
         for (i = 0; i < data.results.length; ++i) {
           result = data.results[i];
-          totalOccurrences = totalOccurrences + result.count;
           $scope.chartData.push({
             key: decodeSexFrom(result.term),
             y: result.count
           });
-        }
-        if (totalOccurrences > 0) {
-          for (i = 0; i < $scope.chartData; ++i) {
-            $scope.chartData[i].percent = $scope.chartData[i].y/totalOccurrences;
-          }
         }
         setSexChartOptions();
       });

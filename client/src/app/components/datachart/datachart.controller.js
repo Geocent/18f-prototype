@@ -60,8 +60,16 @@ angular.module('ads.datachart', ['ui.bootstrap'])
           $scope.totalReports = 0;
           $scope.selectedReportPage = 1;
 
+          // If a symptom was selected prior to the new search,
+          // send change notification.
+          if ($scope.selectedSymptom) {
+            $scope.selectedSymptom = undefined;
+            broadcastSymptiomChangedEvent();
+          } else {
+            $scope.selectedSymptom = undefined;
+          }
+
           $scope.symptoms = [];
-          $scope.selectedSymptom = undefined;
           $scope.reports = [];
 
           if(!_.isEmpty(queryData.prescriptions)) {
@@ -86,11 +94,7 @@ angular.module('ads.datachart', ['ui.bootstrap'])
 
           $scope.isLoading = true;
 
-          $rootScope.$broadcast('symptomChanged', {
-            'name': $scope.selectedSymptom,
-            'adverseEvents': $scope.query
-          });
-
+          broadcastSymptiomChangedEvent();
 
           DrugEventService.get({
               'search' : buildQuery($scope.query, $scope.selectedSymptom),
@@ -177,6 +181,13 @@ angular.module('ads.datachart', ['ui.bootstrap'])
 
           return list + (prescriptions.length > 1 ? ' together.' : '.');
       };
+
+      function broadcastSymptiomChangedEvent() {
+        $rootScope.$broadcast('symptomChanged', {
+          'name': $scope.selectedSymptom,
+          'adverseEvents': $scope.query
+        });
+      }
   }]);
 
 angular.module('ads.datachart')
