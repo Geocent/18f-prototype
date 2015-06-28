@@ -95,7 +95,10 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     }
 
     function queryAgeService(label, searchRange, setOptions) {
-      var searchCriteria = 'AND patient.patientonsetage:' + searchRange;
+      var searchCriteria = ' AND patient.patientonsetage:' + searchRange;
+      if ($attrs.detailSection) {
+        searchCriteria = searchCriteria + ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
+      }
       MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', $attrs.limit, function(data) {
         var i, result;
         for (i = 0; i < data.results.length; ++i) {
