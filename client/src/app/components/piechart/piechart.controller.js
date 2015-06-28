@@ -2,6 +2,18 @@
 
 angular.module('ads.piechart',['nvd3','ads.services.openfda'])
   .controller('PieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $attrs){
+    var FEMALE = {
+      'name': 'Female',
+      'color': '#CC6573'
+    };
+    var MALE = {
+      'name': 'Male',
+      'color': '#4F92A6'
+    };
+    var UNKNOWN = {
+      'name': 'Unknown',
+      'color': '#C8C8C8'
+    };
 
     $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
       $scope.adverseEvents = adverseEvents;
@@ -53,6 +65,28 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
     function setSexChartOptions() {
       var options = getDefaultChartOptions();
+      options.chart.color = function(d, i) {
+        var color, key;
+        if (d.data) {
+          key = d.data.key;
+        } else {
+          key = d.key;
+        }
+        switch (key) {
+          case FEMALE.name:
+                color = FEMALE.color;
+                break;
+          case MALE.name:
+                color = MALE.color;
+                break;
+          case UNKNOWN.name:
+                color = UNKNOWN.color;
+                break;
+          default:
+                color = UNKNOWN.color;
+        }
+        return color;
+      };
       $scope.options = options;
     }
 
@@ -80,13 +114,13 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     function decodeSexFrom(term) {
       var sex;
       if (2 === term) {
-        sex = 'Female';
+        sex = FEMALE.name;
       } else if (1 === term) {
-        sex = 'Male';
+        sex = MALE.name;
       } else if (0 === term) {
-        sex = 'Unknown';
+        sex = UNKNOWN.name;
       } else {
-        sex = 'Unknown';
+        sex = UNKNOWN.name;
       }
       return sex;
     }
