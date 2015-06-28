@@ -7,6 +7,8 @@
 
         <div  ng-show="isLoading" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>Loading...</i></div>
 
+        <div ng-include="'app/components/piechart/piechart-detailed.html'"></div>
+
         <br/>
         <p ng-show="reports.length && query.prescriptions.length">Explore the detailed reports from others that have experienced <b>{{ selectedSymptom }}</b> when taking {{reducePrescriptions(query.prescriptions)}}</p>
 

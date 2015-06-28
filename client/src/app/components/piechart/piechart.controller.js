@@ -1,12 +1,24 @@
 'use strict';
 
 angular.module('ads.piechart',['nvd3','ads.services.openfda'])
-  .controller('PieChartCtrl', function($scope, $rootScope, MedicationsSearchService){
+  .controller('PieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $attrs){
 
     $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
       $scope.adverseEvents = adverseEvents;
       loadSexChartData();
       loadAgeChartData();
+    });
+
+    $scope.showCharts = false;
+
+    $rootScope.$on( 'symptomChanged', function(event, symptom) {
+      $scope.symptomName = symptom.name;
+      if ($attrs.detailSection) {
+        $scope.showCharts = true;
+        $scope.adverseEvents = symptom.adverseEvents;
+        loadSexChartData();
+        loadAgeChartData();
+      }
     });
 
     function getDefaultChartOptions() {
@@ -84,7 +96,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
     function queryAgeService(label, searchRange, setOptions) {
       var searchCriteria = 'AND patient.patientonsetage:' + searchRange;
-      MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', '20', function(data) {
+      MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', $attrs.limit, function(data) {
         var i, result;
         for (i = 0; i < data.results.length; ++i) {
           result = data.results[i];
@@ -100,9 +112,13 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     }
 
   })
-  .controller('Top20PieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller) {
-    $controller('PieChartCtrl', {'$scope': $scope});
+  .controller('Top20PieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller, $attrs) {
+    $attrs.limit = '20';
+    $attrs.detailSection = false;
+    $controller('PieChartCtrl', {'$scope': $scope, '$attrs': $attrs});
   })
-  .controller('DetailPieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller) {
-    $controller('PieChartCtrl', {'$scope': $scope});
+  .controller('DetailPieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller, $attrs) {
+    $attrs.limit = '20';
+    $attrs.detailSection = true;
+    $controller('PieChartCtrl', {'$scope': $scope, '$attrs': $attrs});
   });

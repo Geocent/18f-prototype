@@ -86,6 +86,12 @@ angular.module('ads.datachart', ['ui.bootstrap'])
 
           $scope.isLoading = true;
 
+          $rootScope.$broadcast('symptomChanged', {
+            'name': $scope.selectedSymptom,
+            'adverseEvents': $scope.query
+          });
+
+
           DrugEventService.get({
               'search' : buildQuery($scope.query, $scope.selectedSymptom),
               'limit' : $scope.reportPageSize,
