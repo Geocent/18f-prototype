@@ -34,6 +34,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
           showLabels: true,
           transitionDuration: 500,
           labelThreshold: 0.01,
+          labelType:'percent',
           legend: {
             margin: {
               top: 5,
@@ -60,13 +61,20 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
       MedicationsSearchService.query($scope.adverseEvents, null, 'patient.patientsex', null, function(data) {
         var i, result;
+        var totalOccurrences = 0;
         $scope.chartData = [];
         for (i = 0; i < data.results.length; ++i) {
           result = data.results[i];
+          totalOccurrences = totalOccurrences + result.count;
           $scope.chartData.push({
             key: decodeSexFrom(result.term),
             y: result.count
           });
+        }
+        if (totalOccurrences > 0) {
+          for (i = 0; i < $scope.chartData; ++i) {
+            $scope.chartData[i].percent = $scope.chartData[i].y/totalOccurrences;
+          }
         }
         setSexChartOptions();
       });
