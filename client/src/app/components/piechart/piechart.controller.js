@@ -72,9 +72,9 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     function decodeSexFrom(term) {
       var sex;
       if (2 === term) {
-        sex = 'Male';
-      } else if (1 === term) {
         sex = 'Female';
+      } else if (1 === term) {
+        sex = 'Male';
       } else if (0 === term) {
         sex = 'Unknown';
       } else {
