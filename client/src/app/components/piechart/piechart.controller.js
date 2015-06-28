@@ -6,7 +6,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
       $scope.adverseEvents = adverseEvents;
       // Load the top 20 charts when a search for medications is kicked off.
-      if (!$attrs.detailSection) {
+      if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
         loadSexChartData();
         loadAgeChartData();
       }
