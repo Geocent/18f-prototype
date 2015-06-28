@@ -5,8 +5,11 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
     $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
       $scope.adverseEvents = adverseEvents;
-      loadSexChartData();
-      loadAgeChartData();
+      // Load the top 20 charts when a search for medications is kicked off.
+      if (!$attrs.detailSection) {
+        loadSexChartData();
+        loadAgeChartData();
+      }
     });
 
     $scope.showCharts = false;
