@@ -50,25 +50,15 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     	            	return d3.format(',.2%')(d);
     	            },
     	            interactive: true,
-//    	            multiBarHorizontalChart: {
-//    	            	dispatch: {
-//    	            		on: {
-//	    	            		elementClick: function(e){
-//	    	            			console.log('element: ' + e.value);
-//	    	            		}
-//    	            		}
-//    	            	}
-//    	            },
-//    	            callback: function() {
-//    	            	d3.selectAll('text').style('font-size', '8px');
-//	            	},
     	            tooltip: function(key, x, y, e, graph) {
     	                return '<h3>' + key + '</h3>' + '<p>' +  y + ' at ' + x + '</p>';
     	            }
     	        }
             };
 
-        // utility function used to set the Y Axis label including the count of records the query returned
+        /**
+         * utility function used to set the Y Axis label including the count of records the query returned
+         */
         function setAdditionalScopeInfo( recCount ) {
         	$scope.options.chart.yAxis.axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
         	// Set chart size to 80% of screen width if that width is over 400; otherwise set chart to screen size
@@ -88,9 +78,12 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	console.log( 'angularEvent: ' + angularEvent + ', event=' + event );
         });
 
-        // This function is called as the result of a 'broadcast' event being fired by the SearchFieldCtrl
-        // when the user enters a medication into the entry field. This function is responsible for building and
-        // executing the query, then transforming the return data to what the chart expects
+        /**
+         * This function is called as the result of a 'broadcast' event being fired by the SearchFieldCtrl
+         * when the user enters a medication into the entry field. This function is responsible for building and
+         * executing the query, then transforming the return data to what the chart expects
+         * 
+         */
         $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
 
@@ -102,15 +95,21 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
 			}
         });
 
+        /**
+         * Helper function called to execute 2 queries on the service; the first gets the total count of reports
+         * for the combination passed, and the second actually gets the adverse events reported
+         */
         $scope.refreshChartWithLatestData = function() {
           var searchString = $scope.buildSearchText($scope.adverseEvents.prescriptions);
           if ($scope.serious) {
             searchString = searchString + ' AND serious:1';
           }
+          // Just setting the 'search' parm without the count will get the total number of reports
           $scope.query = {
             'search' : searchString
           };
            
+          $scope.options.chart.noData = null;
           DrugEventService.get($scope.query, function(data) {
         	  $scope.totalReports = data.meta.results.total;
               $scope.query = {
@@ -118,12 +117,20 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                       'count' : 'patient.reaction.reactionmeddrapt.exact',
                       'limit' : '20'
                     };
+              		// When the first query is successful go get the event counts
                     $scope.getData();
+            }, function(error) {
+            	// Prepare to show an error if there was a problem with the query
+            	console.log( 'error from get: ' + error);
+        		$scope.chartData = [];
+        		$scope.options.chart.noData = error.data.error.message || error.status;
             });
         };
 
-        // this function is responsible for calling the DrugEventService with the query that was
-        // built previously. If no query has been built, then the function does nothing
+        /**
+         * this function is responsible for calling the DrugEventService with the query that was
+         * built previously. If no query has been built, then the function does nothing
+         */
         $scope.getData = function(){
         	if( $scope.query ) {
         		$scope.chartData = [];
@@ -136,12 +143,12 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	}
         };
 
+        /**
+         * This method is responsible for translating the data received from the query into the data
+         * that we want to display on the chart. It creates a percentage value based on the total number of
+         * reports and the count of each adverse event.
+         */
         $scope.translateData = function(data) {
-//        	var totalEvents = 0;
-        	// Compute the total
-//        	for( var i=0; i<data.results.length; i++ ) {
-//        		totalEvents += data.results[i].count;
-//        	}
         	// now put the output data into our 'chartData'
         	$scope.chartData = [
                 {
@@ -158,8 +165,10 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	}
         };
 
-        // function responsible for taking the medications sent from the SearchFieldCtrl and creating the
-        // search text that will be passed on to the DrugEventService
+        /**
+         * function responsible for taking the medications sent from the SearchFieldCtrl and creating the
+         * search text that will be passed on to the DrugEventService
+         */
         $scope.buildSearchText = function (medications) {
         	var fieldName = 'patient.drug.medicinalproduct:';
         	var searchString = fieldName;
@@ -172,6 +181,9 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         	return searchString;
         };
 
+        /**
+         * Creates part of the message that will be displayed on the chart
+         */
 		$scope.reducePrescriptions = function(prescriptions) {
 			var list = _.reduce(prescriptions, function(memo, value, index) {
 				if(index === prescriptions.length - 1) {

@@ -87,5 +87,22 @@ describe('BarChart Controller', function() {
         
       });
 
+      it('verifies the message that will be displayed on the chart', function() {
+    	 var singleExpected = ' use of promethazine';
+    	 var dualExpected = ' combination of promethazine and ibuprofen';
+    	 var multiExpected = ' combination of promethazine, ibuprofen, and losartan';
+    	 var prescriptions = ['promethazine'];
+    	 var message = scope.reducePrescriptions(prescriptions);
+    	 expect(message).toEqual(singleExpected);
+    	 
+    	 prescriptions.push('ibuprofen');
+    	 message = scope.reducePrescriptions(prescriptions);
+    	 expect(message).toEqual(dualExpected);
+    	 
+    	 prescriptions.push('losartan');
+    	 message = scope.reducePrescriptions(prescriptions);
+    	 expect(message).toEqual(multiExpected);
+    	 
+      });
   });
 });
