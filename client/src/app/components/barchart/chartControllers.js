@@ -109,6 +109,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
             'search' : searchString
           };
            
+          $scope.options.chart.noData = null;
           DrugEventService.get($scope.query, function(data) {
         	  $scope.totalReports = data.meta.results.total;
               $scope.query = {
