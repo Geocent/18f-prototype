@@ -44,6 +44,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 | [NVM] (https://github.com/creationix/nvm)  | Node Versioning Manager for local Devleopment Environment  | [MIT] (https://github.com/creationix/nvm/blob/master/LICENSE.md)  |
 | [D3 JS] (http://d3js.org/) | Used for charts and data driven documents | [AS IS] (https://github.com/mbostock/d3/blob/master/LICENSE) |
 | [NVD3] (http://nvd3.org/) | Reusable charts component for D3 | [Apache] (https://github.com/novus/nvd3/blob/master/LICENSE.md) |
+| [angular-nvd3] (http://krispo.github.io/angular-nvd3/#/) | An AngularJS directive for NVD3 re-usable charting library | [MIT] (https://github.com/krispo/angular-nvd3/blob/master/LICENSE) |
 | [Moment.js] (http://momentjs.com/) | Cross browser date processing and formatting | [MIT] (https://github.com/moment/moment/blob/develop/LICENSE) |
 | [Underscore] (http://underscorejs.org/) | JavaScript's utility _ belt for functional collection processing. | [MIT] (https://github.com/jashkenas/underscore/blob/master/LICENSE) |
 | [Style-Guide-Boilerplate-Bootstrap-Edition] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition) | Generate Style Guide | [MIT] (https://github.com/kemie/Style-Guide-Boilerplate-Bootstrap-Edition/blob/Style-Guide-Boilerplate-Bootstrap/LICENSE.txt) |
@@ -62,17 +63,17 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 
 | # | Requirement | Link |
 | --------------- | ------------- | ------------- |
-| a. | assigned one leader and gave that person authority and responsibility and held that person accountable for the quality of the prototype submitted:  | Brian Priest is our Quality Lead  | 
-| b. | assembled a multidisciplinary and collaborative team that includes at a minimum three of the labor categories limited to the Design Pool Labor categories to design the prototype as quoted in Attachment C. The quoter’s proposed mix of labor categories and level of effort for its working prototype, as reflected in Attachment C, shall be evaluated to assess the quoter’s understanding and capability to supply agile delivery services.  | See Attachement C  | 
-| c. | understand what people need, by including people (see note #1) in the prototype design process  |  Feedback was captured during [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues)  | 
-| d. | used at least three “human-centered design” techniques or tools  | [UI Tool & Techniques] (./README.md#ui-tools-and-techniques) | 
-| e. | created or used a design style guide and/or a pattern library  | [Bootswatch: Yeti] (https://bootswatch.com/yeti/) | 
+| a. | assigned one leader and gave that person authority and responsibility and held that person accountable for the quality of the prototype submitted:  | Brian Priest is our Quality Lead  |
+| b. | assembled a multidisciplinary and collaborative team that includes at a minimum three of the labor categories limited to the Design Pool Labor categories to design the prototype as quoted in Attachment C. The quoter’s proposed mix of labor categories and level of effort for its working prototype, as reflected in Attachment C, shall be evaluated to assess the quoter’s understanding and capability to supply agile delivery services.  | See Attachement C  |
+| c. | understand what people need, by including people (see note #1) in the prototype design process  |  Feedback was captured during [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues)  |
+| d. | used at least three “human-centered design” techniques or tools  | [UI Tool & Techniques] (./README.md#ui-tools-and-techniques) |
+| e. | created or used a design style guide and/or a pattern library  | [Bootswatch: Yeti] (https://bootswatch.com/yeti/) |
 | f. | used at least three modern (see Note#2) and open source frontend or client side (see note ￼￼#3) web technologies| [Technologies Used](README.md#technologies-used)|
-| g. | performed usability tests with people  | [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing)  | 
-| h. | used an interactive approach, where feedback informed subsequent work or versions of the prototype  | [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues) have lead to User Stories in Srumdo. See [Scrumdo export](./docs/scrum)  | 
-| i. | created a prototype that works on multiple devices and presents a responsive design  | Using Bootstrap helped but some D3 Tables were not responsive until we modified them so please view: (https://drugiq.geocent.com)  | 
-| j. | provided sufficient documentation to install and run their prototype on another machine  | [INSTALL.md](./INSTALL.md)  | 
-| k. | prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge.  | [Technologies Used](README.md#technologies-used)  | 
+| g. | performed usability tests with people  | [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing)  |
+| h. | used an interactive approach, where feedback informed subsequent work or versions of the prototype  | [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues) have lead to User Stories in Srumdo. See [Scrumdo export](./docs/scrum)  |
+| i. | created a prototype that works on multiple devices and presents a responsive design  | Using Bootstrap helped but some D3 Tables were not responsive until we modified them so please view: (https://drugiq.geocent.com)  |
+| j. | provided sufficient documentation to install and run their prototype on another machine  | [INSTALL.md](./INSTALL.md)  |
+| k. | prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge.  | [Technologies Used](README.md#technologies-used)  |
 
 ## Pool Two Development Pool:
 
