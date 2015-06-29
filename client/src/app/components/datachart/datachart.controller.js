@@ -143,7 +143,7 @@ angular.module('ads.datachart', ['ui.bootstrap'])
                               }),
                               reactions: _.map(report.patient.reaction, function(value){
                                 return {
-                                  reaction: value.reactionmeddrapt || 'Unknown',
+                                  reaction: value.reactionmeddrapt,
                                   outcome: value.reactionoutcome ? REACTION_OUTCOME[value.reactionoutcome] : 'Unknown'
                                 };
                               })
@@ -188,9 +188,7 @@ angular.module('ads.datachart', ['ui.bootstrap'])
           'adverseEvents': $scope.query
         });
       }
-  }]);
-
-angular.module('ads.datachart')
+  }])
   .controller('ReportModalCtrl', ['$scope', '$modalInstance', 'report', function ($scope, $modalInstance, report) {
 
     $scope.report = report;
