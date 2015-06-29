@@ -7,6 +7,11 @@
 | CI/Jenkins | https://ads-ci.geocent.com | N/A |
 | Scrum Mgt | https://www.scrumdo.com/projects/project/18f-ads-prototype/ | N/A |
 
+## Description:
+
+Write a brief description, no greater than 750 words, of the approach used to create the working prototype and place this description in the README.md file located in the root directory of your repository.
+Pool One Design: In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool One design:
+
 ## Tests:
 
 | Tests | Status |
@@ -14,12 +19,6 @@
 | Unit Test | https://ads-ci.geocent.com/job/build-dev/ |
 | Coverage Results | https://ads-ci.geocent.com/job/build-dev/ |
 | Integration Tests | https://ads-ci.geocent.com/job/functional-dev/ |
-
-
-## Description:
-
-Write a brief description, no greater than 750 words, of the approach used to create the working prototype and place this description in the README.md file located in the root directory of your repository.
-Pool One Design: In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool One design:
 
 ### Design Standards:
 * https://github.com/18F/api-standards
