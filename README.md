@@ -7,6 +7,8 @@
 | CI/Jenkins | https://ads-ci.geocent.com | N/A |
 | Scrum Mgt | https://www.scrumdo.com/projects/project/18f-ads-prototype/ | N/A |
 
+## Tests:
+
 | Tests | Status |
 | --------------- | ------------- |
 | Unit Test | https://ads-ci.geocent.com/job/build-dev/ |
@@ -63,10 +65,10 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 | --------------- | ------------- | ------------- |
 | a. | assigned one leader and gave that person authority and responsibility and held that person accountable for the quality of the prototype submitted:  | Brian Priest is our Quality Lead  | 
 | b. | assembled a multidisciplinary and collaborative team that includes at a minimum three of the labor categories limited to the Design Pool Labor categories to design the prototype as quoted in Attachment C. The quoter’s proposed mix of labor categories and level of effort for its working prototype, as reflected in Attachment C, shall be evaluated to assess the quoter’s understanding and capability to supply agile delivery services.  | See Attachement C  | 
-| c. | understand what people need, by including people (see note #1) in the prototype design process  |   | 
-| d. | used at least three “human-centered design” techniques or tools  |   | 
-| e. | created or used a design style guide and/or a pattern library  |   | 
-| f. | used at least three modern (see Note#2) and open source frontend or client side (see note ￼￼#3) web technologies  |   | 
+| c. | understand what people need, by including people (see note #1) in the prototype design process  |  Feedback was captured during [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues)  | 
+| d. | used at least three “human-centered design” techniques or tools  | [UI Tool & Techniques] (./README.md#ui-tools-and-techniques) | 
+| e. | created or used a design style guide and/or a pattern library  | [Bootswatch: Yeti] (https://bootswatch.com/yeti/) | 
+| f. | used at least three modern (see Note#2) and open source frontend or client side (see note ￼￼#3) web technologies| [Technologies Used](README.md#technologies-used)|
 | g. | performed usability tests with people  |   | 
 | h. | used an interactive approach, where feedback informed subsequent work or versions of the prototype  |   | 
 | i. | created a prototype that works on multiple devices and presents a responsive design  |   | 
