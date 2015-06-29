@@ -48,6 +48,26 @@ describe('BarChart Controller', function() {
 
     }));
 
+    it('verifies the scope.options.chart.x function', function() {
+    	var source = {
+    		term: 'Symptom',
+    		count: 1,
+    		percent: 20
+    	};
+    	var check = scope.options.chart.x(source);
+    	expect(check).toBe('Symptom');
+    });
+    
+    it('verifies the scope.options.chart.y function', function() {
+    	var source = {
+    		term: 'Symptom',
+    		count: 1,
+    		percent: 20
+    	};
+    	var check = scope.options.chart.y(source);
+    	expect(check).toBe(20);
+    });
+    
     it('verifies the buildSearchText method', function(){
     	var medications = ['promethazine', 'acetaminophen'];
     	var expectedText = 'patient.drug.medicinalproduct:"promethazine" AND patient.drug.medicinalproduct:"acetaminophen"';
