@@ -169,7 +169,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       if ($attrs.detailSection) {
         searchCriteria = searchCriteria + ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
       }
-      MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', $attrs.limit, function(data) {
+      MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', null, function(data) {
         var i, result;
         for (i = 0; i < data.results.length; ++i) {
           result = data.results[i];
@@ -243,12 +243,10 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     }
   })
   .controller('Top20PieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller, $attrs) {
-    $attrs.limit = '20';
     $attrs.detailSection = false;
     $controller('PieChartCtrl', {'$scope': $scope, '$attrs': $attrs});
   })
   .controller('DetailPieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller, $attrs) {
-    $attrs.limit = '20';
     $attrs.detailSection = true;
     $controller('PieChartCtrl', {'$scope': $scope, '$attrs': $attrs});
   });
