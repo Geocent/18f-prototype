@@ -12,6 +12,10 @@
 Write a brief description, no greater than 750 words, of the approach used to create the working prototype and place this description in the README.md file located in the root directory of your repository.
 Pool One Design: In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool One design:
 
+## Archtiecture Diagarm
+
+![DrugIQ Architecture](docs/18f_ADS_DrugIQ_ArchitectureDiagram_v1.0.png)
+
 ## Tests:
 
 | Tests | Status |
