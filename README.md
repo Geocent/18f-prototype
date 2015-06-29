@@ -1,15 +1,18 @@
 # ADS Prototype Response
 
-URL to "PROD" prototype: https://drugiq.geocent.com
+| Purpose | Server/Site | Status |
+| ------------------- | ------------- | ------------- |
+| Production | https://drugiq.geocent.com | https://ads-ci.geocent.com/job/deploy-prod/ |
+| Development | https://ads-dev.geocent.com | https://ads-ci.geocent.com/job/deploy-dev/ |
+| CI/Jenkins | https://ads-ci.geocent.com | N/A |
+| Scrum Mgt | https://www.scrumdo.com/projects/project/18f-ads-prototype/ | N/A |
 
-URL to "DEV" (integration) prototype: https://drugiq-dev.geocent.com
+| Tests | Status |
+| --------------- | ------------- |
+| Unit Test | https://ads-ci.geocent.com/job/build-dev/ |
+| Coverage Results | https://ads-ci.geocent.com/job/build-dev/ |
+| Integration Tests | https://ads-ci.geocent.com/job/functional-dev/ |
 
-URL to Jenkins/CI: https://drugiq-ci.geocent.com
-
-SrumDo Link: https://www.scrumdo.com/projects/project/18f-ads-prototype/summary
-
-Datasets used: https://open.fda.gov/
-* /drug/event
 
 ## Description:
 
@@ -49,7 +52,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 
 
 ### Installation and Setup:
-// TODO Add link to setup readme
+[View the INSTALL.md] (./INSTALL.md)
 
 
 ## Pool One Design:
