@@ -12,6 +12,10 @@
 Write a brief description, no greater than 750 words, of the approach used to create the working prototype and place this description in the README.md file located in the root directory of your repository.
 Pool One Design: In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool One design:
 
+## Archtiecture Diagarm
+
+![DrugIQ Architecture](docs/18f_ADS_DrugIQ_ArchitectureDiagram_v1.0.png)
+
 ## Tests:
 
 | Tests | Status |
@@ -73,7 +77,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 | h. | used an interactive approach, where feedback informed subsequent work or versions of the prototype  | [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues) have lead to User Stories in Srumdo. See [Scrumdo export](./docs/scrum)  |
 | i. | created a prototype that works on multiple devices and presents a responsive design  | Using Bootstrap helped but some D3 Tables were not responsive until we modified them so please view: (https://drugiq.geocent.com)  |
 | j. | provided sufficient documentation to install and run their prototype on another machine  | [INSTALL.md](./INSTALL.md)  |
-| k. | prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge.  | [Technologies Used](README.md#technologies-used)  |
+| k. | prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge.  | [LICENSE.md](./LICENSE.md) [Technologies Used](README.md#technologies-used)  |
 
 ## Pool Two Development Pool:
 
@@ -83,16 +87,16 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 | --------------- | ------------- | ------------- |
 | a. | assigned one leader, gave that person authority and responsibility and held that person accountable for the quality of the prototype submitted | Brian Priest is our Quality Lead |
 | b. | assembled a multidisciplinary and collaborative team that includes at a minimum two of the labor categories limited to the Development Pool labor categories to develop the prototype as quoted in Attachment C. The quoter’s proposed mix of labor categories and level of effort for its working prototype, as reflected in Attachment C, shall be evaluated to assess the quoter’s understanding and capability to supply agile delivery services | See Attachement C |
-| c. | used at least five modern and open-source technologies, regardless of architectural layer (frontend, backend etc) | |
-| d. | deployed the prototype on an Infrastructure as a Service (IaaS) or Platform as a Service (PaaS) provider, and indicated which provider was used | |
-| e. | wrote unit tests for their code | |
-| f. | set up or used a continuous integration system to automate the running of tests and continuously deployed their code to their IaaS or PaaS provider | |
-| g. | set up or used configuration management | |
-| h. | set up or used continuous monitoring | |
-| i. | deploy their software in a container (i.e., utilized operating-system-level virtualization) | |
-| j. | used an interactive approach, where feedback informed subsequent work or versions of ￼￼the prototype | |
+| c. | used at least five modern and open-source technologies, regardless of architectural layer (frontend, backend etc) | [Technologies Used](README.md#technologies-used) |
+| d. | deployed the prototype on an Infrastructure as a Service (IaaS) or Platform as a Service (PaaS) provider, and indicated which provider was used | AWS was used and shown in [Architecture Diagram](./README.md#archtiecture-diagarm) |
+| e. | wrote unit tests for their code | Unit Tests are executed locally with 'gulp test'. (CI displays Unit Tests Results) [https://ads-ci.geocent.com/job/build-dev/] |
+| f. | set up or used a continuous integration system to automate the running of tests and continuously deployed their code to their IaaS or PaaS provider | [CI/Jenkins](https://ads-ci.geocent.com) |
+| g. | set up or used configuration management | [GitHub](https://github.com/Geocent/18f-prototype)|
+| h. | set up or used continuous monitoring | AWS CloudWatch was used |
+| i. | deploy their software in a container (i.e., utilized operating-system-level virtualization) | Software and servers were deployed in Docker shown in [Architecture Diagram](./README.md#archtiecture-diagarm) and scripts found in [devops](./devops/containers)|
+| j. | used an interactive approach, where feedback informed subsequent work or versions of ￼￼the prototype | [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues) have lead to User Stories in Srumdo. See [Scrumdo export](./docs/scrum) |
 | k. | provided sufficient documentation to install and run their prototype on another machine | |
-| l. | prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge | |
+| l. | prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge | [LICENSE.md](./LICENSE.md) [Technologies Used](README.md#technologies-used) |
 
 ## Pool Three The Full Stack Pool:
 
