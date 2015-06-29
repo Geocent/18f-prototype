@@ -10,6 +10,7 @@ angular.module('ads.searchfield', ['ui.bootstrap'])
         [ { value: '' } ];
 
       $scope.brandNames = [];
+      $scope.searchfieldError = '';
 
       $scope.$watch('prescriptions', function() {
           if(!_.isEmpty($scope.prescriptions[$scope.prescriptions.length - 1].value)) {
@@ -50,6 +51,7 @@ angular.module('ads.searchfield', ['ui.bootstrap'])
             });
         })
         .error(function(err){
+            $scope.searchfieldError = 'Unexpected error retrieving drug list.';
             console.error(err);
         });
 

@@ -9,7 +9,8 @@
         <p class="drugiq-white">Find drugs that may be causing adverse symptoms.</p>
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="searchDrug()" ng-value="drug" ng-model="drug" ng-blur="validatePrescription()" placeholder="Enter drug name"/>
+                <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="searchDrug()" ng-value="drug" ng-model="drug" ng-blur="validatePrescription()" ng-disabled="!brandNames.length" placeholder="Enter drug name"/>
+                <div class="alert alert-danger" role="alert" ng-show="landingError.length">{{landingError}}</div>
             </div><!-- /.col-xs-12 -->
           </div><!-- /.row -->
       </div>
