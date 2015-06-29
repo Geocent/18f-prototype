@@ -68,6 +68,44 @@ describe('BarChart Controller', function() {
     	expect(check).toBe(20);
     });
     
+    it('verifies the scope.options.chart.barColor function', function() {
+    	var d = {
+			color: null
+    	};
+    	var i = 0;
+    	// verify a return when we don't pass a color ourselves
+    	var barColor = scope.options.chart.barColor(d, i);
+    	expect(barColor).not.toBe(null);
+//    	console.log('barColor returned: ' + barColor);
+    	// now verify the return when there's already a color set on 'd'
+    	d.color = 'red';
+    	barColor = scope.options.chart.barColor(d, i);
+    	expect(barColor).toBe('red');
+    });
+    
+    it('verifies the scope.options.chart.yAxis.tickFormat function', function() {
+    	var tick = 0.0560;
+    	var expectedResult = '5.60%';
+    	var formattedTick = scope.options.chart.yAxis.tickFormat(tick);
+    	expect(formattedTick).toBe(expectedResult);
+    });
+    
+    it('verifies the scope.options.chart.valueFormat function', function() {
+    	var value = 0.0650;
+    	var expectedResult = '6.50%';
+    	var formattedValue = scope.options.chart.valueFormat(value);
+    	expect(formattedValue).toBe(expectedResult);
+    });
+    
+    it('verifies the scope.options.chart.tooltip function', function() {
+    	var key = 'Adverse Events';
+    	var x = 'NAUSEA';
+    	var y = '50%';
+    	var expectedTooltip = '<h3>' + key + '</h3>' + '<p>' +  y + ' at ' + x + '</p>';
+    	var tooltip = scope.options.chart.tooltip( key, x, y, null);
+    	expect(tooltip).toEqual(expectedTooltip);
+    });
+    
     it('verifies the buildSearchText method', function(){
     	var medications = ['promethazine', 'acetaminophen'];
     	var expectedText = 'patient.drug.medicinalproduct:"promethazine" AND patient.drug.medicinalproduct:"acetaminophen"';
@@ -75,6 +113,26 @@ describe('BarChart Controller', function() {
     	expect(searchText).toEqual(expectedText);
     });
 
+    it('verifies the setAdditionalScopeInfo function', function() {
+    	var phoneScreenWidth = 320;
+    	var recCount = 10;
+    	var axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
+    	// Get the existing value of the left margin - we'll test against this
+    	var leftMargin = scope.options.chart.margin.left;
+    	scope.setAdditionalScopeInfo(recCount, window.screen.width);
+    	expect(scope.options.chart.margin.left).toEqual(leftMargin);
+    	expect(scope.options.chart.yAxis.axisLabel).toEqual(axisLabel);
+    	expect(scope.options.chart.width).toBeUndefined();
+
+    	// now set the window.screen.width value to verify changes
+    	scope.setAdditionalScopeInfo(recCount, phoneScreenWidth);
+    	expect(scope.options.chart.margin.left).toEqual(100);
+    	expect(scope.options.chart.yAxis.axisLabel).toEqual(axisLabel);
+    	expect(scope.options.chart.width).toBe(phoneScreenWidth);
+    	expect(scope.options.chart.showValues).toBeFalsy();
+    	expect(scope.options.chart.callback).toBeDefined();
+    });
+    
     it( 'verifies that query does not run if the query value has not been set', function() {
         scope.getData();
 

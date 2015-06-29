@@ -59,24 +59,20 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         /**
          * utility function used to set the Y Axis label including the count of records the query returned
          */
-        function setAdditionalScopeInfo( recCount ) {
+        $scope.setAdditionalScopeInfo = function( recCount, windowSize ) {
         	$scope.options.chart.yAxis.axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
         	// Set chart size to 80% of screen width if that width is over 400; otherwise set chart to screen size
-        	if( window.screen.width <= 400 ) {
-            	$scope.options.chart.width = window.screen.width;
+        	if( windowSize <= 400 ) {
+            	$scope.options.chart.width = windowSize;
             	$scope.options.chart.margin.left = 100;
             	$scope.options.chart.showValues = false;
             	$scope.options.chart.callback = function() {
 	            	d3.selectAll('text').style('font-size', '6px');
             	};
         	}
-        	console.log( 'window.screen.size: ' + window.screen.width );
-        	console.log( 'Chart width: ' + $scope.options.chart.width );
-        }
-
-        $scope.$on('elementClick.directive', function(angularEvent, event) {
-        	console.log( 'angularEvent: ' + angularEvent + ', event=' + event );
-        });
+//        	console.log( 'window.screen.size: ' + windowSize );
+//        	console.log( 'Chart width: ' + $scope.options.chart.width );
+        };
 
         /**
          * This function is called as the result of a 'broadcast' event being fired by the SearchFieldCtrl
@@ -84,7 +80,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
          * executing the query, then transforming the return data to what the chart expects
          * 
          */
-        $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
+        $scope.$on( 'updateSearchParameters', function(event, adverseEvents) {
         	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
 
 			$scope.adverseEvents = adverseEvents;
@@ -138,7 +134,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                 	$scope.translateData(data);
                     $scope.recCount = data.results.length;
 //                    console.log('Returned data: ' + $scope.recCount);
-                    setAdditionalScopeInfo($scope.recCount);
+                    $scope.setAdditionalScopeInfo($scope.recCount, window.screen.width);
                   });
         	}
         };
