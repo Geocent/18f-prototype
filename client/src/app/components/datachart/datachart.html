@@ -5,9 +5,9 @@
         <h3>What symptom are you interested in?</h3>
         <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)"></select>
 
-        <div  ng-show="isLoading" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>Loading...</i></div>
-
         <div ng-include="'app/components/piechart/piechart-detailed.html'"></div>
+
+        <div  ng-show="isLoading" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>Loading...</i></div>
 
         <br/>
         <p ng-show="reports.length && query.prescriptions.length">Explore the detailed reports from others that have experienced <b>{{ selectedSymptom }}</b> when taking {{reducePrescriptions(query.prescriptions)}}</p>

@@ -1,12 +1,19 @@
 <div class="row" ng-controller="DetailPieChartCtrl" ng-show="showCharts">
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    <h3>Sex of Patients</h3>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <h3>Weight of Patients</h3>
+    <p>with selected symptom</p>
+    <div>
+      <nvd3 options="weightOptions" data="weightChartData"></nvd3>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <h3>Gender of Patients</h3>
     <p>with selected symptom</p>
     <div>
       <nvd3 options="options" data="chartData"></nvd3>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
     <h3>Age of Patients</h3>
     <p>with selected symptom</p>
     <div>
