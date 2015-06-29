@@ -102,4 +102,6 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 
 In addition to the Description, above, the quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Three Full Stack:
 
-* a. met all the evidence criteria listed above in the Design Pool and Development Pool and Attachment C includes at a minimum five of the labor categories from the Full Stack Pool categories.
+| # | Requirement | Link |
+| --------------- | ------------- | ------------- |
+| a.| met all the evidence criteria listed above in the Design Pool and Development Pool and Attachment C includes at a minimum five of the labor categories from the Full Stack Pool categories. | |
