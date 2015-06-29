@@ -21,6 +21,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
         loadSexChartData();
         loadAgeChartData();
+        loadWeightChartData();
       }
     });
 
@@ -95,6 +96,11 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       $scope.ageOptions = options;
     }
 
+    function setWeightChartOptions() {
+      var options = getDefaultChartOptions();
+      $scope.weightOptions = options;
+    }
+
     function loadSexChartData() {
 
       MedicationsSearchService.query($scope.adverseEvents, null, 'patient.patientsex', null, function(data) {
@@ -129,15 +135,36 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
       $scope.ageChartData = [];
 
-      queryAgeService('< 25', '[0 TO 24]', true);
-      queryAgeService('25-49', '[25 TO 49]', false);
-      queryAgeService('50-74', '[50 TO 74]', false);
-      queryAgeService('Over 75', '[75 TO 150]', false);
+      queryAgeService('< 25', '[0 TO 24]', setAgeChartOptions);
+      queryAgeService('25-49', '[25 TO 49]');
+      queryAgeService('50-74', '[50 TO 74]');
+      queryAgeService('Over 75', '[75 TO 150]');
 
     }
 
-    function queryAgeService(label, searchRange, setOptions) {
-      var searchCriteria = ' AND patient.patientonsetage:' + searchRange;
+    function loadWeightChartData() {
+
+      $scope.weightChartData = [];
+
+      queryEndpointByWeightRange('< 100', '[0 TO 99]', setWeightChartOptions);
+      queryEndpointByWeightRange('100-149', '[100 TO 149]');
+      queryEndpointByWeightRange('150-199', '[150 TO 199]');
+      queryEndpointByWeightRange('200-249', '[200 TO 249]');
+      queryEndpointByWeightRange('250-300', '[250 TO 300]');
+      queryEndpointByWeightRange('Over 300', '[300 TO 1000]');
+
+    }
+
+    function queryAgeService(label, searchRange, setChartOptionsCallback) {
+      queryServiceByRange('patient.patientonsetage', label, searchRange, $scope.ageChartData, setChartOptionsCallback);
+    }
+
+    function queryEndpointByWeightRange(label, searchRange, setChartOptionsCallback) {
+      queryServiceByRange('patient.patientweight', label, searchRange, $scope.weightChartData, setChartOptionsCallback);
+    }
+
+    function queryServiceByRange(searchField, label, searchRange, ageChartData, setChartOptionsCallback) {
+      var searchCriteria = ' AND ' + searchField + ':' + searchRange;
       if ($attrs.detailSection) {
         searchCriteria = searchCriteria + ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
       }
@@ -145,17 +172,16 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         var i, result;
         for (i = 0; i < data.results.length; ++i) {
           result = data.results[i];
-          $scope.ageChartData.push({
+          ageChartData.push({
             key: label,
             y: result.count
           });
         }
-        if (setOptions) {
-          setAgeChartOptions();
+        if (setChartOptionsCallback) {
+          setChartOptionsCallback();
         }
       });
     }
-
   })
   .controller('Top20PieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller, $attrs) {
     $attrs.limit = '20';
