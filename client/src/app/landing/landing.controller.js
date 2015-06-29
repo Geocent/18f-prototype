@@ -5,6 +5,8 @@ angular.module('ads.landing', ['ui.bootstrap'])
       $scope.drug = '';
       $scope.brandNames = [];
 
+      $scope.landingError = '';
+
       $scope.validatePrescription = function() {
         if(_.isEmpty($scope.drug)) {
             $scope.drug = '';
@@ -23,6 +25,7 @@ angular.module('ads.landing', ['ui.bootstrap'])
             });
         })
         .error(function(err){
+            $scope.landingError = 'Unexpected error retrieving drug list.';
             console.error(err);
         });
     }]);

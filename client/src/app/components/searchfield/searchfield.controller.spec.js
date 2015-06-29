@@ -1,17 +1,28 @@
 'use strict';
 
 describe('ads.searchfield', function(){
+  var controller;
+  var location;
+  var http;
+  var httpBackend;
+  var httpRequest;
   var searchFieldController;
   var scope;
+  var timeout;
   var rootScope;
 
   beforeEach(module('ads.searchfield'));
 
   beforeEach(inject(function($controller, $http, $httpBackend, $location, $rootScope, $timeout) {
+    controller = $controller;
+    http = $http;
+    httpBackend = $httpBackend;
+    location = $location;
     scope = $rootScope.$new();
     rootScope = $rootScope;
+    timeout = $timeout;
 
-    $httpBackend.when('GET', '/assets/brand_names.json')
+    httpRequest = $httpBackend.when('GET', '/assets/brand_names.json')
       .respond([
           {'id':'','name':'7 SELECT ACETAMINOPHEN'},
           {'id':'','name':'7 SELECT ADULT CHEWABLE ASPIRIN'},
@@ -40,7 +51,7 @@ describe('ads.searchfield', function(){
           {'id':'','name':'ACETAMINOPHEN RAPID RELEASE EXTRA STRENGTH'}
       ]);
 
-      searchFieldController = $controller('SearchfieldCtrl', { $scope: scope, $rootScope: $rootScope, $http: $http, $location: $location, $timeout: $timeout});
+    searchFieldController = $controller('SearchfieldCtrl', { $scope: scope, $rootScope: $rootScope, $http: $http, $location: $location, $timeout: $timeout});
 
     $httpBackend.flush();
   }));
@@ -57,6 +68,48 @@ describe('ads.searchfield', function(){
       expect(scope.prescriptions).toEqual([
           {value: ''}
       ]);
+
+      expect(scope.searchfieldError).toEqual('');
+  });
+
+  it('Invalid loading of prescription list', function() {
+      httpRequest.respond(404, 'Error');
+
+      searchFieldController = controller('SearchfieldCtrl', { $scope: scope, $rootScope: rootScope, $http: http, location: location, $timeout: timeout});
+
+      httpBackend.flush();
+
+      expect(scope.searchfieldError).not.toEqual('');
+  });
+
+  it('Validate query parameter functionality', function() {
+      spyOn(rootScope, '$broadcast');
+      spyOn(location, 'search').and.returnValue({
+          drugname: 'XOPENEX'
+      });
+
+      searchFieldController = controller('SearchfieldCtrl', { $scope: scope, $rootScope: rootScope, $http: http, $location: location, $timeout: timeout});
+
+      expect(scope.prescriptions).toEqual([
+          {value: 'XOPENEX'},
+          {value: ''}
+      ]);
+
+      timeout.flush();
+      expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
+        { serious: false, prescriptions: [ 'XOPENEX' ]}
+      );
+  });
+
+  it('Prescription validations', function() {
+      scope.prescriptions[0].value = undefined;
+      scope.validatePrescription(0);
+      expect(scope.prescriptions[0].value).toEqual('');
+
+      scope.prescriptions[0].value = 'notempty';
+      scope.validatePrescription(0);
+      expect(scope.prescriptions[0].value).not.toEqual('');
+
   });
 
   it('Adding a prescription to empty prescription list', function() {
