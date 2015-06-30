@@ -137,6 +137,10 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
           });
         }
         setSexChartOptions();
+      }, function(error) {
+        console.log( 'error from get total reports: ' + error);
+        $scope.chartData = [];
+        setSexChartOptions();
       });
     }
 
@@ -204,6 +208,13 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
             y: result.count
           });
         }
+        if (setChartOptionsCallback) {
+          setChartOptionsCallback();
+        }
+      }, function(error) {
+        console.log( 'error from get total reports: ' + error);
+        // Empties array without having original reference.
+        chartData.splice(0,chartData.length);
         if (setChartOptionsCallback) {
           setChartOptionsCallback();
         }

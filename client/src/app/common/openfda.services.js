@@ -32,7 +32,7 @@ angular.module('ads.services.openfda', [])
       }
       
     return {
-      query: function(adverseEvents, additionalSearchCriteria, countField, limit, callback) {
+      query: function(adverseEvents, additionalSearchCriteria, countField, limit, successCallback, failureCallback) {
         var searchString = buildSearchText(adverseEvents.prescriptions);
         if (additionalSearchCriteria) {
           searchString = searchString + additionalSearchCriteria;
@@ -43,7 +43,9 @@ angular.module('ads.services.openfda', [])
           'limit' : limit
         };
         DrugEventService.get(query, function (data) {
-          callback(data);
+          successCallback(data);
+        }, function(error) {
+          failureCallback(error);
         });
       }
   };
