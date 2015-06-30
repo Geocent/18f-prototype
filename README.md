@@ -4,12 +4,13 @@
 | ------------------- | ------------- | ------------- |
 | Production Deployment | https://drugiq.geocent.com | [![Deployment Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-prod)](https://ads-ci.geocent.com/job/deploy-prod/) |
 | Development Deployment | https://ads-dev.geocent.com | [![Deployment Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-dev)](https://ads-ci.geocent.com/job/deploy-dev/) |
-| CI/Jenkins | https://ads-ci.geocent.com |  |
-| Scrum Mgt | https://www.scrumdo.com/projects/project/18f-ads-prototype/ |  |
 | Development Build Status | https://ads-ci.geocent.com/job/build-dev/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
 | Unit Test | https://ads-ci.geocent.com/job/build-dev/lastCompletedBuild/testReport/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
 | Coverage Results | https://ads-ci.geocent.com/job/build-dev/cobertura/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
 | Integration Tests | https://ads-ci.geocent.com/job/functional-dev/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=functional-dev)](https://ads-ci.geocent.com/job/functional-dev/) |
+| CI/Jenkins | https://ads-ci.geocent.com |  |
+| Scrum Mgt | https://www.scrumdo.com/projects/project/18f-ads-prototype/ |  |
+
 ## Description:
 
 Write a brief description, no greater than 750 words, of the approach used to create the working prototype and place this description in the README.md file located in the root directory of your repository.
