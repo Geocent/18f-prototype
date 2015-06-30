@@ -74,6 +74,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
           transitionDuration: 500,
           labelThreshold: 0.01,
           labelType:'percent',
+          tooltips: false,
           legend: {
             margin: {
               top: 5,
