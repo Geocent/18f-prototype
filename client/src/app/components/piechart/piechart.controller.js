@@ -54,9 +54,9 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         if ($scope.symptomName) {
           $scope.showCharts = true;
           $scope.adverseEvents = symptom.adverseEvents;
-          //loadSexChartData();
-          //loadAgeChartData();
-          //loadWeightChartData();
+          $scope.buttons.showAge = true;
+          $scope.buttons.showGender = true;
+          $scope.buttons.showWeight = true;
         } else {
           $scope.showCharts = false;
         }
@@ -168,11 +168,17 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
       $scope.weightChartData = [];
 
-      queryEndpointByWeightRange('< 100', '[0 TO 99]', setWeightChartOptions);
-      queryEndpointByWeightRange('100-199', '[100 TO 199]');
-      queryEndpointByWeightRange('200-299', '[200 TO 299]');
-      queryEndpointByWeightRange('Over 300', '[300 TO 10000]');
+      queryEndpointByWeightRange('< 100', getKgRangeInPounds(0, 99), setWeightChartOptions);
+      queryEndpointByWeightRange('100-199', getKgRangeInPounds(100, 199));
+      queryEndpointByWeightRange('200-299', getKgRangeInPounds(200, 299));
+      queryEndpointByWeightRange('Over 300', getKgRangeInPounds(300, 1000));
 
+    }
+
+    function getKgRangeInPounds(startKg, endKg) {
+      var startLbs = kgToPound(startKg);
+      var endLbs = kgToPound(endKg);
+      return '[' + startLbs + ' TO ' + endLbs + ']';
     }
 
     function queryEndpointByAgeRange(label, searchRange, setChartOptionsCallback) {
