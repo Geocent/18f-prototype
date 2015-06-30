@@ -14,7 +14,11 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 
 ## Archtiecture Diagarm
 
-![DrugIQ Architecture](docs/18f_ADS_DrugIQ_ArchitectureDiagram_v1.0.png)
+![DrugIQ Architecture](./docs/18f_ADS_DrugIQ_ArchitectureDiagram_v1.0.png)
+
+## Continuous Integration Diagarm
+
+![DrugIQ Architecture](./docs/18f_ADS_DrugIQ_CI-Diagram_v1.0.png)
 
 ## Tests:
 
