@@ -117,7 +117,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                     $scope.getData();
             }, function(error) {
             	// Prepare to show an error if there was a problem with the query
-            	console.log( 'error from get: ' + error);
+            	console.log( 'error from get total reports: ' + error);
         		$scope.chartData = [];
         		$scope.options.chart.noData = error.data.error.message || error.status;
             });
@@ -135,6 +135,11 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                     $scope.recCount = data.results.length;
 //                    console.log('Returned data: ' + $scope.recCount);
                     $scope.setAdditionalScopeInfo($scope.recCount, window.screen.width);
+                  }, function(error) {
+                  	// Prepare to show an error if there was a problem with the query
+                  	console.log( 'error from get symptom count: ' + error);
+              		$scope.chartData = [];
+              		$scope.options.chart.noData = error.data.error.message || error.status;
                   });
         	}
         };

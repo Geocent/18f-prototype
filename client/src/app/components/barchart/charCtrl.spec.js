@@ -133,6 +133,21 @@ describe('BarChart Controller', function() {
     	expect(scope.options.chart.callback).toBeDefined();
     });
     
+//    it('verifies the event handling when medications are entered/removed', function() {
+//    	var adverseEvents = {
+//    		prescriptions: ['promethazine', 'losartan'],
+//    		serious: false
+//    	};
+//    	spyOn( scope, '$on');
+//    	spyOn( scope, 'refreshChartWithLatestData');
+//    	scope.$broadcast('updateSearchParameters', adverseEvents);
+//    	
+//    	expect(scope.$on).toHaveBeenCalled();
+//    	expect(scope.adverseEvents).toEqual(adverseEvents);
+//    	expect(scope.prescriptions).toEqual(adverseEvents.prescriptions);
+//    	expect(scope.refreshChartWithLatestData).toHaveBeenCalled();
+//    });
+    
     it( 'verifies that query does not run if the query value has not been set', function() {
         scope.getData();
 
