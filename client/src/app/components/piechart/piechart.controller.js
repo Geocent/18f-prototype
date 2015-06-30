@@ -145,15 +145,19 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
     function loadAggregatedWeightChartData() {
       var ranges = [
-        {start: 0, end: 99, label: '< 100', total: 0},
-        {start: 100, end: 149, label: '100-149', total: 0},
-        {start: 150, end: 199, label: '150-199', total: 0},
-        {start: 200, end: 249, label: '200-249', total: 0},
-        {start: 250, end: 299, label: '250-299', total: 0},
-        {start: 300, end: 1000, label: 'Over 300', total: 0}
+        {start: kgToPound(0), end: kgToPound(99), label: '< 100', total: 0},
+        {start: kgToPound(100), end: kgToPound(149), label: '100-149', total: 0},
+        {start: kgToPound(150), end: kgToPound(199), label: '150-199', total: 0},
+        {start: kgToPound(200), end: kgToPound(249), label: '200-249', total: 0},
+        {start: kgToPound(250), end: kgToPound(299), label: '250-299', total: 0},
+        {start: kgToPound(300), end: kgToPound(1000), label: 'Over 300', total: 0}
       ];
       $scope.weightChartData = [];
       queryEndpointAggregatingBy('patient.patientweight', ranges, $scope.weightChartData, setWeightChartOptions);
+    }
+
+    function kgToPound(kg) {
+      return kg/2.20462;
     }
 
     /**
@@ -168,7 +172,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       if ($attrs.detailSection) {
         additionalSearchCriteria = ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
       }
-      MedicationsSearchService.query($scope.adverseEvents, additionalSearchCriteria, field, null, function(data) {
+      MedicationsSearchService.query($scope.adverseEvents, additionalSearchCriteria, field, 1000, function(data) {
         var i, j, result, range;
         for (i = 0; i < data.results.length; ++i) {
           result = data.results[i];
