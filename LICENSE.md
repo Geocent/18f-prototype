@@ -4,7 +4,7 @@
 
 **Statement of Purpose:** All copyright, trademark, and patent rights in this work, where applicable, is waived.
 
-**Copyright Waiver:** This package contains the work of GEOCENT LLC (referred here after as GEOCENT), and may include the work of properly licensed works. GEOCENT permanently waives all copyright and related rights in the work worldwide.
+**Copyright Waiver:** This package contains the work of GEOCENT LLC (referred to here after as GEOCENT), and may include the work of properly licensed works. GEOCENT permanently waives all copyright and related rights in the work worldwide.
 
 The General Services Administration is given unlimited rights to the work, delivered under agreement, which includes the right to use, disclose, reproduce, prepare derivative works, distribute copies to the public, and perform publicly and display publicly, in any manner and for any purpose whatsoever, and to have or permit others to do so.
 
