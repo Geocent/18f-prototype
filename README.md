@@ -95,7 +95,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 | g. | set up or used configuration management | [GitHub](https://github.com/Geocent/18f-prototype)|
 | h. | set up or used continuous monitoring | AWS CloudWatch was used |
 | i. | deploy their software in a container (i.e., utilized operating-system-level virtualization) | Software and servers were deployed in Docker shown in [Architecture Diagram](./README.md#archtiecture-diagarm) and scripts found in [devops](./devops/containers)|
-| j. | used an interactive approach, where feedback informed subsequent work or versions of ￼￼the prototype | [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues) have lead to User Stories in Srumdo. See [Scrumdo export](./docs/scrum) |
+| j. | used an interactive approach, where feedback informed subsequent work or versions of ￼￼the prototype | [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues) have lead to User Stories in ScrumDo. See [Scrumdo export](./docs/scrum) |
 | k. | provided sufficient documentation to install and run their prototype on another machine | [INSTALL.md](./INSTALL.md) |
 | l. | prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge | [LICENSE.md](./LICENSE.md) [Technologies Used](README.md#technologies-used) |
 
