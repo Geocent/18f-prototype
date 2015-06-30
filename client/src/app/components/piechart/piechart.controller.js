@@ -15,15 +15,36 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       'color': '#C8C8C8'
     };
 
+    $scope.buttons = {
+      showAge: true,
+      showWeight: true,
+      showGender: true
+    };
+
     $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
       $scope.adverseEvents = adverseEvents;
       // Load the top 20 charts when a search for medications is kicked off.
       if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
-        loadSexChartData();
-        loadAggregatedAgeChartData();
-        loadAggregatedWeightChartData();
+        $scope.buttons.showAge = true;
+        $scope.buttons.showGender = true;
+        $scope.buttons.showWeight = true;
       }
     });
+
+    $scope.showAgeGraph = function() {
+      loadAgeChartData();
+      $scope.buttons.showAge = false;
+    }
+
+    $scope.showWeighGraph = function() {
+      loadWeightChartData();
+      $scope.buttons.showWeight = false;
+    }
+
+    $scope.showGenderGraph = function() {
+      loadSexChartData();
+      $scope.buttons.showGender = false;
+    }
 
     $scope.showCharts = false;
 
@@ -33,9 +54,9 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         if ($scope.symptomName) {
           $scope.showCharts = true;
           $scope.adverseEvents = symptom.adverseEvents;
-          loadSexChartData();
-          loadAggregatedAgeChartData();
-          loadAggregatedWeightChartData();
+          $scope.buttons.showAge = true;
+          $scope.buttons.showGender = true;
+          $scope.buttons.showWeight = true;
         } else {
           $scope.showCharts = false;
         }
@@ -53,6 +74,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
           transitionDuration: 500,
           labelThreshold: 0.01,
           labelType:'percent',
+          tooltips: false,
           legend: {
             margin: {
               top: 5,
@@ -67,7 +89,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
     function setSexChartOptions() {
       var options = getDefaultChartOptions();
-      options.chart.color = function(d, i) {
+      options.chart.color = function(d) {
         var color, key;
         if (d.data) {
           key = d.data.key;
@@ -115,6 +137,10 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
           });
         }
         setSexChartOptions();
+      }, function(error) {
+        console.log( 'error from get total reports: ' + error);
+        $scope.chartData = [];
+        setSexChartOptions();
       });
     }
 
@@ -147,13 +173,17 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
       $scope.weightChartData = [];
 
-      queryEndpointByWeightRange('< 100', '[0 TO 99]', setWeightChartOptions);
-      queryEndpointByWeightRange('100-149', '[100 TO 149]');
-      queryEndpointByWeightRange('150-199', '[150 TO 199]');
-      queryEndpointByWeightRange('200-249', '[200 TO 249]');
-      queryEndpointByWeightRange('250-300', '[250 TO 300]');
-      queryEndpointByWeightRange('Over 300', '[300 TO 1000]');
+      queryEndpointByWeightRange('< 100', getKgRangeInPounds(0, 99), setWeightChartOptions);
+      queryEndpointByWeightRange('100-199', getKgRangeInPounds(100, 199));
+      queryEndpointByWeightRange('200-299', getKgRangeInPounds(200, 299));
+      queryEndpointByWeightRange('Over 300', getKgRangeInPounds(300, 1000));
 
+    }
+
+    function getKgRangeInPounds(startKg, endKg) {
+      var startLbs = kgToPound(startKg);
+      var endLbs = kgToPound(endKg);
+      return '[' + startLbs + ' TO ' + endLbs + ']';
     }
 
     function queryEndpointByAgeRange(label, searchRange, setChartOptionsCallback) {
@@ -181,66 +211,20 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         if (setChartOptionsCallback) {
           setChartOptionsCallback();
         }
+      }, function(error) {
+        console.log( 'error from get total reports: ' + error);
+        // Empties array without having original reference.
+        chartData.splice(0,chartData.length);
+        if (setChartOptionsCallback) {
+          setChartOptionsCallback();
+        }
       });
     }
 
-    function loadAggregatedAgeChartData() {
-      var ranges = [
-        {start: 0, end: 24, label: '< 25', total: 0},
-        {start: 25, end: 49, label: '25-49', total: 0},
-        {start: 50, end: 74, label: '50-74', total: 0},
-        {start: 75, end: 150, label: 'Over 75', total: 0}
-      ];
-      $scope.ageChartData = [];
-      queryEndpointAggregatingBy('patient.patientonsetage', ranges, $scope.ageChartData, setAgeChartOptions);
+    function kgToPound(kg) {
+      return kg/2.20462;
     }
 
-    function loadAggregatedWeightChartData() {
-      var ranges = [
-        {start: 0, end: 99, label: '< 100', total: 0},
-        {start: 100, end: 149, label: '100-149', total: 0},
-        {start: 150, end: 199, label: '150-199', total: 0},
-        {start: 200, end: 249, label: '200-249', total: 0},
-        {start: 250, end: 299, label: '250-299', total: 0},
-        {start: 300, end: 1000, label: 'Over 300', total: 0}
-      ];
-      $scope.weightChartData = [];
-      queryEndpointAggregatingBy('patient.patientweight', ranges, $scope.weightChartData, setWeightChartOptions);
-    }
-
-    /**
-     *
-     * @param field - Aggregate the search on this field.
-     * @param ranges - Further aggregate the results by these ranges, storing the result inside this object.
-     * @param chartData - Add the ranges to populate the chart.
-     * @param setChartOptionsCallback - Set the chart options after the data is there.
-     */
-    function queryEndpointAggregatingBy(field, ranges, chartData, setChartOptionsCallback) {
-      var additionalSearchCriteria = null;
-      if ($attrs.detailSection) {
-        additionalSearchCriteria = ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
-      }
-      MedicationsSearchService.query($scope.adverseEvents, additionalSearchCriteria, field, null, function(data) {
-        var i, j, result, range;
-        for (i = 0; i < data.results.length; ++i) {
-          result = data.results[i];
-          for (j = 0; j < ranges.length; ++j) {
-            range = ranges[j];
-            if (range.start <= result.term && Math.floor(result.term) <= range.end) {
-              range.total = range.total + result.count;
-            }
-          }
-        }
-        for (i = 0; i < ranges.length; ++i) {
-          range = ranges[i];
-          chartData.push({
-            key: range.label,
-            y: range.total
-          })
-        }
-        setChartOptionsCallback();
-      });
-    }
   })
   .controller('Top20PieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller, $attrs) {
     $attrs.detailSection = false;

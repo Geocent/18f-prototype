@@ -3,11 +3,11 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
         <h3>What symptom are you interested in?</h3>
-        <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)"></select>
+        <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)" aria-label="Select symptom" title="Select symptom"></select>
 
 
         <br/>
-        <p ng-show="reports.length && query.prescriptions.length">Explore the detailed reports from others that have experienced <b>{{ selectedSymptom }}</b> when taking {{reducePrescriptions(query.prescriptions)}}</p>
+        <p ng-show="reports.length && query.prescriptions.length">Explore the detailed reports from others that have experienced <b> <a ng-href="http://www.webmd.com/search/search_results/default.aspx?query={{selectedSymptom | escape}}" target="_blank">{{ selectedSymptom }}</a></b> when taking {{reducePrescriptions(query.prescriptions)}}</p>
 
         <div ng-include="'app/components/piechart/piechart-detailed.html'"></div>
         <div ng-show="isLoading" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>Loading...</i></div>

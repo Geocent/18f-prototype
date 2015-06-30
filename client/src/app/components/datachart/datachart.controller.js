@@ -1,6 +1,9 @@
 'use strict';
 
 angular.module('ads.datachart', ['ui.bootstrap'])
+  .filter('escape', function() {
+    return window.encodeURIComponent;
+  })
   .controller('DataChartCtrl', ['$http', '$modal', '$rootScope', '$scope', 'DrugEventService', function ($http, $modal, $rootScope, $scope, DrugEventService) {
 
       $scope.symptoms = [];
