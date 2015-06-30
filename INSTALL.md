@@ -51,9 +51,9 @@
 2. `gulp` or `gulp build` to build an optimized version of your application in `/dist`
 
 ## Docker-Compose commands
-- Docker compose provides a nice, declarative syntax for defining docker containers that work together in an environment.
+- Docker-compose provides a nice, declarative syntax for defining docker containers that work together in an environment.
 * `docker-compose ps` - List running containers 
-* `docker-compose stop` -  running containers 
+* `docker-compose stop` -  Running containers 
 * `docker-compose rm` - Remove running containers 
 * `docker-compose -f dev.yml up [service_name]` - Start up a single compose service directly
 
