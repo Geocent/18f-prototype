@@ -2,8 +2,8 @@
 
 | Purpose | Server/Site | Status |
 | ------------------- | ------------- | ------------- |
-| Production | https://drugiq.geocent.com | https://ads-ci.geocent.com/job/deploy-prod/ |
-| Development | https://ads-dev.geocent.com | https://ads-ci.geocent.com/job/deploy-dev/ |
+| Production | https://drugiq.geocent.com | [![Deployment Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-prod)](https://ads-ci.geocent.com/job/deploy-prod/) |
+| Development | https://ads-dev.geocent.com | [![Deployment Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-dev)](https://ads-ci.geocent.com/job/deploy-dev/) |
 | CI/Jenkins | https://ads-ci.geocent.com | N/A |
 | Scrum Mgt | https://www.scrumdo.com/projects/project/18f-ads-prototype/ | N/A |
 
@@ -24,9 +24,10 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 
 | Tests | Status |
 | --------------- | ------------- |
-| Unit Test | https://ads-ci.geocent.com/job/build-dev/ |
-| Coverage Results | https://ads-ci.geocent.com/job/build-dev/ |
-| Integration Tests | https://ads-ci.geocent.com/job/functional-dev/ |
+| Development Build Status | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
+| Unit Test | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
+| Coverage Results | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
+| Integration Tests | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=functional-dev)](https://ads-ci.geocent.com/job/functional-dev/) |
 
 ### Design Standards:
 * https://github.com/18F/api-standards
