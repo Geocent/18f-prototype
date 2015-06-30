@@ -133,13 +133,15 @@ describe('BarChart Controller', function() {
     	expect(scope.options.chart.callback).toBeDefined();
     });
     
+
+//TODO: This block is commented because I haven't yet made it work but don't want to start over again.    
 //    it('verifies the event handling when medications are entered/removed', function() {
 //    	var adverseEvents = {
 //    		prescriptions: ['promethazine', 'losartan'],
 //    		serious: false
 //    	};
-//    	spyOn( scope, '$on');
-//    	spyOn( scope, 'refreshChartWithLatestData');
+//    	spyOn( scope, '$on').and.callThrough();
+//    	spyOn( scope, 'refreshChartWithLatestData').and.callThrough();
 //    	scope.$broadcast('updateSearchParameters', adverseEvents);
 //    	
 //    	expect(scope.$on).toHaveBeenCalled();
