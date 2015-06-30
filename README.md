@@ -62,7 +62,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 
 ## Pool One Design:
 
-In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool One design:
+In addition to the [Description](./README.md#description), above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool One design:
 
 | # | Requirement | Link |
 | --------------- | ------------- | ------------- |
@@ -80,7 +80,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 
 ## Pool Two Development Pool:
 
-In addition to the Description, above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Two Development:
+In addition to the [Description](./README.md#description), above, the Quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Two Development:
 
 | # | Requirement | Link |
 | --------------- | ------------- | ------------- |
@@ -99,7 +99,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 
 ## Pool Three The Full Stack Pool:
 
-In addition to the Description, above, the quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Three Full Stack:
+In addition to the [Description](./README.md#description), above, the quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Three Full Stack:
 
 | # | Requirement | Link |
 | --------------- | ------------- | ------------- |
