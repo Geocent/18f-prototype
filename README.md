@@ -89,7 +89,7 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 | b. | assembled a multidisciplinary and collaborative team that includes at a minimum two of the labor categories limited to the Development Pool labor categories to develop the prototype as quoted in Attachment C. The quoter’s proposed mix of labor categories and level of effort for its working prototype, as reflected in Attachment C, shall be evaluated to assess the quoter’s understanding and capability to supply agile delivery services | See Attachement C |
 | c. | used at least five modern and open-source technologies, regardless of architectural layer (frontend, backend etc) | [Technologies Used](README.md#technologies-used) |
 | d. | deployed the prototype on an Infrastructure as a Service (IaaS) or Platform as a Service (PaaS) provider, and indicated which provider was used | AWS was used and shown in [Architecture Diagram](./README.md#archtiecture-diagarm) |
-| e. | wrote unit tests for their code | Unit Tests are executed locally with 'gulp test'. (CI displays Unit Tests Results) [https://ads-ci.geocent.com/job/build-dev/] |
+| e. | wrote unit tests for their code | Unit Tests are executed locally with 'gulp test'. CI displays [Unit Tests Results](https://ads-ci.geocent.com/job/build-dev/) |
 | f. | set up or used a continuous integration system to automate the running of tests and continuously deployed their code to their IaaS or PaaS provider | [CI/Jenkins](https://ads-ci.geocent.com) |
 | g. | set up or used configuration management | [GitHub](https://github.com/Geocent/18f-prototype)|
 | h. | set up or used continuous monitoring | AWS CloudWatch was used |
