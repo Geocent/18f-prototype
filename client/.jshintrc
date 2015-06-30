@@ -20,11 +20,13 @@
   "white": true,
   "validthis": true,
   "globals": {
+    "window": false,
     "angular": false,
     // Angular Mocks
     "inject": false,
     "module": false,
     // JASMINE
+    "jasmine": false,
     "describe": false,
     "it": false,
     "before": false,
@@ -36,6 +38,11 @@
     // D3
     "d3": false,
     // UNDERSCORE
-    "_": false
+    "_": false,
+    // MOMENT
+    "moment": false,
+    //NV3D
+    "nv": false
+
   }
 }

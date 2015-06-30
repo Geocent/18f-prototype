@@ -2,47 +2,49 @@
 <div class="row" ng-controller="DataChartCtrl" ng-show="symptoms.length">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-        <h3>Select Adverse Event</h3>
-        <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)"></select>
+        <h3>What symptom are you interested in?</h3>
+        <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)" aria-label="Select symptom" title="Select symptom"></select>
 
-        <div  ng-show="isLoading" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>Loading...</i></div>
 
+        <br/>
+        <p ng-show="reports.length && query.prescriptions.length">Explore the detailed reports from others that have experienced <b> <a ng-href="http://www.webmd.com/search/search_results/default.aspx?query={{selectedSymptom | escape}}" target="_blank">{{ selectedSymptom }}</a></b> when taking {{reducePrescriptions(query.prescriptions)}}</p>
+
+        <div ng-include="'app/components/piechart/piechart-detailed.html'"></div>
+        <div ng-show="isLoading" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>Loading...</i></div>
         <table class="table" ng-show="reports.length">
-            <thaad>
+            <thead>
                 <tr>
-                    <th>
-                        <a href="#" ng-click="sortType = 'severity'; sortReverse = !sortReverse">
-                        Severity
+                    <th scope="col">
+                        <a href="#" ng-click="sortType = 'severity'; sortReverse = !sortReverse">Severity</a>
                         <span ng-show="sortType == 'severity' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'severity' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
-                    <th>
-                        <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">
-                        Age
+                    <th scope="col">
+                        <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">Age</a>
                         <span ng-show="sortType == 'age' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'age' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
-                    <th>
-                        <a href="#" ng-click="sortType = 'sex'; sortReverse = !sortReverse">
-                        Sex
+                    <th scope="col">
+                        <a href="#" ng-click="sortType = 'sex'; sortReverse = !sortReverse">Sex</a>
                         <span ng-show="sortType == 'sex' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'sex' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
-                    <th>
+                    <th scope="col">
                         Report
                     </th>
+                </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="report in reports | orderBy:sortType:sortReverse">
                     <td>{{report.severity}}</td>
                     <td>{{report.age}}</td>
                     <td>{{report.sex}}</td>
-                    <td><a ng-click="loadRequestedReport(report.id)">View Report</a></td>
+                    <td><a ng-click="loadRequestedReport(report)">View Report</a></td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="text-center">
+        <div ng-show="reports.length" class="text-center">
             <pagination total-items="totalReports" ng-model="selectedReportPage" max-size="5" class="pagination-sm" boundary-links="true" items-per-page="reportPageSize" rotate="false" ng-change="updateReportTable(false)" ng-show="totalReports"></pagination>
         </div>
     </div>
@@ -92,6 +94,9 @@
 
                         <dt>Form</dt>
                         <dd>{{drug.form}}</dd>
+
+                        <dt>Adverse Event Role</dt>
+                        <dd>{{drug.characterization}}</dd>
                     </dl>
                 </accordion-group>
 

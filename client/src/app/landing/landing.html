@@ -1,0 +1,35 @@
+<div ng-include="'app/components/navbar/navbar.html'"></div>
+<div class="container">
+
+  <div class="section">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron drugiq-jumbotron" ng-controller="LandingCtrl">
+      <div class="container">
+        <h1 class="drugiq-logo-drug">Drug<span class="drugiq-logo-iq">IQ</span></h1>
+        <p class="drugiq-white">Find drugs that may be causing adverse symptoms.</p>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="searchDrug()" ng-value="drug" ng-model="drug" ng-blur="validatePrescription()" ng-disabled="!brandNames.length" placeholder="Enter drug name" aria-label="Enter drug name" title="Enter drug name"/>
+                <div class="alert alert-danger" role="alert" ng-show="landingError.length">{{landingError}}</div>
+            </div><!-- /.col-xs-12 -->
+          </div><!-- /.row -->
+      </div>
+    </div>
+
+    <div class="row drugiq-white">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <h2 class="drugiq-logo-iq">Search</h2>
+        <p>Search for drugs of interest that are causing, or may be causing adverse symptoms.  Start with a single drug, and add multiple drugs to evaluate potential interactions.</p>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <h2 class="drugiq-logo-iq">Visualize</h2>
+        <p>Visualize the adverse events that others have reported to the FDA to view potential side effects of the drug or drugs you selected.</p>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <h2 class="drugiq-logo-iq">Explore</h2>
+        <p>Explore the details of what others have reported for a specific adverse reaction to understand if that reaction applies to your situation.</p>
+      </div>
+    </div>
+  </div>
+
+</div> <!-- /container -->

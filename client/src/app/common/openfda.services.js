@@ -15,4 +15,38 @@ angular.module('ads.services.openfda', [])
     return $resource(
       fdaApiUrl + '/drug/label.json' + '?api_key=' + apiKey
     );
+  })
+  .factory('MedicationsSearchService', function (DrugEventService) {
+      // function responsible for taking the medications sent from the SearchFieldCtrl and creating the
+      // search text that will be passed on to the DrugEventService
+      function buildSearchText(medications) {
+        var fieldName = 'patient.drug.medicinalproduct:';
+        var searchString = fieldName;
+        for(var i=0; i<medications.length; i++) {
+          searchString = searchString + '"' + medications[i] + '"';
+          if( i !== medications.length-1 ) {
+            searchString = searchString + ' AND ' + fieldName;
+          }
+        }
+        return searchString;
+      }
+      
+    return {
+      query: function(adverseEvents, additionalSearchCriteria, countField, limit, successCallback, failureCallback) {
+        var searchString = buildSearchText(adverseEvents.prescriptions);
+        if (additionalSearchCriteria) {
+          searchString = searchString + additionalSearchCriteria;
+        }
+          var query = {
+          'search' : searchString,
+          'count' : countField,
+          'limit' : limit
+        };
+        DrugEventService.get(query, function (data) {
+          successCallback(data);
+        }, function(error) {
+          failureCallback(error);
+        });
+      }
+  };
   });

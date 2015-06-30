@@ -1,14 +1,16 @@
 'use strict';
 
-angular.module('ads.searchfield', [])
-  .controller('SearchfieldCtrl', ['$http', '$rootScope', '$scope', function ($http, $rootScope, $scope) {
-      $scope.prescriptions = [
-          {value: ''}
-      ];
+angular.module('ads.searchfield', ['ui.bootstrap'])
+  .controller('SearchfieldCtrl', ['$http', '$location', '$rootScope', '$scope', '$timeout', function ($http, $location, $rootScope, $scope, $timeout) {
+
+      var queryParameters = $location.search();
+
+      $scope.prescriptions = queryParameters.drugname ?
+        [ { value: queryParameters.drugname }, { value: '' } ] :
+        [ { value: '' } ];
 
       $scope.brandNames = [];
-
-      $scope.serious = false;
+      $scope.searchfieldError = '';
 
       $scope.$watch('prescriptions', function() {
           if(!_.isEmpty($scope.prescriptions[$scope.prescriptions.length - 1].value)) {
@@ -35,6 +37,12 @@ angular.module('ads.searchfield', [])
           $scope.updateSearchParameters();
       };
 
+      $scope.validatePrescription = function(index) {
+        if(_.isEmpty($scope.prescriptions[index].value)) {
+            $scope.prescriptions[index].value = '';
+        }
+      };
+
       $http
         .get('/assets/brand_names.json')
         .success(function(data){
@@ -43,6 +51,17 @@ angular.module('ads.searchfield', [])
             });
         })
         .error(function(err){
+            $scope.searchfieldError = 'Unexpected error retrieving drug list.';
             console.error(err);
         });
+
+      var selected = $scope.prescriptions.filter(function(prescription) {
+         return !_.isEmpty(prescription.value);
+      });
+
+      if(selected.length > 0) {
+          $timeout(function(){
+              $scope.updateSearchParameters();
+          });
+      }
   }]);

@@ -2,12 +2,15 @@
 
 ACTIVE_ENV=dev.yml
 
-if [ $(boot2docker status) != "running" ]
-then
-    echo "boot2docker needs to be running!"
-    echo "starting boot2docker . . ."
-    boot2docker up
+if [ "$(uname)" == "Darwin" ]; then
+    if [ $(boot2docker status) != "running" ]
+    then
+        echo "boot2docker needs to be running!"
+        echo "starting boot2docker . . ."
+        boot2docker up
+    fi
 fi
+
 
 [ -z "$NVM_PATH" ] && echo "NVM does not seem to be running" &&  echo "Execute 'nvm use 0.12' to set the environment" && exit 1;
 
@@ -23,7 +26,11 @@ up() {
     docker-compose -f ${ACTIVE_ENV} up -d --no-recreate;
 
     echo
-    echo "The app should be available at: $(boot2docker ip):8005"
+    if [ "$(uname)" == "Darwin" ]; then
+        echo "The app should be available at: $(boot2docker ip):8005"
+    else
+        echo "The app should be available at: 127.0.0.1:8005"
+    fi
 }
 
 status() {
