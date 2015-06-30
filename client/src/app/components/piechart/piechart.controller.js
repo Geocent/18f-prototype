@@ -15,15 +15,36 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       'color': '#C8C8C8'
     };
 
+    $scope.buttons = {
+      showAge: true,
+      showWeight: true,
+      showGender: true
+    };
+
     $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
       $scope.adverseEvents = adverseEvents;
       // Load the top 20 charts when a search for medications is kicked off.
       if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
-        loadSexChartData();
-        loadAgeChartData();
-        loadWeightChartData();
+        $scope.buttons.showAge = true;
+        $scope.buttons.showGender = true;
+        $scope.buttons.showWeight = true;
       }
     });
+
+    $scope.showAgeGraph = function() {
+      loadAgeChartData();
+      $scope.buttons.showAge = false;
+    }
+
+    $scope.showWeighGraph = function() {
+      loadWeightChartData();
+      $scope.buttons.showWeight = false;
+    }
+
+    $scope.showGenderGraph = function() {
+      loadSexChartData();
+      $scope.buttons.showGender = false;
+    }
 
     $scope.showCharts = false;
 
@@ -33,9 +54,9 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         if ($scope.symptomName) {
           $scope.showCharts = true;
           $scope.adverseEvents = symptom.adverseEvents;
-          loadSexChartData();
-          loadAgeChartData();
-          loadWeightChartData();
+          //loadSexChartData();
+          //loadAgeChartData();
+          //loadWeightChartData();
         } else {
           $scope.showCharts = false;
         }
