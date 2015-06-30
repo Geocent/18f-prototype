@@ -138,8 +138,8 @@ describe('BarChart Controller', function() {
 //    		prescriptions: ['promethazine', 'losartan'],
 //    		serious: false
 //    	};
-//    	spyOn( scope, '$on');
-//    	spyOn( scope, 'refreshChartWithLatestData');
+//    	spyOn( scope, '$on').and.callThrough();
+//    	spyOn( scope, 'refreshChartWithLatestData').and.callThrough();
 //    	scope.$broadcast('updateSearchParameters', adverseEvents);
 //    	
 //    	expect(scope.$on).toHaveBeenCalled();
