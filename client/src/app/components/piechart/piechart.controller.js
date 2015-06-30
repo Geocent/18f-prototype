@@ -67,7 +67,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
     function setSexChartOptions() {
       var options = getDefaultChartOptions();
-      options.chart.color = function(d, i) {
+      options.chart.color = function(d) {
         var color, key;
         if (d.data) {
           key = d.data.key;
@@ -188,7 +188,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
           chartData.push({
             key: range.label,
             y: range.total
-          })
+          });
         }
         setChartOptionsCallback();
       });

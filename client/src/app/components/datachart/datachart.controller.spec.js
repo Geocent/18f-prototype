@@ -5,7 +5,6 @@ describe('ads.datachart', function(){
   var location;
   var http;
   var httpBackend;
-  var httpRequest;
   var scope;
   var timeout;
   var rootScope;

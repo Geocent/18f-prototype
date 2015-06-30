@@ -4,9 +4,9 @@
       <ul class="list-unstyled">
           <li ng-repeat="prescription in prescriptions" class="entryField">
             <div class="input-group">
-                <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="updateSearchParameters()" ng-value="prescription.value" ng-model="prescription.value" ng-blur="validatePrescription($index)" ng-disabled="prescription.value.length || !brandNames.length" placeholder="Enter drug name"/>
+                <input type="text" class="prescription form-control" typeahead="brandName for brandName in brandNames | filter:$viewValue | limitTo: 10" typeahead-wait-ms="100" typeahead-editable="false" typeahead-on-select="updateSearchParameters()" ng-value="prescription.value" ng-model="prescription.value" ng-blur="validatePrescription($index)" ng-disabled="prescription.value.length || !brandNames.length" placeholder="Enter drug name" aria-label="Enter drug name" title="Enter drug name"/>
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" ng-disabled="!prescription.value && $index === prescriptions.length - 1" ng-click="removePrescription($index)">
+                    <button class="btn btn-default" type="button" ng-disabled="!prescription.value && $index === prescriptions.length - 1" ng-click="removePrescription($index)" aria-label="Remove drug" title="Remove drug">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                 </span>
