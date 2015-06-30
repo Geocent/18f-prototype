@@ -3,7 +3,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
         <h3>What symptom are you interested in?</h3>
-        <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)"></select>
+        <select class="form-control" id="symptomType" name="symptomType" ng-options="symptom for symptom in symptoms | orderBy:'toString()'" ng-model="selectedSymptom" ng-change="updateReportTable(true)" aria-label="Select symptom" title="Select symptom"></select>
 
 
         <br/>

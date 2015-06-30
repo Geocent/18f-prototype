@@ -50,7 +50,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     	            	return d3.format(',.2%')(d);
     	            },
     	            interactive: true,
-    	            tooltip: function(key, x, y, e, graph) {
+    	            tooltip: function(key, x, y) {
     	                return '<h3>' + key + '</h3>' + '<p>' +  y + ' at ' + x + '</p>';
     	            }
     	        }
@@ -78,10 +78,10 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
          * This function is called as the result of a 'broadcast' event being fired by the SearchFieldCtrl
          * when the user enters a medication into the entry field. This function is responsible for building and
          * executing the query, then transforming the return data to what the chart expects
-         * 
+         *
          */
         $scope.$on( 'updateSearchParameters', function(event, adverseEvents) {
-        	var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
+        	// var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
 
 			$scope.adverseEvents = adverseEvents;
 			$scope.prescriptions = adverseEvents.prescriptions;
@@ -104,7 +104,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
           $scope.query = {
             'search' : searchString
           };
-           
+
           $scope.options.chart.noData = null;
           DrugEventService.get($scope.query, function(data) {
         	  $scope.totalReports = data.meta.results.total;
