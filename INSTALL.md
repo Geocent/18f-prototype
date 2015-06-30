@@ -2,19 +2,24 @@
 
 ## Initial Setup
 
-### Development PreReqs
+### Development Pre-requisites
+- OSX, Ubuntu, or Fedora
 
-- OSX
-- VirtualBox
-- Homebrew
+### Development Pre-requisites with Docker for additional testing
+- OSX, Ubuntu 14.04+, or Fedora 22
+- VirtualBox (if using OSX)
+- Homebrew (if using OSX)
 
-### Steps
+### Steps - Basic Setup
 1. `git clone git@github.com:Geocent/18f-prototype.git`
 2. `bash ./devops/setup/dev_setup.sh`
-3. `bash ./devops/setup/docker_setup.sh`
-4. `cd client;`
-5. `npm install && bower install`
-6. `gulp serve`
+3. `cd client;`
+4. `npm install && bower install`
+5. `gulp serve`
+
+### Steps - Including Docker for addtional testing
+1. `bash ./devops/setup/docker_setup.sh`
+2. View info below under `Running - production-like nginx test server`
 
 ## Development
 
