@@ -7,8 +7,8 @@
 | CI/Jenkins | https://ads-ci.geocent.com |  |
 | Scrum Mgt | https://www.scrumdo.com/projects/project/18f-ads-prototype/ |  |
 | Development Build Status | https://ads-ci.geocent.com/job/build-dev/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
-| Unit Test | https://ads-ci.geocent.com/job/build-dev/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
-| Coverage Results | https://ads-ci.geocent.com/job/build-dev/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
+| Unit Test | https://ads-ci.geocent.com/job/build-dev/lastCompletedBuild/testReport/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
+| Coverage Results | https://ads-ci.geocent.com/job/build-dev/cobertura/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=build-dev)](https://ads-ci.geocent.com/job/build-dev/) |
 | Integration Tests | https://ads-ci.geocent.com/job/functional-dev/ | [![Build Status](https://ads-ci.geocent.com/buildStatus/icon?job=functional-dev)](https://ads-ci.geocent.com/job/functional-dev/) |
 ## Description:
 
