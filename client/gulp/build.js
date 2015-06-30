@@ -46,7 +46,7 @@ module.exports = function(options) {
       .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', options.errorHandler('Uglify'))
       .pipe(jsFilter.restore())
       .pipe(cssFilter)
-      .pipe($.replace('../../bower_components/bootstrap/fonts/', '../fonts/'))
+      .pipe($.replace('../../bower_components/bootswatch/fonts/', '../fonts/'))
       .pipe($.csso())
       .pipe(cssFilter.restore())
       .pipe(assets.restore())
@@ -67,9 +67,8 @@ module.exports = function(options) {
   // Only applies for fonts from bower dependencies
   // Custom fonts are handled by the "other" task
   gulp.task('fonts', function () {
-    return gulp.src($.mainBowerFiles())
-      .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
-      .pipe($.flatten())
+    var bootstrapFonts = ['./' + options.wiredep.directory + '/bootstrap/fonts/**/*'];
+    return gulp.src(bootstrapFonts)
       .pipe(gulp.dest(options.dist + '/fonts/'));
   });
 

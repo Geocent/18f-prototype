@@ -95,11 +95,13 @@ In addition to the Description, above, the Quoter must demonstrate that they fol
 | h. | set up or used continuous monitoring | AWS CloudWatch was used |
 | i. | deploy their software in a container (i.e., utilized operating-system-level virtualization) | Software and servers were deployed in Docker shown in [Architecture Diagram](./README.md#archtiecture-diagarm) and scripts found in [devops](./devops/containers)|
 | j. | used an interactive approach, where feedback informed subsequent work or versions of ￼￼the prototype | [Usability Testing] (https://docs.google.com/spreadsheets/d/1x2bItDysMC9lQEbgXqKMW6rTtLaUF6ybQLQNVzHPAeA/edit?usp=sharing) and also via [GitHub issues] (https://github.com/Geocent/18f-prototype/issues) have lead to User Stories in Srumdo. See [Scrumdo export](./docs/scrum) |
-| k. | provided sufficient documentation to install and run their prototype on another machine | |
+| k. | provided sufficient documentation to install and run their prototype on another machine | [INSTALL.md](./INSTALL.md) |
 | l. | prototype and underlying platforms used to create and run the prototype are openly licensed and free of charge | [LICENSE.md](./LICENSE.md) [Technologies Used](README.md#technologies-used) |
 
 ## Pool Three The Full Stack Pool:
 
 In addition to the Description, above, the quoter must demonstrate that they followed the U.S. Digital Services Playbook by providing evidence in the repository. The README.md file should also make reference to the following for Pool Three Full Stack:
 
-* a. met all the evidence criteria listed above in the Design Pool and Development Pool and Attachment C includes at a minimum five of the labor categories from the Full Stack Pool categories.
+| # | Requirement | Link |
+| --------------- | ------------- | ------------- |
+| a.| met all the evidence criteria listed above in the Design Pool and Development Pool and Attachment C includes at a minimum five of the labor categories from the Full Stack Pool categories. | |
