@@ -20,8 +20,8 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       // Load the top 20 charts when a search for medications is kicked off.
       if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
         loadSexChartData();
-        loadAggregatedAgeChartData();
-        loadAggregatedWeightChartData();
+        loadAgeChartData();
+        loadWeightChartData();
       }
     });
 
@@ -34,8 +34,8 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
           $scope.showCharts = true;
           $scope.adverseEvents = symptom.adverseEvents;
           loadSexChartData();
-          loadAggregatedAgeChartData();
-          loadAggregatedWeightChartData();
+          loadAgeChartData();
+          loadWeightChartData();
         } else {
           $scope.showCharts = false;
         }
@@ -132,67 +132,60 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       return sex;
     }
 
-    function loadAggregatedAgeChartData() {
-      var ranges = [
-        {start: 0, end: 24, label: '< 25', total: 0},
-        {start: 25, end: 49, label: '25-49', total: 0},
-        {start: 50, end: 74, label: '50-74', total: 0},
-        {start: 75, end: 150, label: 'Over 75', total: 0}
-      ];
+    function loadAgeChartData() {
+
       $scope.ageChartData = [];
-      queryEndpointAggregatingBy('patient.patientonsetage', ranges, $scope.ageChartData, setAgeChartOptions);
+
+      queryEndpointByAgeRange('< 25', '[0 TO 24]', setAgeChartOptions);
+      queryEndpointByAgeRange('25-49', '[25 TO 49]');
+      queryEndpointByAgeRange('50-74', '[50 TO 74]');
+      queryEndpointByAgeRange('Over 75', '[75 TO 150]');
+
     }
 
-    function loadAggregatedWeightChartData() {
-      var ranges = [
-        {start: kgToPound(0), end: kgToPound(99), label: '< 100', total: 0},
-        {start: kgToPound(100), end: kgToPound(149), label: '100-149', total: 0},
-        {start: kgToPound(150), end: kgToPound(199), label: '150-199', total: 0},
-        {start: kgToPound(200), end: kgToPound(249), label: '200-249', total: 0},
-        {start: kgToPound(250), end: kgToPound(299), label: '250-299', total: 0},
-        {start: kgToPound(300), end: kgToPound(1000), label: 'Over 300', total: 0}
-      ];
+    function loadWeightChartData() {
+
       $scope.weightChartData = [];
-      queryEndpointAggregatingBy('patient.patientweight', ranges, $scope.weightChartData, setWeightChartOptions);
+
+      queryEndpointByWeightRange('< 100', '[0 TO 99]', setWeightChartOptions);
+      queryEndpointByWeightRange('100-199', '[100 TO 199]');
+      queryEndpointByWeightRange('200-299', '[200 TO 299]');
+      queryEndpointByWeightRange('Over 300', '[300 TO 10000]');
+
+    }
+
+    function queryEndpointByAgeRange(label, searchRange, setChartOptionsCallback) {
+      queryEndpointByRange('patient.patientonsetage', label, searchRange, $scope.ageChartData, setChartOptionsCallback);
+    }
+
+    function queryEndpointByWeightRange(label, searchRange, setChartOptionsCallback) {
+      queryEndpointByRange('patient.patientweight', label, searchRange, $scope.weightChartData, setChartOptionsCallback);
+    }
+
+    function queryEndpointByRange(searchField, label, searchRange, chartData, setChartOptionsCallback) {
+      var searchCriteria = ' AND ' + searchField + ':' + searchRange;
+      if ($attrs.detailSection) {
+        searchCriteria = searchCriteria + ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
+      }
+      MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', null, function(data) {
+        var i, result;
+        for (i = 0; i < data.results.length; ++i) {
+          result = data.results[i];
+          chartData.push({
+            key: label,
+            y: result.count
+          });
+        }
+        if (setChartOptionsCallback) {
+          setChartOptionsCallback();
+        }
+      });
     }
 
     function kgToPound(kg) {
       return kg/2.20462;
     }
 
-    /**
-     *
-     * @param field - Aggregate the search on this field.
-     * @param ranges - Further aggregate the results by these ranges, storing the result inside this object.
-     * @param chartData - Add the ranges to populate the chart.
-     * @param setChartOptionsCallback - Set the chart options after the data is there.
-     */
-    function queryEndpointAggregatingBy(field, ranges, chartData, setChartOptionsCallback) {
-      var additionalSearchCriteria = null;
-      if ($attrs.detailSection) {
-        additionalSearchCriteria = ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
-      }
-      MedicationsSearchService.query($scope.adverseEvents, additionalSearchCriteria, field, 1000, function(data) {
-        var i, j, result, range;
-        for (i = 0; i < data.results.length; ++i) {
-          result = data.results[i];
-          for (j = 0; j < ranges.length; ++j) {
-            range = ranges[j];
-            if (range.start <= result.term && Math.floor(result.term) <= range.end) {
-              range.total = range.total + result.count;
-            }
-          }
-        }
-        for (i = 0; i < ranges.length; ++i) {
-          range = ranges[i];
-          chartData.push({
-            key: range.label,
-            y: range.total
-          });
-        }
-        setChartOptionsCallback();
-      });
-    }
   })
   .controller('Top20PieChartCtrl', function($scope, $rootScope, MedicationsSearchService, $controller, $attrs) {
     $attrs.detailSection = false;
