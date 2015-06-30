@@ -172,7 +172,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       if ($attrs.detailSection) {
         additionalSearchCriteria = ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
       }
-      MedicationsSearchService.query($scope.adverseEvents, additionalSearchCriteria, field, null, function(data) {
+      MedicationsSearchService.query($scope.adverseEvents, additionalSearchCriteria, field, 1000, function(data) {
         var i, j, result, range;
         for (i = 0; i < data.results.length; ++i) {
           result = data.results[i];
