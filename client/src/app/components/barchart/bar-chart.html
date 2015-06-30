@@ -8,12 +8,12 @@
           </label>
         </div>
         <p ng-if="prescriptions.length" ng-hide="options.chart.noData">
-        Of the {{totalReports}} adverse events reported from the {{reducePrescriptions(prescriptions)}}, 
-        these are the top {{recCount}} symptoms reported.
+        Of the {{totalReports | number:0}} adverse events reported from the {{reducePrescriptions(prescriptions)}},
+        these are the top {{recCount | number:0}} symptoms reported.
         <!--  Experienced when taking {{reducePrescriptions(prescriptions)}}  -->
         </p>
         <p ng-if="prescriptions.length" ng-show="options.chart.noData">
-        No adverse events have been reported from the {{reducePrescriptions(prescriptions)}} 
+        No adverse events have been reported from the {{reducePrescriptions(prescriptions)}}
         </p>
         <div ng-hide="options.chart.width">
             <nvd3 options="options" data="chartData"></nvd3>
