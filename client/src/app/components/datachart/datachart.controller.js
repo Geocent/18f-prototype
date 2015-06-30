@@ -4,6 +4,48 @@ angular.module('ads.datachart', ['ui.bootstrap'])
   .filter('escape', function() {
     return window.encodeURIComponent;
   })
+  .filter('naturalOrder', function() {
+    function padding(value) {
+	       return '00000000000000000000'.slice(value.length);
+	}
+
+    function toString(value) {
+	       return (value === null || value === undefined) ? '' : ''+value;
+	}
+
+    function naturalValue(value) {
+        return toString(value).replace(/(\d+)((\.\d+)+)?/g, function ($0, integer, decimal, $3) {
+
+            if (decimal !== $3) {
+                return $0.replace(/(\d+)/g, function ($d) {
+                    return padding($d) + $d;
+                });
+            }
+            else {
+                decimal = decimal || '.0';
+                return padding(integer) + integer + decimal + padding(decimal);
+            }
+        });
+    }
+
+    return function(items, field, reverse) {
+        reverse = reverse || false;
+
+        var values = items.slice(0);
+
+        values.sort(function (a, b) {
+            var x = naturalValue(a[field]);
+			var y = naturalValue(b[field]);
+			return (x < y) ? -1 : ((x > y) ? 1 : 0);
+        });
+
+        if(reverse) {
+            values.reverse();
+        }
+
+        return values;
+    };
+  })
   .controller('DataChartCtrl', ['$http', '$modal', '$rootScope', '$scope', 'DrugEventService', function ($http, $modal, $rootScope, $scope, DrugEventService) {
 
       $scope.symptoms = [];
@@ -109,7 +151,7 @@ angular.module('ads.datachart', ['ui.bootstrap'])
               _.each(data.results, function(report) {
                   _.each(report.patient.reaction, function(reaction){
 
-                    var age = report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : 'Unknown';
+                    var age = report.patient.patientonsetage ? (report.patient.patientonsetage + ' ' + (PATIENT_AGE_UNITS[report.patient.patientonsetageunit] ? (PATIENT_AGE_UNITS[report.patient.patientonsetageunit] + (parseFloat(report.patient.patientonsetage) > 1 ? 's' : '')) : '')) : 'Unknown';
                     var sex = report.patient.patientsex === '1' ? 'Male' : (report.patient.patientsex === '2' ? 'Female' : 'Unknown');
 
                     if(reaction.reactionmeddrapt.toLowerCase() === $scope.selectedSymptom.toLowerCase()) {

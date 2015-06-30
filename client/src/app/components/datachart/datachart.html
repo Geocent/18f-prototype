@@ -15,17 +15,17 @@
             <thead>
                 <tr>
                     <th scope="col">
-                        <a href="#" ng-click="sortType = 'severity'; sortReverse = !sortReverse">Severity</a>
+                        <a href="#" ng-click="sortType = 'severity'; sortReverse = !sortReverse; $event.preventDefault()">Severity</a>
                         <span ng-show="sortType == 'severity' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'severity' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th scope="col">
-                        <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">Age</a>
+                        <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse; $event.preventDefault()">Age</a>
                         <span ng-show="sortType == 'age' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'age' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th scope="col">
-                        <a href="#" ng-click="sortType = 'sex'; sortReverse = !sortReverse">Sex</a>
+                        <a href="#" ng-click="sortType = 'sex'; sortReverse = !sortReverse; $event.preventDefault()">Sex</a>
                         <span ng-show="sortType == 'sex' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                         <span ng-show="sortType == 'sex' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="report in reports | orderBy:sortType:sortReverse">
+                <tr ng-repeat="report in reports | naturalOrder:sortType:sortReverse">
                     <td>{{report.severity}}</td>
                     <td>{{report.age}}</td>
                     <td>{{report.sex}}</td>
