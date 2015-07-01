@@ -35,11 +35,9 @@ describe('ads.services.openfda', function(){
                 'AND test="value"',
                 'coutfield',
                 500,
-                function(data){
-                    console.log(data);
+                function(){
                 },
-                function(error){
-                    console.log(error);
+                function(){
                 });
         }));
 });
