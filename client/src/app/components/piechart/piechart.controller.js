@@ -21,13 +21,22 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       showGender: true
     };
 
-    $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
+    $scope.pieCharts = {
+      showAll: ($attrs.detailSection ? false : true)
+    };
+
+    $rootScope.$on( 'totalAdverseEvents', function(event, adverseEvents) {
       $scope.adverseEvents = adverseEvents;
       // Load the top 20 charts when a search for medications is kicked off.
-      if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
-        $scope.buttons.showAge = true;
-        $scope.buttons.showGender = true;
-        $scope.buttons.showWeight = true;
+      if ($scope.adverseEvents.count > 0) {
+        if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
+          $scope.pieCharts.showAll = true;
+          $scope.buttons.showAge = true;
+          $scope.buttons.showGender = true;
+          $scope.buttons.showWeight = true;
+        }
+      } else {
+        $scope.pieCharts.showAll = false;
       }
     });
 
@@ -46,19 +55,17 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       $scope.buttons.showGender = false;
     }
 
-    $scope.showCharts = false;
-
     $rootScope.$on( 'symptomChanged', function(event, symptom) {
       $scope.symptomName = symptom.name;
       if ($attrs.detailSection) {
         if ($scope.symptomName) {
-          $scope.showCharts = true;
+          $scope.pieCharts.showAll = true;
           $scope.adverseEvents = symptom.adverseEvents;
           $scope.buttons.showAge = true;
           $scope.buttons.showGender = true;
           $scope.buttons.showWeight = true;
         } else {
-          $scope.showCharts = false;
+          $scope.pieCharts.showAll = false;
         }
       }
     });

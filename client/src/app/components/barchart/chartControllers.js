@@ -108,6 +108,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
           $scope.options.chart.noData = null;
           DrugEventService.get($scope.query, function(data) {
         	  $scope.totalReports = data.meta.results.total;
+            broadcastTotalAdverseEvents($scope.totalReports);
               $scope.query = {
                       'search' : searchString,
                       'count' : 'patient.reaction.reactionmeddrapt.exact',
@@ -116,12 +117,20 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
               		// When the first query is successful go get the event counts
                     $scope.getData();
             }, function(error) {
+            broadcastTotalAdverseEvents(0);
             	// Prepare to show an error if there was a problem with the query
             	console.log( 'error from get total reports: ' + error);
         		$scope.chartData = [];
         		$scope.options.chart.noData = error.data.error.message || error.status;
             });
         };
+
+        function broadcastTotalAdverseEvents(totalCount) {
+          $rootScope.$broadcast('totalAdverseEvents', {
+            count: totalCount,
+            prescriptions: $scope.adverseEvents.prescriptions
+          });
+        }
 
         /**
          * this function is responsible for calling the DrugEventService with the query that was
