@@ -15,6 +15,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       'color': '#C8C8C8'
     };
 
+    var chartDebug = true;
     $scope.pieCharts = {
       showAll: ($attrs.detailSection ? false : true),
       age: {
@@ -89,7 +90,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
             margin: {
               top: 5,
               right: 35,
-              bottom: 5,
+              bottom: 20,
               left: 0
             }
           }
@@ -137,8 +138,10 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     }
 
     function logCounts(chartData) {
-      for( var i=0; i<chartData.length; i++ ) {
-    	  console.log( 'item ' + i + ': ' + chartData[i].key + ', ' + chartData[i].y);
+      if( chartDebug ) {
+        for( var i=0; i<chartData.length; i++ ) {
+	   	  console.log( 'item ' + i + ': ' + chartData[i].key + ', ' + chartData[i].y);
+	    }
       }
     }
     
@@ -160,7 +163,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         }
         setSexChartOptions();
       }, function(error) {
-        console.log( 'error from get total reports: ' + error);
+        console.error( 'error from get total reports: ' + error);
         $scope.chartData = [];
         setSexChartOptions();
       });
@@ -228,7 +231,9 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         if ($attrs.detailSection) {
           searchCriteria = searchCriteria + ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
         }
-        console.log('searching for: ' + searchCriteria);
+        if( chartDebug) {
+          console.log('searching for: ' + searchCriteria);
+    	}
         $scope.searchCriteria = searchCriteria;
         MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', null, function(data) {
           var i, result;
@@ -243,7 +248,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
             setChartOptionsCallback();
           }
         }, function(error) {
-          console.log( 'error from query was: ' + error.data.error.message);
+          console.error( 'error from query was: ' + error.data.error.message);
           // Empties array without having original reference.
 //          chartData.splice(0,chartData.length);
           if (setChartOptionsCallback) {
@@ -257,7 +262,9 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         if ($attrs.detailSection) {
           searchCriteria = searchCriteria + ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
         }
-        console.log('queryMissingValues searching for: ' + searchCriteria);
+        if(chartDebug) {
+          console.log('queryMissingValues searching for: ' + searchCriteria);
+        }
         $scope.searchCriteria = searchCriteria;
         MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', null, function(data) {
           var i, result;
@@ -272,7 +279,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
             setChartOptionsCallback();
           }
         }, function(error) {
-          console.log( 'error from query was: ' + error.data.error.message);
+          console.error( 'error from query was: ' + error.data.error.message);
           // Empties array without having original reference.
 //          chartData.splice(0,chartData.length);
           if (setChartOptionsCallback) {
