@@ -46,17 +46,17 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     $scope.showAgeGraph = function() {
       loadAgeChartData();
       $scope.pieCharts.age.showButton = false;
-    }
+    };
 
     $scope.showWeighGraph = function() {
       loadWeightChartData();
       $scope.pieCharts.weight.showButton = false;
-    }
+    };
 
     $scope.showGenderGraph = function() {
       loadSexChartData();
       $scope.pieCharts.gender.showButton = false;
-    }
+    };
 
     $rootScope.$on( 'symptomChanged', function(event, symptom) {
       $scope.symptomName = symptom.name;
