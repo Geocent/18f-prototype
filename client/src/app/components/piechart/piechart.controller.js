@@ -15,14 +15,17 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       'color': '#C8C8C8'
     };
 
-    $scope.buttons = {
-      showAge: true,
-      showWeight: true,
-      showGender: true
-    };
-
     $scope.pieCharts = {
-      showAll: ($attrs.detailSection ? false : true)
+      showAll: ($attrs.detailSection ? false : true),
+      age: {
+        showButton: true
+      },
+      gender: {
+        showButton: true
+      },
+      weight: {
+        showButton: true
+      }
     };
 
     $rootScope.$on( 'totalAdverseEvents', function(event, adverseEvents) {
@@ -31,9 +34,9 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       if ($scope.adverseEvents.count > 0) {
         if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
           $scope.pieCharts.showAll = true;
-          $scope.buttons.showAge = true;
-          $scope.buttons.showGender = true;
-          $scope.buttons.showWeight = true;
+          $scope.pieCharts.age.showButton = true;
+          $scope.pieCharts.gender.showButton = true;
+          $scope.pieCharts.weight.showButton = true;
         }
       } else {
         $scope.pieCharts.showAll = false;
@@ -42,17 +45,17 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
     $scope.showAgeGraph = function() {
       loadAgeChartData();
-      $scope.buttons.showAge = false;
+      $scope.pieCharts.age.showButton = false;
     }
 
     $scope.showWeighGraph = function() {
       loadWeightChartData();
-      $scope.buttons.showWeight = false;
+      $scope.pieCharts.weight.showButton = false;
     }
 
     $scope.showGenderGraph = function() {
       loadSexChartData();
-      $scope.buttons.showGender = false;
+      $scope.pieCharts.gender.showButton = false;
     }
 
     $rootScope.$on( 'symptomChanged', function(event, symptom) {
@@ -61,9 +64,9 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         if ($scope.symptomName) {
           $scope.pieCharts.showAll = true;
           $scope.adverseEvents = symptom.adverseEvents;
-          $scope.buttons.showAge = true;
-          $scope.buttons.showGender = true;
-          $scope.buttons.showWeight = true;
+          $scope.pieCharts.age.showButton = true;
+          $scope.pieCharts.gender.showButton = true;
+          $scope.pieCharts.weight.showButton = true;
         } else {
           $scope.pieCharts.showAll = false;
         }

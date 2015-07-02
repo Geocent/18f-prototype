@@ -3,11 +3,11 @@
     <h3>Age of Patients</h3>
     <p>who took the listed drugs</p>
 
-    <div ng-show="buttons.showAge" ng-click="showAgeGraph()">
+    <div ng-show="pieCharts.age.showButton" ng-click="showAgeGraph()">
       <a class="btn btn-info" role="button">Show Chart</a>
     </div>
 
-    <div ng-hide="buttons.showAge">
+    <div ng-hide="pieCharts.age.showButton">
       <nvd3 options="ageOptions" data="ageChartData"></nvd3>
     </div>
 
@@ -16,11 +16,11 @@
     <h3>Gender of Patients</h3>
     <p>who took the listed drugs</p>
 
-    <div ng-show="buttons.showGender" ng-click="showGenderGraph()">
+    <div ng-show="pieCharts.gender.showButton" ng-click="showGenderGraph()">
       <a class="btn btn-info" role="button">Show Chart</a>
     </div>
 
-    <div ng-hide="buttons.showGender">
+    <div ng-hide="pieCharts.gender.showButton">
       <nvd3 options="options" data="chartData"></nvd3>
     </div>
 
@@ -29,11 +29,11 @@
     <h3>Weight of Patients</h3>
     <p>who took the listed drugs (lbs)</p>
 
-    <div ng-show="buttons.showWeight" ng-click="showWeighGraph()">
+    <div ng-show="pieCharts.weight.showButton" ng-click="showWeighGraph()">
       <a class="btn btn-info" role="button">Show Chart</a>
     </div>
 
-    <div ng-hide="buttons.showWeight">
+    <div ng-hide="pieCharts.weight.showButton">
       <nvd3 options="weightOptions" data="weightChartData"></nvd3>
     </div>
   </div>
