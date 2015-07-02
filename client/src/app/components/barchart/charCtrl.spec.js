@@ -136,22 +136,6 @@ describe('BarChart Controller', function() {
     });
 
 
-//TODO: This block is commented because I haven't yet made it work but don't want to start over again.
-//    it('verifies the event handling when medications are entered/removed', function() {
-//    	var adverseEvents = {
-//    		prescriptions: ['promethazine', 'losartan'],
-//    		serious: false
-//    	};
-//    	spyOn( scope, '$on').and.callThrough();
-//    	spyOn( scope, 'refreshChartWithLatestData').and.callThrough();
-//    	scope.$broadcast('updateSearchParameters', adverseEvents);
-//
-//    	expect(scope.$on).toHaveBeenCalled();
-//    	expect(scope.adverseEvents).toEqual(adverseEvents);
-//    	expect(scope.prescriptions).toEqual(adverseEvents.prescriptions);
-//    	expect(scope.refreshChartWithLatestData).toHaveBeenCalled();
-//    });
-
     it( 'verifies that query does not run if the query value has not been set', function() {
         scope.getData();
 
@@ -211,6 +195,16 @@ describe('BarChart Controller', function() {
 		});
 
 		expect(scope.refreshChartWithLatestData).toHaveBeenCalled();
+	});
+
+	it('verify refreshChartWithLatestData not called with empty events', function() {
+		spyOn(scope, 'refreshChartWithLatestData');
+		rootScope.$broadcast('updateSearchParameters', {
+			serious: null,
+			prescriptions: []
+		});
+
+		expect(scope.refreshChartWithLatestData).not.toHaveBeenCalled();
 	});
 
 	it('verify refreshChartWithLatestData message', function() {
