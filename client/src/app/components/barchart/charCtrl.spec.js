@@ -12,7 +12,7 @@ angular.module('mockDrugEventService', [] )
 				      limit: 1,
 				      total: 2
 				  }
-			    },				
+			    },
 				results: [
 	            {
 					count: 7,
@@ -36,10 +36,12 @@ describe('BarChart Controller', function() {
 
   describe('BarChartCtrl', function() {
     var scope, ctrl;
+	var rootScope;
 
     beforeEach( inject( function($controller, $rootScope, MockDrugEventService ) {
       // The injector unwraps the underscores (_) from around the parameter names when matching
 //      console.log( '---->DEBUG: beforeEach - creating scope and controller');
+	  rootScope = $rootScope;
       scope = $rootScope.$new();
       ctrl = $controller('BarChartCtrl',
 			      		{$scope: scope,
@@ -57,7 +59,7 @@ describe('BarChart Controller', function() {
     	var check = scope.options.chart.x(source);
     	expect(check).toBe('Symptom');
     });
-    
+
     it('verifies the scope.options.chart.y function', function() {
     	var source = {
     		term: 'Symptom',
@@ -67,7 +69,7 @@ describe('BarChart Controller', function() {
     	var check = scope.options.chart.y(source);
     	expect(check).toBe(20);
     });
-    
+
     it('verifies the scope.options.chart.barColor function', function() {
     	var d = {
 			color: null
@@ -82,21 +84,21 @@ describe('BarChart Controller', function() {
     	barColor = scope.options.chart.barColor(d, i);
     	expect(barColor).toBe('red');
     });
-    
+
     it('verifies the scope.options.chart.yAxis.tickFormat function', function() {
     	var tick = 0.0560;
     	var expectedResult = '5.60%';
     	var formattedTick = scope.options.chart.yAxis.tickFormat(tick);
     	expect(formattedTick).toBe(expectedResult);
     });
-    
+
     it('verifies the scope.options.chart.valueFormat function', function() {
     	var value = 0.0650;
     	var expectedResult = '6.50%';
     	var formattedValue = scope.options.chart.valueFormat(value);
     	expect(formattedValue).toBe(expectedResult);
     });
-    
+
     it('verifies the scope.options.chart.tooltip function', function() {
     	var key = 'Adverse Events';
     	var x = 'NAUSEA';
@@ -105,7 +107,7 @@ describe('BarChart Controller', function() {
     	var tooltip = scope.options.chart.tooltip( key, x, y, null);
     	expect(tooltip).toEqual(expectedTooltip);
     });
-    
+
     it('verifies the buildSearchText method', function(){
     	var medications = ['promethazine', 'acetaminophen'];
     	var expectedText = 'patient.drug.medicinalproduct:"promethazine" AND patient.drug.medicinalproduct:"acetaminophen"';
@@ -132,24 +134,8 @@ describe('BarChart Controller', function() {
     	expect(scope.options.chart.showValues).toBeFalsy();
     	expect(scope.options.chart.callback).toBeDefined();
     });
-    
 
-//TODO: This block is commented because I haven't yet made it work but don't want to start over again.    
-//    it('verifies the event handling when medications are entered/removed', function() {
-//    	var adverseEvents = {
-//    		prescriptions: ['promethazine', 'losartan'],
-//    		serious: false
-//    	};
-//    	spyOn( scope, '$on').and.callThrough();
-//    	spyOn( scope, 'refreshChartWithLatestData').and.callThrough();
-//    	scope.$broadcast('updateSearchParameters', adverseEvents);
-//    	
-//    	expect(scope.$on).toHaveBeenCalled();
-//    	expect(scope.adverseEvents).toEqual(adverseEvents);
-//    	expect(scope.prescriptions).toEqual(adverseEvents.prescriptions);
-//    	expect(scope.refreshChartWithLatestData).toHaveBeenCalled();
-//    });
-    
+
     it( 'verifies that query does not run if the query value has not been set', function() {
         scope.getData();
 
@@ -170,16 +156,16 @@ describe('BarChart Controller', function() {
         // the query should move the results data from a field called 'results' to a field called 'value'
         expect(scope.chartData.results).toBeUndefined();
         expect(scope.chartData[0].values).toBeDefined();
-        
+
         // expected percentage is count for first item divided by total of all counts
         var expectedPercentage = 7 / 2;
-        
+
         // now verify that the data meets our expectations
         expect(scope.chartData[0].values.length).toEqual(2);
         expect(scope.chartData[0].values[0].term).toEqual('NAUSEA');
         expect(scope.chartData[0].values[0].count).toEqual(7);
         expect(scope.chartData[0].values[0].percent).toEqual(expectedPercentage);
-        
+
       });
 
       it('verifies the message that will be displayed on the chart', function() {
@@ -189,15 +175,54 @@ describe('BarChart Controller', function() {
     	 var prescriptions = ['promethazine'];
     	 var message = scope.reducePrescriptions(prescriptions);
     	 expect(message).toEqual(singleExpected);
-    	 
+
     	 prescriptions.push('ibuprofen');
     	 message = scope.reducePrescriptions(prescriptions);
     	 expect(message).toEqual(dualExpected);
-    	 
+
     	 prescriptions.push('losartan');
     	 message = scope.reducePrescriptions(prescriptions);
     	 expect(message).toEqual(multiExpected);
-    	 
+
       });
+
+	it('verify updateSearchParameters message handler', function() {
+		spyOn(scope, 'refreshChartWithLatestData');
+
+		rootScope.$broadcast('updateSearchParameters', {
+			serious: true,
+			prescriptions: ['A', 'B', 'C']
+		});
+
+		expect(scope.refreshChartWithLatestData).toHaveBeenCalled();
+	});
+
+	it('verify refreshChartWithLatestData not called with empty events', function() {
+		spyOn(scope, 'refreshChartWithLatestData');
+		rootScope.$broadcast('updateSearchParameters', {
+			serious: null,
+			prescriptions: []
+		});
+
+		expect(scope.refreshChartWithLatestData).not.toHaveBeenCalled();
+	});
+
+	it('verify refreshChartWithLatestData message', function() {
+		spyOn(scope, 'getData');
+
+		scope.adverseEvents = {
+			serious: true,
+			prescriptions: ['A', 'B', 'C']
+		};
+
+		scope.serious = true;
+		
+		scope.$digest();
+
+		scope.refreshChartWithLatestData();
+
+		expect(scope.getData).toHaveBeenCalled();
+	});
+
   });
 });

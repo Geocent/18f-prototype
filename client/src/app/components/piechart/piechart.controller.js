@@ -15,50 +15,61 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
       'color': '#C8C8C8'
     };
 
-    $scope.buttons = {
-      showAge: true,
-      showWeight: true,
-      showGender: true
+    var chartDebug = true;
+    $scope.pieCharts = {
+      showAll: ($attrs.detailSection ? false : true),
+      age: {
+        showButton: true
+      },
+      gender: {
+        showButton: true
+      },
+      weight: {
+        showButton: true
+      }
     };
 
-    $rootScope.$on( 'updateSearchParameters', function(event, adverseEvents) {
+    $rootScope.$on( 'totalAdverseEvents', function(event, adverseEvents) {
       $scope.adverseEvents = adverseEvents;
       // Load the top 20 charts when a search for medications is kicked off.
-      if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
-        $scope.buttons.showAge = true;
-        $scope.buttons.showGender = true;
-        $scope.buttons.showWeight = true;
+      if ($scope.adverseEvents.count > 0) {
+        if (!$attrs.detailSection && adverseEvents.prescriptions.length > 0) {
+          $scope.pieCharts.showAll = true;
+          $scope.pieCharts.age.showButton = true;
+          $scope.pieCharts.gender.showButton = true;
+          $scope.pieCharts.weight.showButton = true;
+        }
+      } else {
+        $scope.pieCharts.showAll = false;
       }
     });
 
     $scope.showAgeGraph = function() {
       loadAgeChartData();
-      $scope.buttons.showAge = false;
-    }
+      $scope.pieCharts.age.showButton = false;
+    };
 
     $scope.showWeighGraph = function() {
       loadWeightChartData();
-      $scope.buttons.showWeight = false;
-    }
+      $scope.pieCharts.weight.showButton = false;
+    };
 
     $scope.showGenderGraph = function() {
       loadSexChartData();
-      $scope.buttons.showGender = false;
-    }
-
-    $scope.showCharts = false;
+      $scope.pieCharts.gender.showButton = false;
+    };
 
     $rootScope.$on( 'symptomChanged', function(event, symptom) {
       $scope.symptomName = symptom.name;
       if ($attrs.detailSection) {
         if ($scope.symptomName) {
-          $scope.showCharts = true;
+          $scope.pieCharts.showAll = true;
           $scope.adverseEvents = symptom.adverseEvents;
-          $scope.buttons.showAge = true;
-          $scope.buttons.showGender = true;
-          $scope.buttons.showWeight = true;
+          $scope.pieCharts.age.showButton = true;
+          $scope.pieCharts.gender.showButton = true;
+          $scope.pieCharts.weight.showButton = true;
         } else {
-          $scope.showCharts = false;
+          $scope.pieCharts.showAll = false;
         }
       }
     });
@@ -79,7 +90,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
             margin: {
               top: 5,
               right: 35,
-              bottom: 5,
+              bottom: 20,
               left: 0
             }
           }
@@ -115,18 +126,32 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     }
 
     function setAgeChartOptions() {
+      logCounts( $scope.ageChartData );
       var options = getDefaultChartOptions();
       $scope.ageOptions = options;
     }
 
     function setWeightChartOptions() {
+      logCounts( $scope.weightChartData );
       var options = getDefaultChartOptions();
       $scope.weightOptions = options;
     }
 
+    function logCounts(chartData) {
+      if( chartDebug ) {
+        for( var i=0; i<chartData.length; i++ ) {
+	   	  console.log( 'item ' + i + ': ' + chartData[i].key + ', ' + chartData[i].y);
+	    }
+      }
+    }
+    
     function loadSexChartData() {
+      var symptomQuery = null;
+	  if ($attrs.detailSection) {
+	    symptomQuery = ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
+	  }
 
-      MedicationsSearchService.query($scope.adverseEvents, null, 'patient.patientsex', null, function(data) {
+      MedicationsSearchService.query($scope.adverseEvents, symptomQuery, 'patient.patientsex', null, function(data) {
         var i, result;
         $scope.chartData = [];
         for (i = 0; i < data.results.length; ++i) {
@@ -138,7 +163,7 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
         }
         setSexChartOptions();
       }, function(error) {
-        console.log( 'error from get total reports: ' + error);
+        console.error( 'error from get total reports: ' + error);
         $scope.chartData = [];
         setSexChartOptions();
       });
@@ -162,21 +187,28 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
 
       $scope.ageChartData = [];
 
-      queryEndpointByAgeRange('< 25', '[0 TO 24]', setAgeChartOptions);
+      queryEndpointByAgeRange('< 25', '[0 TO 24]');
       queryEndpointByAgeRange('25-49', '[25 TO 49]');
       queryEndpointByAgeRange('50-74', '[50 TO 74]');
       queryEndpointByAgeRange('Over 75', '[75 TO 150]');
-
+      queryMissingValues( 'patient.patientonsetage', 'Unknown', $scope.ageChartData, setAgeChartOptions );
     }
 
     function loadWeightChartData() {
 
       $scope.weightChartData = [];
 
-      queryEndpointByWeightRange('< 100', getKgRangeInPounds(0, 99), setWeightChartOptions);
-      queryEndpointByWeightRange('100-199', getKgRangeInPounds(100, 199));
-      queryEndpointByWeightRange('200-299', getKgRangeInPounds(200, 299));
-      queryEndpointByWeightRange('Over 300', getKgRangeInPounds(300, 1000));
+//      queryEndpointByWeightRange('< 100', getKgRangeInPounds(0, 99));
+//      queryEndpointByWeightRange('100-199', getKgRangeInPounds(100, 199));
+//      queryEndpointByWeightRange('200-299', getKgRangeInPounds(200, 299));
+//      queryEndpointByWeightRange('Over 300', getKgRangeInPounds(300, 1000));
+      // TODO: Hate to do this but the translation from pounds to kilos is causing us to miss weight values. Simplest is to 
+      // 	   hardcode the ranges to make sure that we pick up everyone we want
+      queryEndpointByWeightRange('< 100', '[0 TO 44]');
+      queryEndpointByWeightRange('100-199', '[45 TO 90]');
+      queryEndpointByWeightRange('200-299', '[91 TO 135]');
+      queryEndpointByWeightRange('Over 300', '[136 TO 454]');
+      queryMissingValues( 'patient.patientweight', 'Unknown', $scope.weightChartData, setWeightChartOptions );
 
     }
 
@@ -195,34 +227,69 @@ angular.module('ads.piechart',['nvd3','ads.services.openfda'])
     }
 
     function queryEndpointByRange(searchField, label, searchRange, chartData, setChartOptionsCallback) {
-      var searchCriteria = ' AND ' + searchField + ':' + searchRange;
-      if ($attrs.detailSection) {
-        searchCriteria = searchCriteria + ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
+        var searchCriteria = ' AND ' + searchField + ':' + searchRange;
+        if ($attrs.detailSection) {
+          searchCriteria = searchCriteria + ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
+        }
+        if( chartDebug) {
+          console.log('searching for: ' + searchCriteria);
+    	}
+        $scope.searchCriteria = searchCriteria;
+        MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', null, function(data) {
+          var i, result;
+          for (i = 0; i < data.results.length; ++i) {
+            result = data.results[i];
+            chartData.push({
+              key: label,
+              y: result.count
+            });
+          }
+          if (setChartOptionsCallback) {
+            setChartOptionsCallback();
+          }
+        }, function(error) {
+          console.error( 'error from query was: ' + error.data.error.message);
+          // Empties array without having original reference.
+//          chartData.splice(0,chartData.length);
+          if (setChartOptionsCallback) {
+            setChartOptionsCallback();
+          }
+        });
       }
-      MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', null, function(data) {
-        var i, result;
-        for (i = 0; i < data.results.length; ++i) {
-          result = data.results[i];
-          chartData.push({
-            key: label,
-            y: result.count
-          });
+
+    function queryMissingValues(searchField, label, chartData, setChartOptionsCallback) {
+        var searchCriteria = ' AND _missing_:' + searchField;
+        if ($attrs.detailSection) {
+          searchCriteria = searchCriteria + ' AND patient.reaction.reactionmeddrapt:' + $scope.symptomName;
         }
-        if (setChartOptionsCallback) {
-          setChartOptionsCallback();
+        if(chartDebug) {
+          console.log('queryMissingValues searching for: ' + searchCriteria);
         }
-      }, function(error) {
-        console.log( 'error from get total reports: ' + error);
-        // Empties array without having original reference.
-        chartData.splice(0,chartData.length);
-        if (setChartOptionsCallback) {
-          setChartOptionsCallback();
-        }
-      });
-    }
+        $scope.searchCriteria = searchCriteria;
+        MedicationsSearchService.query($scope.adverseEvents, searchCriteria, 'receivedateformat', null, function(data) {
+          var i, result;
+          for (i = 0; i < data.results.length; ++i) {
+            result = data.results[i];
+            chartData.push({
+              key: label,
+              y: result.count
+            });
+          }
+          if (setChartOptionsCallback) {
+            setChartOptionsCallback();
+          }
+        }, function(error) {
+          console.error( 'error from query was: ' + error.data.error.message);
+          // Empties array without having original reference.
+//          chartData.splice(0,chartData.length);
+          if (setChartOptionsCallback) {
+            setChartOptionsCallback();
+          }
+        });
+      }
 
     function kgToPound(kg) {
-      return kg/2.20462;
+        return kg/2.20462;
     }
 
   })

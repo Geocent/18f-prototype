@@ -34,20 +34,20 @@ describe('ads.piechart', function(){
   }));
 
   it('should show the age graph and hide the associated button', function() {
-    expect(scope.buttons.showAge).toBe(true);
+    expect(scope.pieCharts.age.showButton).toBe(true);
     scope.showAgeGraph();
-    expect(scope.buttons.showAge).toBe(false);
+    expect(scope.pieCharts.age.showButton).toBe(false);
   });
 
   it('should show the weight graph and hide the associated button', function() {
-    expect(scope.buttons.showWeight).toBe(true);
+    expect(scope.pieCharts.weight.showButton).toBe(true);
     scope.showWeighGraph();
-    expect(scope.buttons.showWeight).toBe(false);
+    expect(scope.pieCharts.weight.showButton).toBe(false);
   });
 
   it('should show the gender graph and hide the associated button', function() {
-    expect(scope.buttons.showGender).toBe(true);
+    expect(scope.pieCharts.gender.showButton).toBe(true);
     scope.showGenderGraph();
-    expect(scope.buttons.showGender).toBe(false);
+    expect(scope.pieCharts.gender.showButton).toBe(false);
   });
 });

@@ -2,12 +2,14 @@
 
 describe('ads.datachart', function(){
   var controller;
-  var location;
+  var filter;
   var http;
   var httpBackend;
+  var location;
+  var modal;
   var scope;
-  var timeout;
   var rootScope;
+  var timeout;
 
   var dataChartController;
 
@@ -69,18 +71,21 @@ describe('ads.datachart', function(){
 
   beforeEach(module('ads.datachart'));
 
-  beforeEach(inject(function($controller, $http, $httpBackend, $location, $rootScope, $timeout) {
+  beforeEach(inject(function($controller, $filter, $http, $httpBackend, $location, $modal, $rootScope, $timeout) {
     scope = $rootScope.$new();
 
     controller = $controller;
+    filter = $filter;
     http = $http;
     httpBackend = $httpBackend;
+    modal = $modal;
     location = $location;
     rootScope = $rootScope;
     timeout = $timeout;
 
     spyOn(DrugEventService, 'get').and.callThrough();
     spyOn(rootScope, '$broadcast').and.callThrough();
+    spyOn(modal, 'open');
 
     dataChartController = $controller('DataChartCtrl', { $scope: scope, $rootScope: $rootScope, $http: $http, $location: $location, $timeout: $timeout, DrugEventService: DrugEventService});
   }));
@@ -160,5 +165,44 @@ describe('ads.datachart', function(){
         scope.updateReportTable(true);
 
         expect(scope.selectedReportPage).toBe(1);
+    });
+
+    it('escape filter', function() {
+        expect(filter('escape')('test')).toEqual('test');
+        expect(filter('escape')('test ing')).toEqual('test%20ing');
+    });
+
+    it('naturalOrder filter', function() {
+        var values = [
+            {value: 'c'},
+            {value: 2},
+            {value: 'b',},
+            {value: 10.5,},
+            {value: 'a',},
+            {value: 20,},
+            {value: 1}
+        ];
+
+        expect(_.map(filter('naturalOrder')(values, 'value'), function(value){
+            return value.value;
+        })).toEqual([1, 2, 10.5, 20, 'a', 'b', 'c']);
+
+        expect(_.map(filter('naturalOrder')(values, 'value', true), function(value){
+            return value.value;
+        })).toEqual(['c', 'b', 'a', 20, 10.5, 2, 1]);
+    });
+
+    it('Verify modal open trigger', function(){
+        var report = {
+            id: 'testid',
+            reportData: {
+            }
+        };
+
+        scope.reports.push(report);
+
+        scope.loadRequestedReport(report);
+
+        expect(modal.open).toHaveBeenCalled();
     });
 });

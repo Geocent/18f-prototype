@@ -81,12 +81,13 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
          *
          */
         $scope.$on( 'updateSearchParameters', function(event, adverseEvents) {
+        	console.log( '$scope.$on: ' + event.name );
         	// var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
 
 			$scope.adverseEvents = adverseEvents;
 			$scope.prescriptions = adverseEvents.prescriptions;
 
-			if(!_.isEmpty(adverseEvents)) {
+			if(!_.isEmpty(adverseEvents.prescriptions)) {
           		$scope.refreshChartWithLatestData();
 			}
         });
@@ -97,6 +98,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
          */
         $scope.refreshChartWithLatestData = function() {
           var searchString = $scope.buildSearchText($scope.adverseEvents.prescriptions);
+          console.log('refreshChartWithLatestData: searchString=' + searchString);
           if ($scope.serious) {
             searchString = searchString + ' AND serious:1';
           }
@@ -108,6 +110,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
           $scope.options.chart.noData = null;
           DrugEventService.get($scope.query, function(data) {
         	  $scope.totalReports = data.meta.results.total;
+            broadcastTotalAdverseEvents($scope.totalReports);
               $scope.query = {
                       'search' : searchString,
                       'count' : 'patient.reaction.reactionmeddrapt.exact',
@@ -116,12 +119,20 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
               		// When the first query is successful go get the event counts
                     $scope.getData();
             }, function(error) {
+            broadcastTotalAdverseEvents(0);
             	// Prepare to show an error if there was a problem with the query
             	console.log( 'error from get total reports: ' + error);
         		$scope.chartData = [];
         		$scope.options.chart.noData = error.data.error.message || error.status;
             });
         };
+
+        function broadcastTotalAdverseEvents(totalCount) {
+          $rootScope.$broadcast('totalAdverseEvents', {
+            count: totalCount,
+            prescriptions: $scope.adverseEvents.prescriptions
+          });
+        }
 
         /**
          * this function is responsible for calling the DrugEventService with the query that was

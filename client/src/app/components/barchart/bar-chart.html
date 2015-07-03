@@ -15,11 +15,13 @@
         <p ng-if="prescriptions.length" ng-show="options.chart.noData">
         No adverse events have been reported from the {{reducePrescriptions(prescriptions)}}
         </p>
-        <div ng-hide="options.chart.width">
-            <nvd3 options="options" data="chartData"></nvd3>
-        </div>
-        <div ng-show="options.chart.width" style="width: {{options.chart.width}}">
-            <nvd3 options="options" data="chartData"></nvd3>
+        <div ng-hide="options.chart.noData">
+          <div ng-hide="options.chart.width">
+              <nvd3 options="options" data="chartData"></nvd3>
+          </div>
+          <div ng-show="options.chart.width" style="width: {{options.chart.width}}">
+              <nvd3 options="options" data="chartData"></nvd3>
+          </div>
         </div>
     </div>
 </div>
