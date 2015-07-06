@@ -21,9 +21,26 @@ server {
   ssl_session_timeout 1d;
   ssl_session_cache shared:SSL:50m;
 
+  gzip on;
+  gzip_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+  gzip_proxied    no-store no-cache private expired auth;
+  gzip_min_length 1000;
+
   location / {
     root   /usr/share/nginx/html;
     index  index.html index.htm;
+  }
+
+  # do not cach the html
+  location ~* \.html$ {
+    expires -1;
+  }
+
+  # Cache Media: CSS, JS, Images, and JSON
+  location ~* \.(css|js|gif|jpe?g|png|json|woff2)$ {
+    expires 168h;
+    add_header Pragma public;
+    add_header Cache-Control "public, must-revalidate, proxy-revalidate";
   }
 
   error_page   500 502 503 504  /50x.html;
