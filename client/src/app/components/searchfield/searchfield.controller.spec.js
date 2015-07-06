@@ -229,4 +229,44 @@ describe('ads.searchfield', function(){
           { serious: false, prescriptions: [ 'ACEPHEN' ]}
       );
   });
+  
+  it('Verifies clearAllEnable is set as expected', function() {
+	  expect(scope.clearAllEnabled).toBeFalsy();
+	  
+      scope.prescriptions[0].value = 'ACEPHEN';
+      scope.$digest();
+
+      expect(scope.prescriptions).toEqual([
+          {value: 'ACEPHEN'},
+          {value: ''}
+      ]);
+
+      expect(scope.clearAllEnabled).toBeTruthy();
+  });
+
+  it('Verifies removeAllPrescriptions', function() {
+      spyOn(rootScope, '$broadcast');
+	  expect(scope.clearAllEnabled).toBeFalsy();
+	  
+      scope.prescriptions[0].value = 'ACEPHEN';
+      scope.$digest();
+
+      expect(scope.prescriptions).toEqual([
+          {value: 'ACEPHEN'},
+          {value: ''}
+      ]);
+      expect(scope.clearAllEnabled).toBeTruthy();
+      
+      scope.serious = true;
+      scope.$digest();
+      
+      scope.removeAllPrescriptions();
+      expect(rootScope.$broadcast).toHaveBeenCalledWith('updateSearchParameters',
+          { serious: true, prescriptions: [ ]}
+      );
+      expect(scope.prescriptions).toEqual( [{value: ''}] );
+      expect(scope.clearAllEnabled).toBeFalsy();
+
+      
+  });
 });
