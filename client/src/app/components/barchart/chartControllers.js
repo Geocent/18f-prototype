@@ -23,7 +23,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
                         top: 20,
                         right: 100,
                         bottom: 60,
-                        left: 192
+                        left: 208
                     },
                     x: function(d){return d.term;},
     	            y: function(d){return d.percent;},
@@ -38,7 +38,10 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
     	                return d.color || colors[i % colors.length];
     	            },
     	            xAxis: {
-    	                showMaxMin: false
+    	                showMaxMin: false,
+    	                tickFormat: function(d){
+    	                	return d;
+    	                }
     	            },
     	            yAxis: {
     	                axisLabel: 'Top Adverse Event Symptom Occurrences',
@@ -62,14 +65,19 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
         $scope.setAdditionalScopeInfo = function( recCount, windowSize ) {
         	$scope.options.chart.yAxis.axisLabel = 'Top ' + recCount + ' Adverse Event Symptom Occurrences';
         	// Set chart size to 80% of screen width if that width is over 400; otherwise set chart to screen size
+        	var fontSize = '10px';
         	if( windowSize <= 400 ) {
             	$scope.options.chart.width = windowSize;
-            	$scope.options.chart.margin.left = 100;
+            	$scope.options.chart.margin.left = 125;
             	$scope.options.chart.showValues = false;
-            	$scope.options.chart.callback = function() {
-	            	d3.selectAll('text').style('font-size', '6px');
-            	};
+            	fontSize = '6px';
         	}
+        	$scope.options.chart.callback = function() {
+        		var tmp = d3.selectAll('text');
+            	d3.selectAll('text').style('font-size', fontSize);
+            	tmp = d3.selectAll('.tick text');
+            	console.log(tmp);
+        	};
 //        	console.log( 'window.screen.size: ' + windowSize );
 //        	console.log( 'Chart width: ' + $scope.options.chart.width );
         };

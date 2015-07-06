@@ -128,7 +128,7 @@ describe('BarChart Controller', function() {
 
     	// now set the window.screen.width value to verify changes
     	scope.setAdditionalScopeInfo(recCount, phoneScreenWidth);
-    	expect(scope.options.chart.margin.left).toEqual(100);
+    	expect(scope.options.chart.margin.left).toEqual(125);
     	expect(scope.options.chart.yAxis.axisLabel).toEqual(axisLabel);
     	expect(scope.options.chart.width).toBe(phoneScreenWidth);
     	expect(scope.options.chart.showValues).toBeFalsy();
