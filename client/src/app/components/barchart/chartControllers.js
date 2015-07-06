@@ -73,10 +73,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
             	fontSize = '6px';
         	}
         	$scope.options.chart.callback = function() {
-        		var tmp = d3.selectAll('text');
             	d3.selectAll('text').style('font-size', fontSize);
-            	tmp = d3.selectAll('.tick text');
-            	console.log(tmp);
         	};
 //        	console.log( 'window.screen.size: ' + windowSize );
 //        	console.log( 'Chart width: ' + $scope.options.chart.width );
