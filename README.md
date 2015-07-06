@@ -30,7 +30,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 * Google Accessibility: http://www.google.com/accessibility/initiatives-research.html
 
 ### UI Tools and Techniques
-* [Bootswatch: Yeti] (https://bootswatch.com/yeti/)
+* Style Guide [Bootswatch: Yeti] (https://bootswatch.com/yeti/)
 * [Playbook Checklist](/docs/HCD/USG%20Playbook%20Checklist.xlsx)
 * [Paper Prototype Usability Test Metrics and Results](./docs/HCD/ADS-Usability%20Test-Metrics.xlsx)
 * [Latest Desktop and Mobile Mockups](docs/HCD/ADS-ThirdDraftMockup-with%20Mobile.pdf)
