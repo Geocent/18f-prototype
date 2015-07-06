@@ -25,13 +25,13 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 ![DrugIQ Architecture](./docs/18f_ADS_DrugIQ_CI-Diagram_v1.0.png)
 
 ### Design Standards:
-* https://github.com/18F/api-standards
-* https://playbook.cio.gov/#play3 | [Playbook Checklist](/docs/HCD/USG%20Playbook%20Checklist.xlsx)
+* [US Digital Services Playbook](https://playbook.cio.gov/#play3)
 * 508 Compliance
 * Google Accessibility: http://www.google.com/accessibility/initiatives-research.html
 
 ### UI Tools and Techniques
 * [Bootswatch: Yeti] (https://bootswatch.com/yeti/)
+* [Playbook Checklist](/docs/HCD/USG%20Playbook%20Checklist.xlsx)
 * [Paper Prototype Usability Test Metrics and Results](./docs/HCD/ADS-Usability%20Test-Metrics.xlsx)
 * [Latest Desktop and Mobile Mockups](docs/HCD/ADS-ThirdDraftMockup-with%20Mobile.pdf)
 * [508 Compliance Audit](./docs/HCD/508_Compliance_Audit.xlsx)
