@@ -32,7 +32,7 @@ Pool One Design: In addition to the Description, above, the Quoter must demonstr
 ### UI Tools and Techniques
 * Style Guide [Bootswatch: Yeti] (https://bootswatch.com/yeti/)
 * [Playbook Checklist](/docs/HCD/USG%20Playbook%20Checklist.xlsx)
-* [Paper Prototype Usability Test Metrics and Results](./docs/HCD/ADS-Usability%20Test-Metrics.xlsx)
+* [Paper Prototype Usability Test Metrics and Results](./docs/ADS-Usability%20Test-Metrics_final.xlsx)
 * [Latest Desktop and Mobile Mockups](docs/HCD/ADS-ThirdDraftMockup-with%20Mobile.pdf)
 * [508 Compliance Audit](./docs/HCD/508_Compliance_Audit.xlsx)
 
