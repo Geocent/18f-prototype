@@ -1,6 +1,7 @@
 <div class="row" ng-controller="SearchfieldCtrl">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <h3>Enter Drugs</h3>
+      <button class="btn" type="button" ng-disabled="!clearAllEnabled" ng-click="removeAllPrescriptions()">Clear all drugs</button>
       <ul class="list-unstyled">
           <li ng-repeat="prescription in prescriptions" class="entryField">
             <div class="input-group">
