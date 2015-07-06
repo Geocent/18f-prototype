@@ -4,6 +4,7 @@ angular.module('ads.searchfield', ['ui.bootstrap'])
   .controller('SearchfieldCtrl', ['$http', '$location', '$rootScope', '$scope', '$timeout', function ($http, $location, $rootScope, $scope, $timeout) {
 
       var queryParameters = $location.search();
+      $scope.clearAllEnabled = false;
 
       $scope.prescriptions = queryParameters.drugname ?
         [ { value: queryParameters.drugname }, { value: '' } ] :
@@ -14,6 +15,7 @@ angular.module('ads.searchfield', ['ui.bootstrap'])
 
       $scope.$watch('prescriptions', function() {
           if(!_.isEmpty($scope.prescriptions[$scope.prescriptions.length - 1].value)) {
+        	  $scope.clearAllEnabled = true;
               $scope.prescriptions.push({value: ''});
           }
       }, true);
@@ -37,6 +39,14 @@ angular.module('ads.searchfield', ['ui.bootstrap'])
           $scope.updateSearchParameters();
       };
 
+      $scope.removeAllPrescriptions = function() {
+    	$scope.prescriptions = [{value: ''}]; 
+    	
+    	$scope.updateSearchParameters();
+    	$scope.clearAllEnabled = false;
+    	console.log( 'prescriptions.length: ' + $scope.prescriptions.length);
+      };
+      
       $scope.validatePrescription = function(index) {
         if(_.isEmpty($scope.prescriptions[index].value)) {
             $scope.prescriptions[index].value = '';
