@@ -86,7 +86,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
          *
          */
         $scope.$on( 'updateSearchParameters', function(event, adverseEvents) {
-        	console.log( '$scope.$on: ' + event.name );
+//        	console.log( '$scope.$on: ' + event.name );
         	// var searchString = $scope.buildSearchText(adverseEvents.prescriptions);
 
 			$scope.adverseEvents = adverseEvents;
@@ -103,7 +103,7 @@ var chartControllers = angular.module('ads.chartControllers',['nvd3','ads.servic
          */
         $scope.refreshChartWithLatestData = function() {
           var searchString = $scope.buildSearchText($scope.adverseEvents.prescriptions);
-          console.log('refreshChartWithLatestData: searchString=' + searchString);
+//          console.log('refreshChartWithLatestData: searchString=' + searchString);
           if ($scope.serious) {
             searchString = searchString + ' AND serious:1';
           }
