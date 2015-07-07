@@ -4,7 +4,7 @@
 
 [![Deployment Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-prod)](https://ads-ci.geocent.com/job/deploy-prod/) 
 
-The concept for our application using the OpenFDA dataset is to use adverse event report data to analyze potential complex drug interactions that may not other wise be apparent.  Based on this concept, we developed a project vision document (located in /docs/scrum/sprint0) and proceeded to execute the project.
+The concept for our application using the OpenFDA dataset is to use adverse event report data to analyze potential complex drug interactions that may not otherwise be apparent.  Based on this concept, we developed a project vision document (located in /docs/scrum/sprint0) and proceeded to execute the project.
 
 ##Project Management Plan (PMP)
 One of the first tasks in any project Geocent performs is to develop our [Project Management Plan (PMP)](./docs/Geocent%20Project%20Management%20Plan_Final.docx).  Our PMP establishes the team makeup, roles and resources, and processes necessary for successful execution of the project and assures a well-managed project.  The PMP includes:
@@ -61,17 +61,17 @@ An [initial architecture](./docs/18f_ADS_DrugIQ_ArchitectureDiagram_v1.0.png) wa
 | Modern Technology  |    Purpose    |    License    |
 | ------------------- | ------------- | ------------- |
 | [AngularJS] (https://angularjs.org/)  | JS/UI Framework  | [MIT] (https://github.com/angular/angular.js/blob/master/LICENSE)  |
-| [Docker] (https://www.docker.com/) | Production Deployment Contain for isolation  | [Apache] (https://github.com/docker/docker/blob/master/LICENSE)  |
+| [Docker] (https://www.docker.com/) | Production Deployment Container for isolation  | [Apache] (https://github.com/docker/docker/blob/master/LICENSE)  |
 | [Bootstrap] (http://getbootstrap.com/) | Responsive UI  | [MIT] (https://github.com/twbs/bootstrap/blob/master/LICENSE)  |
 | [Gulp] (http://gulpjs.com/)  | Automated Build/Workflow  | [MIT] (https://github.com/gulpjs/gulp/blob/master/LICENSE)  |
 | [Karma] (http://karma-runner.github.io/0.8/plus/AngularJS.html)  | Unit Testing  | [MIT] (https://github.com/karma-runner/karma/blob/master/LICENSE)  |
 | [Protractor] (https://angular.github.io/protractor/#/)  | E2E Testing  | [MIT] (https://github.com/angular/protractor/blob/master/LICENSE)  |
-| [NVM] (https://github.com/creationix/nvm)  | Node Versioning Manager for local Devleopment Environment  | [MIT] (https://github.com/creationix/nvm/blob/master/LICENSE.md)  |
+| [NVM] (https://github.com/creationix/nvm)  | Node Versioning Manager for local Development Environment  | [MIT] (https://github.com/creationix/nvm/blob/master/LICENSE.md)  |
 | [D3 JS] (http://d3js.org/) | Used for charts and data driven documents | [AS IS] (https://github.com/mbostock/d3/blob/master/LICENSE) |
 | [NVD3] (http://nvd3.org/) | Reusable charts component for D3 | [Apache] (https://github.com/novus/nvd3/blob/master/LICENSE.md) |
 | [Angular-nvD3] (http://krispo.github.io/angular-nvd3/#/) | An AngularJS directive for NVD3 re-usable charting library | [MIT] (https://github.com/krispo/angular-nvd3/blob/master/LICENSE) |
 | [Moment.js] (http://momentjs.com/) | Cross browser date processing and formatting | [MIT] (https://github.com/moment/moment/blob/develop/LICENSE) |
-| [Underscore] (http://underscorejs.org/) | JavaScript library that provides a whole mess of useful functional programming helpers without extending any built-in objects. | [MIT] (https://github.com/jashkenas/underscore/blob/master/LICENSE) |
+| [Underscore] (http://underscorejs.org/) | JavaScript library that provides several useful functional programming helpers without extending any built-in objects. | [MIT] (https://github.com/jashkenas/underscore/blob/master/LICENSE) |
 | [Jenkins] (https://jenkins-ci.org/) | Continuous Integration | [MIT] (https://github.com/jenkinsci/jenkins/blob/master/LICENSE.txt) |
 | [NGINX] (http://nginx.org/) | Web Proxy | [AS-IS] (http://nginx.org/LICENSE) |
 
