@@ -1,12 +1,13 @@
 # ADS Prototype Approach 
 
-| Production Deployment | https://drugiq.geocent.com | [![Deployment Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-prod)](https://ads-ci.geocent.com/job/deploy-prod/) |
-| ------------------- | ------------- | ------------- |
+**Production Deployment** https://drugiq.geocent.com
+
+[![Deployment Status](https://ads-ci.geocent.com/buildStatus/icon?job=deploy-prod)](https://ads-ci.geocent.com/job/deploy-prod/) 
 
 The concept for our application using the OpenFDA dataset is to use adverse event report data to analyze potential complex drug interactions that may not other wise be apparent.  Based on this concept, we developed a project vision document (located in /docs/scrum/sprint0) and proceeded to execute the project.
 
 ##Project Management Plan (PMP)
-One of the first tasks in any project Geocent performs is to develop our [Project Management Plan (PMP)](./docs/Geocent%20Project%20Management%20Plan_Final.docx).  Our [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) establishes the team makeup, roles and resources, and processes necessary for successful execution of the project and assures a well-managed project.  The [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) includes:
+One of the first tasks in any project Geocent performs is to develop our [Project Management Plan (PMP)](./docs/Geocent%20Project%20Management%20Plan_Final.docx).  Our PMP establishes the team makeup, roles and resources, and processes necessary for successful execution of the project and assures a well-managed project.  The PMP includes:
 * Project Information and Descriptions
 * Documentation Location References and Links
 * Team Organization / Roles & Responsibilities
@@ -20,19 +21,10 @@ One of the first tasks in any project Geocent performs is to develop our [Projec
   * Risk Management
 * Schedule / Sprint Durations
 
-The [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) is developed initially from a standard Geocent template and tailored to meet the needs of the specific project.  For this project we used a standard scrum based [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) with sprint durations set at 2 day intervals.  The [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) is a living document, which is updated whenever project dynamics change, and is the driving document for ensuring all aspects of a project are managed properly.  By requiring all Geocent projects to develop a [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) based on minimum template requirements, we ensure consistency and quality of project execution across the company.
+The PMP is developed initially from a standard Geocent template and tailored to meet the needs of the specific project.  For this project we used a standard scrum based PMP with sprint durations set at 2 day intervals.  The [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) is a living document, which is updated whenever project dynamics change, and is the driving document for ensuring all aspects of a project are managed properly.  By requiring all Geocent projects to develop a [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) based on minimum template requirements, we ensure consistency and quality of project execution across the company.
 
 ##Multidisciplinary Team
-We chose our team based on our understanding of the requirements and our initial concept development for the prototype.  Our team structure is documented in the [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) as well as in Attachment C.  
-Our team includes:
-* **Leader:** Jared Ladner – Geocent Senior Project Manager responsible for the overall quality of the project and technical architecture
-* **Product Owner:** Keith Alphonso – Geocent Chief Technology Officer responsible for product vision and shaping
-* **Scrum Master:** Roberta Hazelbaker, a certified Scrum Master responsible for managing the Scrum process and maintaining documentation
-* **User Centered Design Expert:** Vance Lowe, a certified Usability Analyst from Human Factors International responsible for Human Centered Design
-* **DevOps Engineer:** Tyler Sanders, expert in Continuous Integration (CI) and Continuous Delivery (CD) environment setup, infrastructure automation expert, and cloud expert responsible for CI/CD and DevOps support
-* **Quality Manager:** Brian Priest – Senior level development, test and QA expert
-* **Developers:** Josh Penton, Randy Nolen, and Aaron Whitney – Experienced developers that can support both front or back end development
-
+We chose our team based on our understanding of the requirements and our initial concept development for the prototype.  Our team structure is documented in the [PMP](./docs/Geocent%20Project%20Management%20Plan_Final.docx) as well as in Attachment C.   Please refer to the site’s [About]() page to see the team makeup.
 ##Team Communication & Collaboration
 We understand that good communications is essential to project success.  For this project, the team was geographically dispersed, located in New Orleans and Baton Rouge, LA; Stennis Space Center, MS;, and Charleston, SC.  Quality communications is critical in this type of environment, and our communications mechanisms proved to be very effective during the development and testing of this prototype.
 
